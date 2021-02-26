@@ -16,6 +16,9 @@ namespace ContrAgent
         public Form1()
         {
             InitializeComponent();
+
+
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -30,7 +33,7 @@ namespace ContrAgent
             MySqlDataAdapter adapter = new MySqlDataAdapter();
 
             MySqlCommand command = new MySqlCommand("INSERT INTO `books` (`name`, `year`) VALUES (@name, @year)", db.getConnection());
-            command.Parameters.Add("@name", MySqlDbType.VarChar).Value = textBox1.Text;
+            command.Parameters.Add("@name", MySqlDbType.VarChar).Value = innField.Text;
             command.Parameters.Add("@year", MySqlDbType.Int32).Value = textBox2.Text;
 
             db.openConnection();
@@ -48,6 +51,14 @@ namespace ContrAgent
 
         }
 
-       
+        private void inn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
