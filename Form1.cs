@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace ContrAgent
 {
     public partial class Form1 : Form
@@ -17,8 +18,8 @@ namespace ContrAgent
         {
             InitializeComponent();
 
+            TimeUpdater();
 
-            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,9 +45,10 @@ namespace ContrAgent
 
             db.closeConnection();
 
-            
+
             //для select
             //adapter.Fill(table);
+            
 
 
         }
@@ -60,5 +62,17 @@ namespace ContrAgent
         {
 
         }
+
+        
+        async void TimeUpdater()
+        {
+            while (true)
+            {
+                customTimer.Text = DateTime.Now.ToString();
+                await Task.Delay(1000*60);
+            }
+        }
+
+      
     }
 }
