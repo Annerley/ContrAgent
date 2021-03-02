@@ -10,7 +10,7 @@ namespace ContrAgent
 {
     class DB
     {
-        MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=shop");
+        MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=;database=po");
 
         public void openConnection()
         {

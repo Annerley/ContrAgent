@@ -33,9 +33,19 @@ namespace ContrAgent
 
             MySqlDataAdapter adapter = new MySqlDataAdapter();
 
-            MySqlCommand command = new MySqlCommand("INSERT INTO `books` (`name`, `year`) VALUES (@name, @year)", db.getConnection());
-            command.Parameters.Add("@name", MySqlDbType.VarChar).Value = innField.Text;
-            command.Parameters.Add("@year", MySqlDbType.Int32).Value = textBox2.Text;
+            MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion number`, `evaluation date`,`reason for rating`,`subject`," +
+                "`specification`,`initiator`, `object`, `result`, `price`, `sad`) " +
+                "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
+                "@specification,  @initiator, @object, '' , @price, @sad)", db.getConnection());
+            command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+            command.Parameters.Add("@evaluation_date", MySqlDbType.DateTime).Value = evaluationDateField.Text;
+            command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
+            command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
+            command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
+            command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
+            command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
+            command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+            command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
 
             db.openConnection();
             if (command.ExecuteNonQuery() == 1)
@@ -53,15 +63,6 @@ namespace ContrAgent
 
         }
 
-        private void inn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         
         async void TimeUpdater()
@@ -73,9 +74,6 @@ namespace ContrAgent
             }
         }
 
-        private void label18_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
