@@ -19,6 +19,9 @@ namespace ContrAgent
             InitializeComponent();
 
             TimeUpdater();
+            richTextBox1.Hide();
+
+            
 
         }
 
@@ -74,6 +77,17 @@ namespace ContrAgent
             }
         }
 
-        
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox2.Checked)
+            {
+                richTextBox1.Show();
+            }
+            else
+            {
+                richTextBox1.Hide();
+            }
+        }
+
     }
 }
