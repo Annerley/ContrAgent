@@ -20,8 +20,10 @@ namespace ContrAgent
 
             TimeUpdater();
             richTextBox1.Hide();
+           
+            this.tabPage3.Size = new Size(938, 1000);
 
-            
+
 
         }
 
@@ -89,5 +91,9 @@ namespace ContrAgent
             }
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
