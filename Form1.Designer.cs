@@ -78,6 +78,35 @@ namespace ContrAgent
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.richTextBox15 = new System.Windows.Forms.RichTextBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.richTextBox14 = new System.Windows.Forms.RichTextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.richTextBox13 = new System.Windows.Forms.RichTextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.checkBox15 = new System.Windows.Forms.CheckBox();
+            this.richTextBox12 = new System.Windows.Forms.RichTextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.checkBox14 = new System.Windows.Forms.CheckBox();
+            this.richTextBox11 = new System.Windows.Forms.RichTextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.checkBox13 = new System.Windows.Forms.CheckBox();
+            this.richTextBox10 = new System.Windows.Forms.RichTextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.checkBox12 = new System.Windows.Forms.CheckBox();
+            this.richTextBox9 = new System.Windows.Forms.RichTextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
+            this.richTextBox8 = new System.Windows.Forms.RichTextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.richTextBox7 = new System.Windows.Forms.RichTextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.richTextBox6 = new System.Windows.Forms.RichTextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.richTextBox5 = new System.Windows.Forms.RichTextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
@@ -94,6 +123,7 @@ namespace ContrAgent
             this.label22 = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox17 = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -106,36 +136,6 @@ namespace ContrAgent
             this.label13 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
-            this.richTextBox6 = new System.Windows.Forms.RichTextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.richTextBox7 = new System.Windows.Forms.RichTextBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.richTextBox8 = new System.Windows.Forms.RichTextBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.richTextBox9 = new System.Windows.Forms.RichTextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.richTextBox10 = new System.Windows.Forms.RichTextBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.richTextBox11 = new System.Windows.Forms.RichTextBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
-            this.richTextBox12 = new System.Windows.Forms.RichTextBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.checkBox14 = new System.Windows.Forms.CheckBox();
-            this.richTextBox13 = new System.Windows.Forms.RichTextBox();
-            this.label34 = new System.Windows.Forms.Label();
-            this.checkBox15 = new System.Windows.Forms.CheckBox();
-            this.richTextBox14 = new System.Windows.Forms.RichTextBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
-            this.label36 = new System.Windows.Forms.Label();
-            this.richTextBox15 = new System.Windows.Forms.RichTextBox();
-            this.checkBox17 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -206,7 +206,6 @@ namespace ContrAgent
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(946, 670);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -623,8 +622,10 @@ namespace ContrAgent
             this.conclusionNumberField.Location = new System.Drawing.Point(387, 75);
             this.conclusionNumberField.Multiline = true;
             this.conclusionNumberField.Name = "conclusionNumberField";
+            this.conclusionNumberField.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.conclusionNumberField.Size = new System.Drawing.Size(142, 28);
             this.conclusionNumberField.TabIndex = 44;
+            this.conclusionNumberField.TextChanged += new System.EventHandler(this.conclusionNumberField_TextChanged);
             // 
             // label1
             // 
@@ -655,7 +656,7 @@ namespace ContrAgent
             this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(938, 538);
+            this.tabPage2.Size = new System.Drawing.Size(938, 632);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Скоринг(0,25)";
             // 
@@ -674,7 +675,6 @@ namespace ContrAgent
             // 
             this.tabPage3.AutoScroll = true;
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(125)))), ((int)(((byte)(140)))));
-            this.tabPage3.Controls.Add(this.checkBox17);
             this.tabPage3.Controls.Add(this.richTextBox15);
             this.tabPage3.Controls.Add(this.label36);
             this.tabPage3.Controls.Add(this.richTextBox14);
@@ -720,6 +720,7 @@ namespace ContrAgent
             this.tabPage3.Controls.Add(this.label22);
             this.tabPage3.Controls.Add(this.checkBox2);
             this.tabPage3.Controls.Add(this.checkBox6);
+            this.tabPage3.Controls.Add(this.checkBox17);
             this.tabPage3.Location = new System.Drawing.Point(4, 34);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -727,12 +728,323 @@ namespace ContrAgent
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Скоринг(0,5-1)";
             // 
+            // richTextBox15
+            // 
+            this.richTextBox15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox15.Location = new System.Drawing.Point(326, 1795);
+            this.richTextBox15.Name = "richTextBox15";
+            this.richTextBox15.Size = new System.Drawing.Size(268, 121);
+            this.richTextBox15.TabIndex = 103;
+            this.richTextBox15.Text = "";
+            // 
+            // label36
+            // 
+            this.label36.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.label36.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label36.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label36.Location = new System.Drawing.Point(52, 1796);
+            this.label36.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(268, 120);
+            this.label36.TabIndex = 102;
+            this.label36.Text = resources.GetString("label36.Text");
+            // 
+            // richTextBox14
+            // 
+            this.richTextBox14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox14.Location = new System.Drawing.Point(326, 1543);
+            this.richTextBox14.Name = "richTextBox14";
+            this.richTextBox14.Size = new System.Drawing.Size(268, 157);
+            this.richTextBox14.TabIndex = 103;
+            this.richTextBox14.Text = "";
+            // 
+            // label35
+            // 
+            this.label35.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.label35.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label35.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label35.Location = new System.Drawing.Point(52, 1543);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(268, 157);
+            this.label35.TabIndex = 102;
+            this.label35.Text = resources.GetString("label35.Text");
+            // 
+            // checkBox16
+            // 
+            this.checkBox16.AutoSize = true;
+            this.checkBox16.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox16.Location = new System.Drawing.Point(8, 1584);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.Size = new System.Drawing.Size(48, 23);
+            this.checkBox16.TabIndex = 101;
+            this.checkBox16.Text = "15.";
+            this.checkBox16.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox13
+            // 
+            this.richTextBox13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox13.Location = new System.Drawing.Point(326, 1467);
+            this.richTextBox13.Name = "richTextBox13";
+            this.richTextBox13.Size = new System.Drawing.Size(268, 64);
+            this.richTextBox13.TabIndex = 100;
+            this.richTextBox13.Text = "";
+            // 
+            // label34
+            // 
+            this.label34.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.label34.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label34.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label34.Location = new System.Drawing.Point(52, 1467);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(268, 64);
+            this.label34.TabIndex = 99;
+            this.label34.Text = "Отражение в бухгалтерской или налоговой отчетности убытков на протяжении двух пос" +
+    "ледних лет";
+            // 
+            // checkBox15
+            // 
+            this.checkBox15.AutoSize = true;
+            this.checkBox15.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox15.Location = new System.Drawing.Point(8, 1508);
+            this.checkBox15.Name = "checkBox15";
+            this.checkBox15.Size = new System.Drawing.Size(48, 23);
+            this.checkBox15.TabIndex = 98;
+            this.checkBox15.Text = "14.";
+            this.checkBox15.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox12
+            // 
+            this.richTextBox12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox12.Location = new System.Drawing.Point(326, 1374);
+            this.richTextBox12.Name = "richTextBox12";
+            this.richTextBox12.Size = new System.Drawing.Size(268, 84);
+            this.richTextBox12.TabIndex = 97;
+            this.richTextBox12.Text = "";
+            // 
+            // label33
+            // 
+            this.label33.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.label33.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label33.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label33.Location = new System.Drawing.Point(52, 1374);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(268, 84);
+            this.label33.TabIndex = 96;
+            this.label33.Text = "Размер чистых активов контрагента имеет отрицательное значение на последний завер" +
+    "шенный отчётный год ";
+            // 
+            // checkBox14
+            // 
+            this.checkBox14.AutoSize = true;
+            this.checkBox14.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox14.Location = new System.Drawing.Point(8, 1415);
+            this.checkBox14.Name = "checkBox14";
+            this.checkBox14.Size = new System.Drawing.Size(48, 23);
+            this.checkBox14.TabIndex = 95;
+            this.checkBox14.Text = "13.";
+            this.checkBox14.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox11
+            // 
+            this.richTextBox11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox11.Location = new System.Drawing.Point(326, 1280);
+            this.richTextBox11.Name = "richTextBox11";
+            this.richTextBox11.Size = new System.Drawing.Size(268, 85);
+            this.richTextBox11.TabIndex = 94;
+            this.richTextBox11.Text = "";
+            // 
+            // label32
+            // 
+            this.label32.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.label32.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label32.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label32.Location = new System.Drawing.Point(52, 1280);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(268, 85);
+            this.label32.TabIndex = 93;
+            this.label32.Text = "У контрагента - члена СРО отсутствует необходимое право для выполнения работ (ока" +
+    "зания услуг) согласно договору";
+            // 
+            // checkBox13
+            // 
+            this.checkBox13.AutoSize = true;
+            this.checkBox13.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox13.Location = new System.Drawing.Point(8, 1321);
+            this.checkBox13.Name = "checkBox13";
+            this.checkBox13.Size = new System.Drawing.Size(48, 23);
+            this.checkBox13.TabIndex = 92;
+            this.checkBox13.Text = "12.";
+            this.checkBox13.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox10
+            // 
+            this.richTextBox10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox10.Location = new System.Drawing.Point(326, 1150);
+            this.richTextBox10.Name = "richTextBox10";
+            this.richTextBox10.Size = new System.Drawing.Size(268, 121);
+            this.richTextBox10.TabIndex = 91;
+            this.richTextBox10.Text = "";
+            // 
+            // label31
+            // 
+            this.label31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.label31.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label31.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label31.Location = new System.Drawing.Point(52, 1150);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(268, 120);
+            this.label31.TabIndex = 90;
+            this.label31.Text = "Контрагент не имеет необходимой лицензии / разрешения для осуществления деятельно" +
+    "сти / либо не является членом СРО, если данное членство необходимо для выполнени" +
+    "я работ (оказания услуг)";
+            // 
+            // checkBox12
+            // 
+            this.checkBox12.AutoSize = true;
+            this.checkBox12.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox12.Location = new System.Drawing.Point(8, 1191);
+            this.checkBox12.Name = "checkBox12";
+            this.checkBox12.Size = new System.Drawing.Size(48, 23);
+            this.checkBox12.TabIndex = 89;
+            this.checkBox12.Text = "11.";
+            this.checkBox12.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox9
+            // 
+            this.richTextBox9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox9.Location = new System.Drawing.Point(326, 1020);
+            this.richTextBox9.Name = "richTextBox9";
+            this.richTextBox9.Size = new System.Drawing.Size(268, 121);
+            this.richTextBox9.TabIndex = 88;
+            this.richTextBox9.Text = "";
+            // 
+            // label30
+            // 
+            this.label30.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.label30.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label30.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label30.Location = new System.Drawing.Point(52, 1020);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(268, 120);
+            this.label30.TabIndex = 87;
+            this.label30.Text = "Согласно сведениям из открытых источников в едином государственном реестре юридич" +
+    "еских лиц имеется отметка о недостоверности сведений в отношении контрагента";
+            // 
+            // checkBox11
+            // 
+            this.checkBox11.AutoSize = true;
+            this.checkBox11.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox11.Location = new System.Drawing.Point(8, 1061);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(48, 23);
+            this.checkBox11.TabIndex = 86;
+            this.checkBox11.Text = "10.";
+            this.checkBox11.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox8
+            // 
+            this.richTextBox8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox8.Location = new System.Drawing.Point(326, 925);
+            this.richTextBox8.Name = "richTextBox8";
+            this.richTextBox8.Size = new System.Drawing.Size(268, 86);
+            this.richTextBox8.TabIndex = 85;
+            this.richTextBox8.Text = "";
+            // 
+            // label29
+            // 
+            this.label29.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.label29.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label29.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label29.Location = new System.Drawing.Point(52, 925);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(268, 86);
+            this.label29.TabIndex = 84;
+            this.label29.Text = "Контрагент не соответствует обязательным квалификационным требованиям, предъявляе" +
+    "мым к участникам закупочной процедуры";
+            // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox10.Location = new System.Drawing.Point(8, 950);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(40, 23);
+            this.checkBox10.TabIndex = 83;
+            this.checkBox10.Text = "9.";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
+            // 
+            // richTextBox7
+            // 
+            this.richTextBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox7.Location = new System.Drawing.Point(326, 774);
+            this.richTextBox7.Name = "richTextBox7";
+            this.richTextBox7.Size = new System.Drawing.Size(268, 141);
+            this.richTextBox7.TabIndex = 82;
+            this.richTextBox7.Text = "";
+            // 
+            // label28
+            // 
+            this.label28.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.label28.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label28.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label28.Location = new System.Drawing.Point(52, 774);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(268, 141);
+            this.label28.TabIndex = 81;
+            this.label28.Text = "Контрагент включен как в реестр недобросовестных поставщиков(подрядчиков, исполни" +
+    "телей) ООО \"МИП-Строй№1\", так и в другие аналогичные реестры, в том числе и на г" +
+    "осударственном уровне";
+            // 
+            // checkBox9
+            // 
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox9.Location = new System.Drawing.Point(8, 823);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(40, 23);
+            this.checkBox9.TabIndex = 80;
+            this.checkBox9.Text = "8.";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox6
+            // 
+            this.richTextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox6.Location = new System.Drawing.Point(326, 627);
+            this.richTextBox6.Name = "richTextBox6";
+            this.richTextBox6.Size = new System.Drawing.Size(268, 138);
+            this.richTextBox6.TabIndex = 79;
+            this.richTextBox6.Text = "";
+            // 
+            // label27
+            // 
+            this.label27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.label27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label27.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label27.Location = new System.Drawing.Point(52, 628);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(268, 137);
+            this.label27.TabIndex = 78;
+            this.label27.Text = "Наличие информации о возбужденном уголовном деле в отношении учредителей/руководи" +
+    "телей контрагента по фактам, связанным с хозяйственной деятельностью компании";
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox8.Location = new System.Drawing.Point(8, 674);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(40, 23);
+            this.checkBox8.TabIndex = 77;
+            this.checkBox8.Text = "7.";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
             // richTextBox5
             // 
             this.richTextBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox5.Location = new System.Drawing.Point(318, 540);
+            this.richTextBox5.Location = new System.Drawing.Point(326, 540);
             this.richTextBox5.Name = "richTextBox5";
-            this.richTextBox5.Size = new System.Drawing.Size(268, 121);
+            this.richTextBox5.Size = new System.Drawing.Size(268, 77);
             this.richTextBox5.TabIndex = 76;
             this.richTextBox5.Text = "";
             // 
@@ -741,27 +1053,29 @@ namespace ContrAgent
             this.label26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
             this.label26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label26.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label26.Location = new System.Drawing.Point(44, 540);
+            this.label26.Location = new System.Drawing.Point(52, 540);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(268, 120);
+            this.label26.Size = new System.Drawing.Size(268, 77);
             this.label26.TabIndex = 75;
-            this.label26.Text = resources.GetString("label26.Text");
+            this.label26.Text = "Предоставление контрагентом при проверке заведомо недостоверных сведений и докуме" +
+    "нтов";
             // 
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
             this.checkBox7.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox7.Location = new System.Drawing.Point(8, 581);
+            this.checkBox7.Location = new System.Drawing.Point(8, 567);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(40, 23);
             this.checkBox7.TabIndex = 74;
-            this.checkBox7.Text = "3.";
+            this.checkBox7.Text = "6.";
             this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
             // richTextBox4
             // 
             this.richTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox4.Location = new System.Drawing.Point(318, 390);
+            this.richTextBox4.Location = new System.Drawing.Point(326, 390);
             this.richTextBox4.Name = "richTextBox4";
             this.richTextBox4.Size = new System.Drawing.Size(268, 140);
             this.richTextBox4.TabIndex = 72;
@@ -772,7 +1086,7 @@ namespace ContrAgent
             this.label25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
             this.label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label25.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label25.Location = new System.Drawing.Point(44, 390);
+            this.label25.Location = new System.Drawing.Point(52, 390);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(268, 140);
             this.label25.TabIndex = 71;
@@ -794,7 +1108,7 @@ namespace ContrAgent
             // richTextBox3
             // 
             this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox3.Location = new System.Drawing.Point(318, 274);
+            this.richTextBox3.Location = new System.Drawing.Point(326, 274);
             this.richTextBox3.Name = "richTextBox3";
             this.richTextBox3.Size = new System.Drawing.Size(268, 105);
             this.richTextBox3.TabIndex = 69;
@@ -805,7 +1119,7 @@ namespace ContrAgent
             this.label24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
             this.label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label24.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label24.Location = new System.Drawing.Point(44, 274);
+            this.label24.Location = new System.Drawing.Point(52, 274);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(268, 105);
             this.label24.TabIndex = 68;
@@ -822,11 +1136,12 @@ namespace ContrAgent
             this.checkBox4.TabIndex = 67;
             this.checkBox4.Text = "3.";
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // richTextBox2
             // 
             this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox2.Location = new System.Drawing.Point(318, 125);
+            this.richTextBox2.Location = new System.Drawing.Point(326, 125);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(268, 140);
             this.richTextBox2.TabIndex = 66;
@@ -837,7 +1152,7 @@ namespace ContrAgent
             this.label23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
             this.label23.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label23.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label23.Location = new System.Drawing.Point(44, 125);
+            this.label23.Location = new System.Drawing.Point(52, 125);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(268, 140);
             this.label23.TabIndex = 65;
@@ -855,11 +1170,12 @@ namespace ContrAgent
             this.checkBox3.TabIndex = 64;
             this.checkBox3.Text = "2.";
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // richTextBox1
             // 
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox1.Location = new System.Drawing.Point(318, 11);
+            this.richTextBox1.Location = new System.Drawing.Point(326, 11);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(268, 105);
             this.richTextBox1.TabIndex = 63;
@@ -870,7 +1186,7 @@ namespace ContrAgent
             this.label22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
             this.label22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label22.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label22.Location = new System.Drawing.Point(44, 11);
+            this.label22.Location = new System.Drawing.Point(52, 11);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(268, 105);
             this.label22.TabIndex = 1;
@@ -900,13 +1216,24 @@ namespace ContrAgent
             this.checkBox6.Text = "5.";
             this.checkBox6.UseVisualStyleBackColor = true;
             // 
+            // checkBox17
+            // 
+            this.checkBox17.AutoSize = true;
+            this.checkBox17.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox17.Location = new System.Drawing.Point(8, 1857);
+            this.checkBox17.Name = "checkBox17";
+            this.checkBox17.Size = new System.Drawing.Size(48, 23);
+            this.checkBox17.TabIndex = 104;
+            this.checkBox17.Text = "16.";
+            this.checkBox17.UseVisualStyleBackColor = true;
+            // 
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(125)))), ((int)(((byte)(140)))));
             this.tabPage4.Location = new System.Drawing.Point(4, 34);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(938, 538);
+            this.tabPage4.Size = new System.Drawing.Size(938, 632);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Сведения об опыте работ";
             // 
@@ -916,7 +1243,7 @@ namespace ContrAgent
             this.tabPage5.Location = new System.Drawing.Point(4, 34);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(938, 538);
+            this.tabPage5.Size = new System.Drawing.Size(938, 632);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Дополнительная информация";
             // 
@@ -929,7 +1256,7 @@ namespace ContrAgent
             this.tabPage6.Location = new System.Drawing.Point(4, 34);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(938, 538);
+            this.tabPage6.Size = new System.Drawing.Size(938, 632);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Поиск по ИНН";
             // 
@@ -973,7 +1300,7 @@ namespace ContrAgent
             this.tabPage7.Location = new System.Drawing.Point(4, 34);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(938, 538);
+            this.tabPage7.Size = new System.Drawing.Size(938, 632);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Наличие разрешение и лицензий";
             // 
@@ -1027,316 +1354,6 @@ namespace ContrAgent
             this.button4.Text = "Сохранить в doc";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // richTextBox6
-            // 
-            this.richTextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox6.Location = new System.Drawing.Point(318, 667);
-            this.richTextBox6.Name = "richTextBox6";
-            this.richTextBox6.Size = new System.Drawing.Size(268, 121);
-            this.richTextBox6.TabIndex = 79;
-            this.richTextBox6.Text = "";
-            // 
-            // label27
-            // 
-            this.label27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
-            this.label27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label27.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label27.Location = new System.Drawing.Point(44, 667);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(268, 120);
-            this.label27.TabIndex = 78;
-            this.label27.Text = resources.GetString("label27.Text");
-            // 
-            // checkBox8
-            // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox8.Location = new System.Drawing.Point(8, 708);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(40, 23);
-            this.checkBox8.TabIndex = 77;
-            this.checkBox8.Text = "3.";
-            this.checkBox8.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox7
-            // 
-            this.richTextBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox7.Location = new System.Drawing.Point(318, 794);
-            this.richTextBox7.Name = "richTextBox7";
-            this.richTextBox7.Size = new System.Drawing.Size(268, 121);
-            this.richTextBox7.TabIndex = 82;
-            this.richTextBox7.Text = "";
-            // 
-            // label28
-            // 
-            this.label28.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
-            this.label28.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label28.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label28.Location = new System.Drawing.Point(44, 794);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(268, 120);
-            this.label28.TabIndex = 81;
-            this.label28.Text = resources.GetString("label28.Text");
-            // 
-            // checkBox9
-            // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox9.Location = new System.Drawing.Point(8, 835);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(40, 23);
-            this.checkBox9.TabIndex = 80;
-            this.checkBox9.Text = "3.";
-            this.checkBox9.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox8
-            // 
-            this.richTextBox8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox8.Location = new System.Drawing.Point(318, 921);
-            this.richTextBox8.Name = "richTextBox8";
-            this.richTextBox8.Size = new System.Drawing.Size(268, 121);
-            this.richTextBox8.TabIndex = 85;
-            this.richTextBox8.Text = "";
-            // 
-            // label29
-            // 
-            this.label29.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
-            this.label29.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label29.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label29.Location = new System.Drawing.Point(44, 921);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(268, 120);
-            this.label29.TabIndex = 84;
-            this.label29.Text = resources.GetString("label29.Text");
-            // 
-            // checkBox10
-            // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox10.Location = new System.Drawing.Point(8, 962);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(40, 23);
-            this.checkBox10.TabIndex = 83;
-            this.checkBox10.Text = "3.";
-            this.checkBox10.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox9
-            // 
-            this.richTextBox9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox9.Location = new System.Drawing.Point(318, 1048);
-            this.richTextBox9.Name = "richTextBox9";
-            this.richTextBox9.Size = new System.Drawing.Size(268, 121);
-            this.richTextBox9.TabIndex = 88;
-            this.richTextBox9.Text = "";
-            // 
-            // label30
-            // 
-            this.label30.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
-            this.label30.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label30.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label30.Location = new System.Drawing.Point(44, 1048);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(268, 120);
-            this.label30.TabIndex = 87;
-            this.label30.Text = resources.GetString("label30.Text");
-            // 
-            // checkBox11
-            // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox11.Location = new System.Drawing.Point(8, 1089);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(40, 23);
-            this.checkBox11.TabIndex = 86;
-            this.checkBox11.Text = "3.";
-            this.checkBox11.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox10
-            // 
-            this.richTextBox10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox10.Location = new System.Drawing.Point(318, 1173);
-            this.richTextBox10.Name = "richTextBox10";
-            this.richTextBox10.Size = new System.Drawing.Size(268, 121);
-            this.richTextBox10.TabIndex = 91;
-            this.richTextBox10.Text = "";
-            // 
-            // label31
-            // 
-            this.label31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
-            this.label31.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label31.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label31.Location = new System.Drawing.Point(44, 1173);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(268, 120);
-            this.label31.TabIndex = 90;
-            this.label31.Text = resources.GetString("label31.Text");
-            // 
-            // checkBox12
-            // 
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox12.Location = new System.Drawing.Point(8, 1214);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(40, 23);
-            this.checkBox12.TabIndex = 89;
-            this.checkBox12.Text = "3.";
-            this.checkBox12.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox11
-            // 
-            this.richTextBox11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox11.Location = new System.Drawing.Point(318, 1301);
-            this.richTextBox11.Name = "richTextBox11";
-            this.richTextBox11.Size = new System.Drawing.Size(268, 121);
-            this.richTextBox11.TabIndex = 94;
-            this.richTextBox11.Text = "";
-            // 
-            // label32
-            // 
-            this.label32.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
-            this.label32.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label32.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label32.Location = new System.Drawing.Point(44, 1301);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(268, 120);
-            this.label32.TabIndex = 93;
-            this.label32.Text = resources.GetString("label32.Text");
-            // 
-            // checkBox13
-            // 
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox13.Location = new System.Drawing.Point(8, 1342);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(40, 23);
-            this.checkBox13.TabIndex = 92;
-            this.checkBox13.Text = "3.";
-            this.checkBox13.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox12
-            // 
-            this.richTextBox12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox12.Location = new System.Drawing.Point(318, 1429);
-            this.richTextBox12.Name = "richTextBox12";
-            this.richTextBox12.Size = new System.Drawing.Size(268, 121);
-            this.richTextBox12.TabIndex = 97;
-            this.richTextBox12.Text = "";
-            // 
-            // label33
-            // 
-            this.label33.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
-            this.label33.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label33.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label33.Location = new System.Drawing.Point(44, 1429);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(268, 120);
-            this.label33.TabIndex = 96;
-            this.label33.Text = resources.GetString("label33.Text");
-            // 
-            // checkBox14
-            // 
-            this.checkBox14.AutoSize = true;
-            this.checkBox14.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox14.Location = new System.Drawing.Point(8, 1470);
-            this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(40, 23);
-            this.checkBox14.TabIndex = 95;
-            this.checkBox14.Text = "3.";
-            this.checkBox14.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox13
-            // 
-            this.richTextBox13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox13.Location = new System.Drawing.Point(318, 1556);
-            this.richTextBox13.Name = "richTextBox13";
-            this.richTextBox13.Size = new System.Drawing.Size(268, 121);
-            this.richTextBox13.TabIndex = 100;
-            this.richTextBox13.Text = "";
-            // 
-            // label34
-            // 
-            this.label34.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
-            this.label34.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label34.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label34.Location = new System.Drawing.Point(44, 1556);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(268, 120);
-            this.label34.TabIndex = 99;
-            this.label34.Text = resources.GetString("label34.Text");
-            // 
-            // checkBox15
-            // 
-            this.checkBox15.AutoSize = true;
-            this.checkBox15.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox15.Location = new System.Drawing.Point(8, 1597);
-            this.checkBox15.Name = "checkBox15";
-            this.checkBox15.Size = new System.Drawing.Size(40, 23);
-            this.checkBox15.TabIndex = 98;
-            this.checkBox15.Text = "3.";
-            this.checkBox15.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox14
-            // 
-            this.richTextBox14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox14.Location = new System.Drawing.Point(318, 1681);
-            this.richTextBox14.Name = "richTextBox14";
-            this.richTextBox14.Size = new System.Drawing.Size(268, 121);
-            this.richTextBox14.TabIndex = 103;
-            this.richTextBox14.Text = "";
-            // 
-            // label35
-            // 
-            this.label35.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
-            this.label35.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label35.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label35.Location = new System.Drawing.Point(44, 1681);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(268, 120);
-            this.label35.TabIndex = 102;
-            this.label35.Text = resources.GetString("label35.Text");
-            // 
-            // checkBox16
-            // 
-            this.checkBox16.AutoSize = true;
-            this.checkBox16.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox16.Location = new System.Drawing.Point(8, 1722);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(40, 23);
-            this.checkBox16.TabIndex = 101;
-            this.checkBox16.Text = "3.";
-            this.checkBox16.UseVisualStyleBackColor = true;
-            // 
-            // label36
-            // 
-            this.label36.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
-            this.label36.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label36.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label36.Location = new System.Drawing.Point(44, 1807);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(268, 120);
-            this.label36.TabIndex = 102;
-            this.label36.Text = resources.GetString("label36.Text");
-            // 
-            // richTextBox15
-            // 
-            this.richTextBox15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox15.Location = new System.Drawing.Point(318, 1807);
-            this.richTextBox15.Name = "richTextBox15";
-            this.richTextBox15.Size = new System.Drawing.Size(268, 121);
-            this.richTextBox15.TabIndex = 103;
-            this.richTextBox15.Text = "";
-            // 
-            // checkBox17
-            // 
-            this.checkBox17.AutoSize = true;
-            this.checkBox17.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox17.Location = new System.Drawing.Point(8, 1857);
-            this.checkBox17.Name = "checkBox17";
-            this.checkBox17.Size = new System.Drawing.Size(40, 23);
-            this.checkBox17.TabIndex = 104;
-            this.checkBox17.Text = "3.";
-            this.checkBox17.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
