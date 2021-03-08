@@ -16,11 +16,12 @@ namespace ContrAgent
 
     {
         double resultInt = 0;
+        string result = "";
 
         public Form1()
         {
             InitializeComponent();
-
+            resultUpdater();
             TimeUpdater();
             Hide_Unnecessary();
 
@@ -137,16 +138,36 @@ namespace ContrAgent
         {
             while (true)
             {
-                customTimer.Text = DateTime.Now.ToString();
+                customTimer.Text = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
                 await Task.Delay(1000*60);
             }
         }
 
         
+        private void resultUpdater()
+        {
+            if(resultInt == 0 )
+            {
+                result = "Возможно";
+                resultLabel.BackColor = Color.Green;
+            }
+            else if(resultInt > 0 && resultInt < 1 )
+            {
+                result = "Возможно c ограничением";
+                resultLabel.BackColor = Color.Yellow;
+            }
+            else 
+            {
+                result = "Невозможно";
+                resultLabel.BackColor = Color.Red;
+            }
+            resultLabel.Text = result;
+        }
 
-      
 
-      
+
+
+
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -202,6 +223,7 @@ namespace ContrAgent
                 resultInt -= 1;
             }
             label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -217,6 +239,7 @@ namespace ContrAgent
                 resultInt -= 1;
             }
             label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
@@ -233,6 +256,7 @@ namespace ContrAgent
                 resultInt -= 1;
             }
             label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
@@ -252,8 +276,8 @@ namespace ContrAgent
                 resultInt -= 0.5;
             }
             label51.Text = resultInt.ToString();
+            resultUpdater();
         }
-        
 
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
@@ -272,8 +296,8 @@ namespace ContrAgent
                 resultInt -= 1;
             }
             label51.Text = resultInt.ToString();
+            resultUpdater();
         }
-        
 
         private void checkBox7_CheckedChanged(object sender, EventArgs e)
         {
@@ -281,11 +305,15 @@ namespace ContrAgent
             if (checkBox7.Checked)
             {
                 richTextBox5.Show();
+                resultInt += 1;
             }
             else
             {
                 richTextBox5.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox8_CheckedChanged(object sender, EventArgs e)
@@ -294,11 +322,15 @@ namespace ContrAgent
             if (checkBox8.Checked)
             {
                 richTextBox6.Show();
+                resultInt += 1;
             }
             else
             {
                 richTextBox6.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
@@ -306,11 +338,15 @@ namespace ContrAgent
             if (checkBox9.Checked)
             {
                 richTextBox7.Show();
+                resultInt += 1;
             }
             else
             {
                 richTextBox7.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox10_CheckedChanged(object sender, EventArgs e)
@@ -318,11 +354,15 @@ namespace ContrAgent
             if (checkBox10.Checked)
             {
                 richTextBox8.Show();
+                resultInt += 1;
             }
             else
             {
                 richTextBox8.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox11_CheckedChanged(object sender, EventArgs e)
@@ -330,11 +370,15 @@ namespace ContrAgent
             if (checkBox11.Checked)
             {
                 richTextBox9.Show();
+                resultInt += 1;
             }
             else
             {
                 richTextBox9.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox12_CheckedChanged(object sender, EventArgs e)
@@ -342,11 +386,15 @@ namespace ContrAgent
             if (checkBox12.Checked)
             {
                 richTextBox10.Show();
+                resultInt += 1;
             }
             else
             {
                 richTextBox10.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox13_CheckedChanged(object sender, EventArgs e)
@@ -354,11 +402,15 @@ namespace ContrAgent
             if (checkBox13.Checked)
             {
                 richTextBox11.Show();
+                resultInt += 1;
             }
             else
             {
                 richTextBox11.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox14_CheckedChanged(object sender, EventArgs e)
@@ -366,11 +418,15 @@ namespace ContrAgent
             if (checkBox14.Checked)
             {
                 richTextBox12.Show();
+                resultInt += 1;
             }
             else
             {
                 richTextBox12.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox15_CheckedChanged(object sender, EventArgs e)
@@ -378,11 +434,15 @@ namespace ContrAgent
             if (checkBox15.Checked)
             {
                 richTextBox13.Show();
+                resultInt += 0.5;
             }
             else
             {
                 richTextBox13.Hide();
+                resultInt -= 0.5;
             }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox16_CheckedChanged(object sender, EventArgs e)
@@ -390,11 +450,15 @@ namespace ContrAgent
             if (checkBox16.Checked)
             {
                 richTextBox14.Show();
+                resultInt += 0.5;
             }
             else
             {
                 richTextBox14.Hide();
+                resultInt -= 0.5;
             }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
 
         private void checkBox17_CheckedChanged(object sender, EventArgs e)
@@ -402,13 +466,47 @@ namespace ContrAgent
             if (checkBox17.Checked)
             {
                 richTextBox15.Show();
+                resultInt += 0.5;
             }
             else
             {
                 richTextBox15.Hide();
+                resultInt -= 0.5;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void resultLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            var rtb = this.ActiveControl as RichTextBox;
+            if (rtb != null)
+            {
+                rtb.SelectionFont = new Font(rtb.Font, FontStyle.Bold);
             }
         }
 
-        
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            var rtb = this.ActiveControl as RichTextBox;
+            if (rtb != null)
+            {
+                rtb.SelectionFont = new Font(rtb.Font, FontStyle.Regular);
+            }
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            var rtb = this.ActiveControl as RichTextBox;
+            if (rtb != null)
+            {
+                rtb.SelectionFont = new Font(rtb.Font, FontStyle.Italic);
+            }
+        }
     }
 }
