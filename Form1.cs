@@ -13,14 +13,19 @@ using Word = Microsoft.Office.Interop.Word;
 namespace ContrAgent
 {
     public partial class Form1 : Form
+
     {
+        double resultInt = 0;
+
         public Form1()
         {
             InitializeComponent();
 
             TimeUpdater();
             Hide_Unnecessary();
-            
+
+
+            label51.Text = resultInt.ToString();
 
 
             
@@ -189,11 +194,14 @@ namespace ContrAgent
             if (checkBox2.Checked)
             {
                 richTextBox1.Show();
+                resultInt += 1;
             }
             else
             {
                 richTextBox1.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -201,11 +209,14 @@ namespace ContrAgent
             if (checkBox3.Checked)
             {
                 richTextBox2.Show();
+                resultInt += 1;
             }
             else
             {
                 richTextBox2.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
@@ -213,36 +224,54 @@ namespace ContrAgent
             if (checkBox4.Checked)
             {
                 richTextBox3.Show();
+                resultInt += 1;
             }
+            
             else
             {
                 richTextBox3.Hide();
+                resultInt -= 1;
             }
+            label51.Text = resultInt.ToString();
         }
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBox5.Checked || checkBox6.Checked)
+            if(checkBox5.Checked)
             {
+                resultInt += 0.5;
                 richTextBox4.Show();
             }
             else if (!checkBox5.Checked && !checkBox6.Checked)
             {
                 richTextBox4.Hide();
+                resultInt -= 0.5;
             }
+            else
+            {
+                resultInt -= 0.5;
+            }
+            label51.Text = resultInt.ToString();
         }
         
 
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox5.Checked || checkBox6.Checked)
+            if (checkBox6.Checked)
             {
+                resultInt += 1;
                 richTextBox4.Show();
             }
             else if (!checkBox5.Checked && !checkBox6.Checked)
             {
                 richTextBox4.Hide();
+                resultInt -= 1;
             }
+            else
+            {
+                resultInt -= 1;
+            }
+            label51.Text = resultInt.ToString();
         }
         
 
@@ -380,6 +409,6 @@ namespace ContrAgent
             }
         }
 
-      
+        
     }
 }
