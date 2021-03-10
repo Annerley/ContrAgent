@@ -33,11 +33,12 @@ namespace ContrAgent
             MySqlDataReader reader = command.ExecuteReader();
 
             string password = "\0";
-            
 
+            int counter = 0;
             while (reader.Read())
             {
                 password = reader[0].ToString();
+                counter++;
             }
 
             if(password == passwordField.Text)
@@ -47,10 +48,19 @@ namespace ContrAgent
                 Form1 Form1 = new Form1(loginField.Text);
                 Form1.Show();
 
-                //TODO:: сделать по кресту полный выход из программы
+                
                 this.Hide();
 
             }
+            else if(counter == 0)
+            {
+                MessageBox.Show("Такого пользователя не существует");
+            }
+            else if(password!= passwordField.Text)
+            {
+                MessageBox.Show("Вы ввели неправильный пароль");
+            }
+            
             db.closeConnection();
 
         }

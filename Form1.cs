@@ -21,7 +21,7 @@ namespace ContrAgent
         public Form1(string name)
         {
             InitializeComponent();
-            
+            label53.Text = name;
             resultUpdater();
             TimeUpdater();
             Hide_Unnecessary();
