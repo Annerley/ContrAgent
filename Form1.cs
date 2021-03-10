@@ -21,7 +21,7 @@ namespace ContrAgent
         public Form1(string name)
         {
             InitializeComponent();
-            label53.Text = name;
+            label53.Text = "Вы зашли как: " + name;
             resultUpdater();
             TimeUpdater();
             Hide_Unnecessary();
@@ -181,6 +181,7 @@ namespace ContrAgent
             var reason = reasonField.Text;
             var subject = subjectField.Text;
             var price = priceField.Text;
+            var extra = extraField.Text;
 
             var wordApp = new Word.Application();
             wordApp.Visible = false;
@@ -195,8 +196,9 @@ namespace ContrAgent
             ReplaceWordStub("{reason}", reason, wordDocument);
             ReplaceWordStub("{subject}", subject, wordDocument);
             ReplaceWordStub("{price}", price, wordDocument);
+            ReplaceWordStub("{extra}", extra, wordDocument);
 
-            wordDocument.SaveAs(@"C:\Users\laput\source\repos\ContrAgent\test2.doc");
+            wordDocument.SaveAs(@"C:\Users\laput\source\repos\ContrAgent\test2.rtf");
             wordApp.Visible = true;
 
         }
@@ -514,5 +516,7 @@ namespace ContrAgent
         {
             Application.Exit();
         }
+
+       
     }
 }
