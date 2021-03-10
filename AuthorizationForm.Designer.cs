@@ -1,0 +1,121 @@
+﻿
+namespace ContrAgent
+{
+    partial class AuthorizationForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.button1 = new System.Windows.Forms.Button();
+            this.loginField = new System.Windows.Forms.TextBox();
+            this.passwordField = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(96)))), ((int)(((byte)(111)))));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button1.Location = new System.Drawing.Point(93, 225);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(179, 50);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Войти";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // loginField
+            // 
+            this.loginField.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.loginField.Location = new System.Drawing.Point(125, 22);
+            this.loginField.Multiline = true;
+            this.loginField.Name = "loginField";
+            this.loginField.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.loginField.Size = new System.Drawing.Size(179, 50);
+            this.loginField.TabIndex = 45;
+            // 
+            // passwordField
+            // 
+            this.passwordField.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.passwordField.Location = new System.Drawing.Point(125, 123);
+            this.passwordField.Multiline = true;
+            this.passwordField.Name = "passwordField";
+            this.passwordField.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.passwordField.Size = new System.Drawing.Size(179, 50);
+            this.passwordField.TabIndex = 46;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(28, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 33);
+            this.label1.TabIndex = 47;
+            this.label1.Text = "Логин:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(16, 123);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 33);
+            this.label2.TabIndex = 48;
+            this.label2.Text = "Пароль:";
+            // 
+            // AuthorizationForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.ClientSize = new System.Drawing.Size(341, 326);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.passwordField);
+            this.Controls.Add(this.loginField);
+            this.Controls.Add(this.button1);
+            this.Name = "AuthorizationForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "AuthorizationForm";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox loginField;
+        private System.Windows.Forms.TextBox passwordField;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+    }
+}

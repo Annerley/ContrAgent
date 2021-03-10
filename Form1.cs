@@ -18,9 +18,10 @@ namespace ContrAgent
         double resultInt = 0;
         string result = "";
 
-        public Form1()
+        public Form1(string name)
         {
             InitializeComponent();
+            
             resultUpdater();
             TimeUpdater();
             Hide_Unnecessary();
@@ -507,6 +508,11 @@ namespace ContrAgent
             {
                 rtb.SelectionFont = new Font(rtb.Font, FontStyle.Italic);
             }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
