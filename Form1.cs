@@ -52,6 +52,20 @@ namespace ContrAgent
             richTextBox13.Hide();
             richTextBox14.Hide();
             richTextBox15.Hide();
+            richTextBox16.Hide();
+            richTextBox17.Hide();
+            richTextBox18.Hide();
+            richTextBox19.Hide();
+            richTextBox21.Hide();
+            richTextBox22.Hide();
+            richTextBox23.Hide();
+            richTextBox24.Hide();
+            richTextBox25.Hide();
+            richTextBox26.Hide();
+            richTextBox27.Hide();
+            richTextBox28.Hide();
+            richTextBox29.Hide();
+            richTextBox30.Hide();
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -90,6 +104,8 @@ namespace ContrAgent
             db.openConnection();
 
             addScoringToDb(db);
+            
+
 
             if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery()==1)
                 MessageBox.Show("Добавилось");
@@ -198,9 +214,16 @@ namespace ContrAgent
             ReplaceWordStub("{price}", price, wordDocument);
             ReplaceWordStub("{extra}", extra, wordDocument);
 
+            addScoringToWord(conclusionNumber, wordDocument);
+
             wordDocument.SaveAs(@"C:\Users\laput\source\repos\ContrAgent\test2.rtf");
             wordApp.Visible = true;
 
+        }
+
+        private void addScoringToWord(string conclusionNumber, Word.Document wordDocument)
+        {
+            
         }
 
         private void ReplaceWordStub(string stubToReplace, string text, Word.Document wordDocument)
@@ -517,6 +540,26 @@ namespace ContrAgent
             Application.Exit();
         }
 
-       
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DB db = new DB();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            db.openConnection();
+
+            List<Label> labels = new List<Label>();
+            MySqlCommand command = new MySqlCommand("SELECT conclusion number FROM main WHERE inn = @inn", db.getConnection());
+            command.Parameters.Add("@inn", MySqlDbType.Int32).Value = innSearchField.Text;
+
+            MySqlDataReader reader = command.ExecuteReader();
+            var result = "";
+            while (reader.Read())
+            {
+                labels.reader[0].ToString();
+
+            }
+
+        }
     }
 }

@@ -144,11 +144,14 @@
   <data name="label35.Text" xml:space="preserve">
     <value>Учредители/руководитель контрагента/дочерние и зависимые общества имеют негативный опыт ведения бизнеса, а именно юридическое лицо, контролируемое ранее указанными лицами, ликвидировано вследствие банкротства* </value>
   </data>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>104, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAACT2SURBVHhe7d2J/211Xe9xmUEhQSEB7SIoDqBkqaU5F+XI
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAACT2SURBVHhe7d2J/211Xe9xmUEhQSEB7SIoDqBkqaU5F+XI
         LafKMvUql6wUsgFQG0hL0ZCU29VwSMObE3o1RKXUDKMwUUNzCmfBCRQQQWa6728euudx/Jzfb/1+v733
         Wmuv5+vxeP4B7P3lnPfZe+21bpL+A2AkrouLt+Lz8blNPhYfin+Id8db403xqjg5Tojj49j49Xh8HBYP
         iLvFAbFHbBvS0lb9TwbA93wnLohz42/jtfFn8ax4crThcO9oo2HXkEZTdeABWJ8ro30K0T55OCXaJw1H
@@ -312,7 +315,7 @@
   <data name="toolStripButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAACZdSURBVHhe7d15/H3VvPjxJs0UlVBdhVtxC6krbgO6QsMl
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAACZdSURBVHhe7d15/H3VvPjxJs0UlVBdhVtxC6krbgO6QsMl
         kggRIm4DRTQRSrldXZVcESJEkxuaiBAh+pXhypD0S4lGjSrV7/daxtR7nfMZzvBee7+ej8frn/Oob9/P
         2Wutvfucs/daQJIkSZIkSZIkSdKovZWu63inkyRJ+rOF6DL6fx3vbnoUSZIkbEbRCbOLHUiSJAnHU3Sy
         7GKX08IkSVKvLUe3UXSy7GqbkyRJvbYbRSfJLnciSZLUaxdSdJLscrfTCiRJUi+tR9EJsg+9gSRJ6qUj
@@ -482,7 +485,7 @@
   <data name="toolStripButton3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABBwSURBVHhe7d3Ly8f5GMbxz2BIomShlBybZJqmKcnKrCQl
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAABBwSURBVHhe7d3Ly8f5GMbxz2BIomShlBybZJqmKcnKrCQl
         G+emQRNZyGbYyAYL0eSYQ2xkQbJgIUlNkxyaHFeIhJKN5Hwacrp/zfK+Niyv3+tV1z/w1HN/n8X7+X4P
         8H/77uw/Zhb35BlAnUfM/j5Lh8/s2vfrGUClZ8/S4TOzc740A6j0hlk6fGZ2zjtmAJU+MUuHz8zOedEM
         oNL3Z+nwmdk5T5gB1HnU7J+zdPjMrn2/nAFUeu4sHT4zO+fzM4BKd8/S4TOzc946A6j06Vk6fGZ2zvNn
