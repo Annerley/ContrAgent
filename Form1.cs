@@ -186,7 +186,7 @@ namespace ContrAgent
             var wordApp = new Word.Application();
             wordApp.Visible = false;
 
-            var wordDocument = wordApp.Documents.Open(@"C:\Users\laput\source\repos\ContrAgent\pattern.docx");
+            var wordDocument = wordApp.Documents.Open(@"C:\Users\laput\source\repos\ContrAgent\pattern.rtf");
             ReplaceWordStub("{conclusion_number}", conclusionNumber, wordDocument);
             ReplaceWordStub("{initiator}", initiator, wordDocument);
             ReplaceWordStub("{evaluation_date}", evaluationDate, wordDocument);
@@ -209,7 +209,7 @@ namespace ContrAgent
             //Сбрасываем форматирование
             range.Find.ClearFormatting();
 
-            range.Find.Execute(FindText: stubToReplace, ReplaceWith: text);
+            range.Find.Execute(FindText: stubToReplace, ReplaceWith: text, Format: true);
 
         }
 
