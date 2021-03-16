@@ -143,11 +143,12 @@ namespace ContrAgent
             }
 
             //MySqlCommand commandScore = new MySqlCommand(, db.getConnection());
-
+            
             if (commandScore.ExecuteNonQuery() == 1)
                 MessageBox.Show("Добавилось");
             else
                 MessageBox.Show("Не добавилось");
+            
         }
 
 
@@ -202,7 +203,7 @@ namespace ContrAgent
             var wordApp = new Word.Application();
             wordApp.Visible = false;
 
-            var wordDocument = wordApp.Documents.Open(@"C:\Users\laput\source\repos\ContrAgent\pattern.rtf");
+            var wordDocument = wordApp.Documents.Open(@"C:\Users\laput\source\repos\ContrAgent\pattern.docx");
             ReplaceWordStub("{conclusion_number}", conclusionNumber, wordDocument);
             ReplaceWordStub("{initiator}", initiator, wordDocument);
             ReplaceWordStub("{evaluation_date}", evaluationDate, wordDocument);
@@ -213,6 +214,7 @@ namespace ContrAgent
             ReplaceWordStub("{subject}", subject, wordDocument);
             ReplaceWordStub("{price}", price, wordDocument);
             ReplaceWordStub("{extra}", extra, wordDocument);
+            ReplaceWordStub("{result}", result, wordDocument);
 
             addScoringToWord(conclusionNumber, wordDocument);
 
@@ -223,7 +225,21 @@ namespace ContrAgent
 
         private void addScoringToWord(string conclusionNumber, Word.Document wordDocument)
         {
-            
+            DB db = new DB();
+            db.openConnection();
+            addScoringToDb(db);
+            MySqlCommand command = new MySqlCommand("SELECT `point`, `comment` FROM scoring WHERE `conclusion number` = @conc", db.getConnection());
+            command.Parameters.Add("@conc", MySqlDbType.Text).Value = conclusionNumber;
+
+            MySqlDataReader reader = command.ExecuteReader();
+            var result = "";
+            while (reader.Read())
+            {
+                result+= reader[0].ToString() + ". " + reader[1].ToString();
+                result += "\r\n";
+            }
+            ReplaceWordStub("{scoring}", result, wordDocument);
+
         }
 
         private void ReplaceWordStub(string stubToReplace, string text, Word.Document wordDocument)
@@ -542,6 +558,7 @@ namespace ContrAgent
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //стереть старое
             DB db = new DB();
 
             MySqlDataAdapter adapter = new MySqlDataAdapter();
@@ -549,17 +566,37 @@ namespace ContrAgent
             db.openConnection();
 
             List<Label> labels = new List<Label>();
-            MySqlCommand command = new MySqlCommand("SELECT conclusion number FROM main WHERE inn = @inn", db.getConnection());
+            MySqlCommand command = new MySqlCommand("SELECT `conclusion number` FROM main WHERE inn = @inn", db.getConnection());
             command.Parameters.Add("@inn", MySqlDbType.Int32).Value = innSearchField.Text;
 
             MySqlDataReader reader = command.ExecuteReader();
-            var result = "";
+            int i = 0;
+            int x = 15;
+            int y = 100;
             while (reader.Read())
             {
-                labels.reader[0].ToString();
-
+                
+                labels.Add(new Label());
+                tabPage6.Controls.Add(labels[i]);
+                labels[i].Text = reader[0].ToString();
+                labels[i].Location = new Point(x, y);
+                labels[i].ForeColor = Color.Black;
+                labels[i].Font = label51.Font;
+                labels[i].AutoSize = true;
+                labels[i].Show();
+                
+                y += 25;
+                
+                
+                i++;
+                
+                
             }
 
+            db.closeConnection();
+
         }
+
+        
     }
 }
