@@ -597,6 +597,32 @@ namespace ContrAgent
 
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = getConclusionList();
+        }
+
+        private DataTable getConclusionList()
+        {
+            DataTable dtConclusion = new DataTable();
+
+            DB db = new DB();
+
+            db.openConnection();
+
+            using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM conclusion", db.getConnection()))
+            {
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                dtConclusion.Load(reader);
+
+                Console.WriteLine("!");
+            }
+
+            db.closeConnection();
+            return dtConclusion;
+        }
+
         
     }
 }
