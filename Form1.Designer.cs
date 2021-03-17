@@ -177,12 +177,12 @@ namespace ContrAgent
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.conclusionBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.poDataSet = new ContrAgent.poDataSet();
             this.button2 = new System.Windows.Forms.Button();
             this.innSearchField = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.conclusionBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.poDataSet = new ContrAgent.poDataSet();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.customTimer = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -781,7 +781,7 @@ namespace ContrAgent
             this.richTextBox30.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox30.Location = new System.Drawing.Point(327, 1797);
             this.richTextBox30.Name = "richTextBox30";
-            this.richTextBox30.Size = new System.Drawing.Size(346, 59);
+            this.richTextBox30.Size = new System.Drawing.Size(312, 59);
             this.richTextBox30.TabIndex = 111;
             this.richTextBox30.Text = "";
             // 
@@ -814,7 +814,7 @@ namespace ContrAgent
             this.richTextBox29.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox29.Location = new System.Drawing.Point(327, 1721);
             this.richTextBox29.Name = "richTextBox29";
-            this.richTextBox29.Size = new System.Drawing.Size(346, 59);
+            this.richTextBox29.Size = new System.Drawing.Size(312, 59);
             this.richTextBox29.TabIndex = 108;
             this.richTextBox29.Text = "";
             // 
@@ -847,7 +847,7 @@ namespace ContrAgent
             this.richTextBox28.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox28.Location = new System.Drawing.Point(327, 1642);
             this.richTextBox28.Name = "richTextBox28";
-            this.richTextBox28.Size = new System.Drawing.Size(346, 59);
+            this.richTextBox28.Size = new System.Drawing.Size(312, 59);
             this.richTextBox28.TabIndex = 105;
             this.richTextBox28.Text = "";
             // 
@@ -880,7 +880,7 @@ namespace ContrAgent
             this.richTextBox27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox27.Location = new System.Drawing.Point(327, 1434);
             this.richTextBox27.Name = "richTextBox27";
-            this.richTextBox27.Size = new System.Drawing.Size(346, 159);
+            this.richTextBox27.Size = new System.Drawing.Size(312, 159);
             this.richTextBox27.TabIndex = 102;
             this.richTextBox27.Text = "";
             // 
@@ -913,7 +913,7 @@ namespace ContrAgent
             this.richTextBox26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox26.Location = new System.Drawing.Point(327, 1284);
             this.richTextBox26.Name = "richTextBox26";
-            this.richTextBox26.Size = new System.Drawing.Size(346, 116);
+            this.richTextBox26.Size = new System.Drawing.Size(312, 116);
             this.richTextBox26.TabIndex = 99;
             this.richTextBox26.Text = "";
             // 
@@ -959,7 +959,7 @@ namespace ContrAgent
             this.richTextBox25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox25.Location = new System.Drawing.Point(327, 1134);
             this.richTextBox25.Name = "richTextBox25";
-            this.richTextBox25.Size = new System.Drawing.Size(346, 116);
+            this.richTextBox25.Size = new System.Drawing.Size(312, 116);
             this.richTextBox25.TabIndex = 95;
             this.richTextBox25.Text = "";
             // 
@@ -992,7 +992,7 @@ namespace ContrAgent
             this.richTextBox24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox24.Location = new System.Drawing.Point(327, 1006);
             this.richTextBox24.Name = "richTextBox24";
-            this.richTextBox24.Size = new System.Drawing.Size(346, 98);
+            this.richTextBox24.Size = new System.Drawing.Size(312, 98);
             this.richTextBox24.TabIndex = 92;
             this.richTextBox24.Text = "";
             // 
@@ -1027,7 +1027,7 @@ namespace ContrAgent
             this.richTextBox23.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox23.Location = new System.Drawing.Point(327, 927);
             this.richTextBox23.Name = "richTextBox23";
-            this.richTextBox23.Size = new System.Drawing.Size(346, 59);
+            this.richTextBox23.Size = new System.Drawing.Size(312, 59);
             this.richTextBox23.TabIndex = 89;
             this.richTextBox23.Text = "";
             // 
@@ -1060,7 +1060,7 @@ namespace ContrAgent
             this.richTextBox22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox22.Location = new System.Drawing.Point(327, 799);
             this.richTextBox22.Name = "richTextBox22";
-            this.richTextBox22.Size = new System.Drawing.Size(346, 98);
+            this.richTextBox22.Size = new System.Drawing.Size(312, 98);
             this.richTextBox22.TabIndex = 86;
             this.richTextBox22.Text = "";
             // 
@@ -1094,7 +1094,7 @@ namespace ContrAgent
             this.richTextBox21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox21.Location = new System.Drawing.Point(327, 642);
             this.richTextBox21.Name = "richTextBox21";
-            this.richTextBox21.Size = new System.Drawing.Size(346, 114);
+            this.richTextBox21.Size = new System.Drawing.Size(312, 114);
             this.richTextBox21.TabIndex = 83;
             this.richTextBox21.Text = "";
             // 
@@ -1140,7 +1140,7 @@ namespace ContrAgent
             this.richTextBox18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox18.Location = new System.Drawing.Point(327, 456);
             this.richTextBox18.Name = "richTextBox18";
-            this.richTextBox18.Size = new System.Drawing.Size(346, 136);
+            this.richTextBox18.Size = new System.Drawing.Size(312, 136);
             this.richTextBox18.TabIndex = 79;
             this.richTextBox18.Text = "";
             // 
@@ -1173,7 +1173,7 @@ namespace ContrAgent
             this.richTextBox19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox19.Location = new System.Drawing.Point(327, 322);
             this.richTextBox19.Name = "richTextBox19";
-            this.richTextBox19.Size = new System.Drawing.Size(347, 101);
+            this.richTextBox19.Size = new System.Drawing.Size(313, 101);
             this.richTextBox19.TabIndex = 75;
             this.richTextBox19.Text = "";
             // 
@@ -1208,7 +1208,7 @@ namespace ContrAgent
             this.richTextBox17.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox17.Location = new System.Drawing.Point(327, 165);
             this.richTextBox17.Name = "richTextBox17";
-            this.richTextBox17.Size = new System.Drawing.Size(347, 117);
+            this.richTextBox17.Size = new System.Drawing.Size(313, 117);
             this.richTextBox17.TabIndex = 69;
             this.richTextBox17.Text = "";
             // 
@@ -1241,7 +1241,7 @@ namespace ContrAgent
             this.richTextBox16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox16.Location = new System.Drawing.Point(327, 14);
             this.richTextBox16.Name = "richTextBox16";
-            this.richTextBox16.Size = new System.Drawing.Size(347, 114);
+            this.richTextBox16.Size = new System.Drawing.Size(313, 114);
             this.richTextBox16.TabIndex = 66;
             this.richTextBox16.Text = "";
             // 
@@ -1333,7 +1333,7 @@ namespace ContrAgent
             this.richTextBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox5.Location = new System.Drawing.Point(326, 540);
             this.richTextBox5.Name = "richTextBox5";
-            this.richTextBox5.Size = new System.Drawing.Size(393, 77);
+            this.richTextBox5.Size = new System.Drawing.Size(359, 77);
             this.richTextBox5.TabIndex = 105;
             this.richTextBox5.Text = "";
             // 
@@ -1345,7 +1345,7 @@ namespace ContrAgent
             this.richTextBox15.Location = new System.Drawing.Point(326, 1708);
             this.richTextBox15.Margin = new System.Windows.Forms.Padding(8);
             this.richTextBox15.Name = "richTextBox15";
-            this.richTextBox15.Size = new System.Drawing.Size(393, 120);
+            this.richTextBox15.Size = new System.Drawing.Size(359, 120);
             this.richTextBox15.TabIndex = 103;
             this.richTextBox15.Text = "";
             // 
@@ -1368,7 +1368,7 @@ namespace ContrAgent
             this.richTextBox14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox14.Location = new System.Drawing.Point(326, 1543);
             this.richTextBox14.Name = "richTextBox14";
-            this.richTextBox14.Size = new System.Drawing.Size(393, 157);
+            this.richTextBox14.Size = new System.Drawing.Size(359, 157);
             this.richTextBox14.TabIndex = 103;
             this.richTextBox14.Text = "";
             // 
@@ -1402,7 +1402,7 @@ namespace ContrAgent
             this.richTextBox13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox13.Location = new System.Drawing.Point(326, 1467);
             this.richTextBox13.Name = "richTextBox13";
-            this.richTextBox13.Size = new System.Drawing.Size(393, 64);
+            this.richTextBox13.Size = new System.Drawing.Size(359, 64);
             this.richTextBox13.TabIndex = 100;
             this.richTextBox13.Text = "";
             // 
@@ -1437,7 +1437,7 @@ namespace ContrAgent
             this.richTextBox12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox12.Location = new System.Drawing.Point(326, 1374);
             this.richTextBox12.Name = "richTextBox12";
-            this.richTextBox12.Size = new System.Drawing.Size(393, 84);
+            this.richTextBox12.Size = new System.Drawing.Size(359, 84);
             this.richTextBox12.TabIndex = 97;
             this.richTextBox12.Text = "";
             // 
@@ -1472,7 +1472,7 @@ namespace ContrAgent
             this.richTextBox11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox11.Location = new System.Drawing.Point(326, 1280);
             this.richTextBox11.Name = "richTextBox11";
-            this.richTextBox11.Size = new System.Drawing.Size(393, 85);
+            this.richTextBox11.Size = new System.Drawing.Size(359, 85);
             this.richTextBox11.TabIndex = 94;
             this.richTextBox11.Text = "";
             // 
@@ -1507,7 +1507,7 @@ namespace ContrAgent
             this.richTextBox10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox10.Location = new System.Drawing.Point(326, 1149);
             this.richTextBox10.Name = "richTextBox10";
-            this.richTextBox10.Size = new System.Drawing.Size(393, 121);
+            this.richTextBox10.Size = new System.Drawing.Size(359, 121);
             this.richTextBox10.TabIndex = 91;
             this.richTextBox10.Text = "";
             // 
@@ -1543,7 +1543,7 @@ namespace ContrAgent
             this.richTextBox9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox9.Location = new System.Drawing.Point(326, 1020);
             this.richTextBox9.Name = "richTextBox9";
-            this.richTextBox9.Size = new System.Drawing.Size(393, 120);
+            this.richTextBox9.Size = new System.Drawing.Size(359, 120);
             this.richTextBox9.TabIndex = 88;
             this.richTextBox9.Text = "";
             // 
@@ -1578,7 +1578,7 @@ namespace ContrAgent
             this.richTextBox8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox8.Location = new System.Drawing.Point(326, 925);
             this.richTextBox8.Name = "richTextBox8";
-            this.richTextBox8.Size = new System.Drawing.Size(393, 86);
+            this.richTextBox8.Size = new System.Drawing.Size(359, 86);
             this.richTextBox8.TabIndex = 85;
             this.richTextBox8.Text = "";
             // 
@@ -1613,7 +1613,7 @@ namespace ContrAgent
             this.richTextBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox7.Location = new System.Drawing.Point(326, 773);
             this.richTextBox7.Name = "richTextBox7";
-            this.richTextBox7.Size = new System.Drawing.Size(393, 142);
+            this.richTextBox7.Size = new System.Drawing.Size(359, 142);
             this.richTextBox7.TabIndex = 82;
             this.richTextBox7.Text = "";
             // 
@@ -1649,7 +1649,7 @@ namespace ContrAgent
             this.richTextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox6.Location = new System.Drawing.Point(326, 626);
             this.richTextBox6.Name = "richTextBox6";
-            this.richTextBox6.Size = new System.Drawing.Size(393, 137);
+            this.richTextBox6.Size = new System.Drawing.Size(359, 137);
             this.richTextBox6.TabIndex = 79;
             this.richTextBox6.Text = "";
             // 
@@ -1708,7 +1708,7 @@ namespace ContrAgent
             this.richTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox4.Location = new System.Drawing.Point(326, 390);
             this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.Size = new System.Drawing.Size(393, 140);
+            this.richTextBox4.Size = new System.Drawing.Size(359, 140);
             this.richTextBox4.TabIndex = 72;
             this.richTextBox4.Text = "";
             // 
@@ -1744,7 +1744,7 @@ namespace ContrAgent
             this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox3.Location = new System.Drawing.Point(326, 274);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(393, 105);
+            this.richTextBox3.Size = new System.Drawing.Size(359, 105);
             this.richTextBox3.TabIndex = 69;
             this.richTextBox3.Text = "";
             // 
@@ -1779,7 +1779,7 @@ namespace ContrAgent
             this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox2.Location = new System.Drawing.Point(326, 125);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(393, 140);
+            this.richTextBox2.Size = new System.Drawing.Size(359, 140);
             this.richTextBox2.TabIndex = 66;
             this.richTextBox2.Text = "";
             // 
@@ -1815,7 +1815,7 @@ namespace ContrAgent
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox1.Location = new System.Drawing.Point(326, 11);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(393, 105);
+            this.richTextBox1.Size = new System.Drawing.Size(359, 105);
             this.richTextBox1.TabIndex = 63;
             this.richTextBox1.Text = "";
             // 
@@ -1978,21 +1978,14 @@ namespace ContrAgent
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(8, 84);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(943, 300);
             this.dataGridView1.TabIndex = 13;
-            // 
-            // conclusionBindingSource1
-            // 
-            this.conclusionBindingSource1.DataMember = "conclusion";
-            this.conclusionBindingSource1.DataSource = this.poDataSet;
-            // 
-            // poDataSet
-            // 
-            this.poDataSet.DataSetName = "poDataSet";
-            this.poDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
             // button2
             // 
@@ -2039,6 +2032,16 @@ namespace ContrAgent
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Наличие разрешение и лицензий";
             // 
+            // conclusionBindingSource1
+            // 
+            this.conclusionBindingSource1.DataMember = "conclusion";
+            this.conclusionBindingSource1.DataSource = this.poDataSet;
+            // 
+            // poDataSet
+            // 
+            this.poDataSet.DataSetName = "poDataSet";
+            this.poDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // timer1
             // 
             this.timer1.Enabled = true;
@@ -2058,11 +2061,11 @@ namespace ContrAgent
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(387, 18);
+            this.label13.Location = new System.Drawing.Point(524, 18);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(254, 19);
+            this.label13.Size = new System.Drawing.Size(117, 19);
             this.label13.TabIndex = 9;
-            this.label13.Text = "Добро пожаловать! Текущее время:";
+            this.label13.Text = "Текущее время:";
             // 
             // button4
             // 
@@ -2083,7 +2086,7 @@ namespace ContrAgent
             // 
             this.label51.AutoSize = true;
             this.label51.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label51.Location = new System.Drawing.Point(465, 59);
+            this.label51.Location = new System.Drawing.Point(515, 59);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(57, 19);
             this.label51.TabIndex = 46;
@@ -2117,7 +2120,7 @@ namespace ContrAgent
             // 
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label53.Location = new System.Drawing.Point(372, 59);
+            this.label53.Location = new System.Drawing.Point(257, 18);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(45, 19);
             this.label53.TabIndex = 48;

@@ -21,7 +21,7 @@ namespace ContrAgent
         public Form1(string name)
         {
             InitializeComponent();
-            label53.Text = "Вы зашли как: " + name;
+            label53.Text = "Пользователь: " + name;
             resultUpdater();
             TimeUpdater();
             Hide_Unnecessary();
@@ -29,8 +29,10 @@ namespace ContrAgent
 
             label51.Text = resultInt.ToString();
 
-
             
+
+
+
 
 
 
@@ -599,8 +601,27 @@ namespace ContrAgent
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            
             dataGridView1.DataSource = getConclusionList();
+            dataGridView1.Columns[0].HeaderText = "Номер заключения";
+            dataGridView1.Columns[1].HeaderText = "Дата оценки";
+            dataGridView1.Columns[2].HeaderText = "Основание оценки";
+            dataGridView1.Columns[3].HeaderText = "Предмет";
+            dataGridView1.Columns[4].HeaderText = "Спецификация";
+            dataGridView1.Columns[5].HeaderText = "Инициатор";
+            dataGridView1.Columns[6].HeaderText = "Объект строительства";
+            dataGridView1.Columns[7].HeaderText = "Установление договорных отношений";
+            dataGridView1.Columns[8].HeaderText = "Цена";
+            dataGridView1.Columns[9].HeaderText = "Номер СЭД";
+
+
+            
+
+
         }
+
+        
 
         private DataTable getConclusionList()
         {
@@ -616,13 +637,34 @@ namespace ContrAgent
 
                 dtConclusion.Load(reader);
 
-                Console.WriteLine("!");
+                
             }
+
+            
 
             db.closeConnection();
             return dtConclusion;
         }
 
-        
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно")
+                {
+                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Green;
+                }
+                else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Невозможно")
+                {
+                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Red;
+                }
+                else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно с ограничениями")
+                {
+                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Yellow;
+                }
+            }
+            //dataGridView1.Rows[1].Cells[7].Style.BackColor = Color.Yellow;
+        }
     }
 }
