@@ -25,7 +25,7 @@ namespace ContrAgent
         }
 
         public MySqlConnection getConnection()
-        {
+         {
             return connection;
         }
     }
