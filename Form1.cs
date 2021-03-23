@@ -79,15 +79,17 @@ namespace ContrAgent
             DataTable table = new DataTable();
 
             MySqlDataAdapter adapter = new MySqlDataAdapter();
-
+           
 
             // Если уже есть, обновить
             MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion number`, `evaluation date`,`reason for rating`,`subject`," +
-                "`specification`,`initiator`, `object`, `result`, `price`, `sad`) " +
+                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`) " +
                 "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
-                "@specification,  @initiator, @object, '' , @price, @sad)", db.getConnection());
+                "@specification,  @initiator, @object, '' , @price, @sad, @status)", db.getConnection());
             command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-            command.Parameters.Add("@evaluation_date", MySqlDbType.DateTime).Value = evaluationDateField.Text;
+            //Console.WriteLine(evaluationDateField.Text);
+            command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
+            
             command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
             command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
             command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
@@ -102,21 +104,21 @@ namespace ContrAgent
                 command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
             }
             command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
-
-            MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion number`) VALUES(@inn, @conclusion number) ", db.getConnection());
-            command2.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-            if(innField.Text == "")
+            if(hammerCheck.Checked)
             {
-                command2.Parameters.Add("@inn", MySqlDbType.Int32).Value = null;
+                command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
             }
             else
             {
-                command2.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+                command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
             }
+            MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion number`) VALUES(@inn, @conclusion_number) ", db.getConnection());
+            command2.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+            command2.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
 
 
-            
-            
+
+
             db.openConnection();
 
            
@@ -922,7 +924,9 @@ namespace ContrAgent
 
             db.openConnection();
 
-            using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM conclusion", db.getConnection()))
+            using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
+                "`subject`, `specification`, `initiator`, `object`," +
+                "`result`, `price`, `sad` FROM conclusion WHERE status = 0", db.getConnection()))
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -958,11 +962,40 @@ namespace ContrAgent
             //dataGridView1.Rows[1].Cells[7].Style.BackColor = Color.Yellow;
         }
 
-        private void specificationField_TextChanged(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
+            var conc = conclusionSearchField.Text;
+            
 
+            DB db = new DB();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            db.openConnection();
+
+            MySqlCommand command = new MySqlCommand("SELECT * FROM conclusion WHERE `conclusion number` = @conc", db.getConnection());
+            command.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conc;
+            //если нет мессадж бокс
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+
+                conclusionNumberField.Text = reader[0].ToString();
+                evaluationDateField.Text = reader[1].ToString();
+                reasonField.Text = reader[2].ToString();
+                subjectField.Text = reader[3].ToString();
+                specificationField.Text = reader[4].ToString();
+                initiatorField.Text = reader[5].ToString();
+                objectField.Text = reader[6].ToString();
+                result = reader[7].ToString();
+                priceField.Text = reader[8].ToString();
+                sadField.Text = reader[9].ToString();
+                
+
+            }
+            resultUpdater();
+            db.closeConnection();
+            //молоток
         }
-
-        
     }
 }
