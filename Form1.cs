@@ -79,33 +79,51 @@ namespace ContrAgent
             DataTable table = new DataTable();
 
             MySqlDataAdapter adapter = new MySqlDataAdapter();
+           
 
+            // Если уже есть, обновить
             MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion number`, `evaluation date`,`reason for rating`,`subject`," +
-                "`specification`,`initiator`, `object`, `result`, `price`, `sad`) " +
+                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`) " +
                 "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
-                "@specification,  @initiator, @object, '' , @price, @sad)", db.getConnection());
+                "@specification,  @initiator, @object, '' , @price, @sad, @status)", db.getConnection());
             command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-            command.Parameters.Add("@evaluation_date", MySqlDbType.DateTime).Value = evaluationDateField.Text;
+            //Console.WriteLine(evaluationDateField.Text);
+            command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
+            
             command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
             command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
             command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
             command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
             command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
-            command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+            if(priceField.Text == "")
+            {
+                command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
+            }
+            else
+            {
+                command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+            }
             command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
-
-            MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion number`) VALUES(@inn, @conclusion number) ", db.getConnection());
+            if(hammerCheck.Checked)
+            {
+                command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
+            }
+            else
+            {
+                command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
+            }
+            MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion number`) VALUES(@inn, @conclusion_number) ", db.getConnection());
             command2.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
             command2.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
 
 
-            // Если уже есть, обновить
-            //MySqlCommand command3 = new MySqlCommand("INSERT INTO `organisation` (`inn`, `conclusion number`) VALUES(@inn, @conclusion number) ", db.getConnection());
-            //MySqlCommand commandScore = new MySqlCommand(, db.getConnection());
+
 
             db.openConnection();
 
+           
             addScoringToDb(db);
+            
             
 
 
@@ -126,30 +144,39 @@ namespace ContrAgent
 
         private void addScoringToDb(DB db)
         {
-            
-            MySqlCommand commandScore = new MySqlCommand("", db.getConnection());
-            commandScore.CommandText = ("INSERT INTO `scoring` (`conclusion number`, `point`, `comment`) VALUES (@conclusion_number, @point, @comment)");
-            if (checkBox2.Checked)
+            string cmd = "";
+            MySqlCommand commandScore = new MySqlCommand(cmd, db.getConnection());
+            if(conclusionNumberField.Text=="")
             {
-                
-                commandScore.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                commandScore.Parameters.Add("@point", MySqlDbType.Int32).Value = 1;
-                commandScore.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox1.Text;
+                MessageBox.Show("Введите номер заключения");
             }
-            if (checkBox3.Checked)
+            else
             {
-                
-                commandScore.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                commandScore.Parameters.Add("@point", MySqlDbType.Int32).Value = 2;
-                commandScore.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox2.Text;
+                if (checkBox2.Checked)
+                {
+                    cmd = ("INSERT INTO `scoring` (`conclusion number`, `point`, `comment`) VALUES (@conclusion_number, @point, @comment)");
+                    commandScore.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    commandScore.Parameters.Add("@point", MySqlDbType.Int32).Value = 1;
+                    commandScore.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox1.Text;
+                }
+                if (checkBox3.Checked)
+                {
+                    cmd = ("INSERT INTO `scoring` (`conclusion number`, `point`, `comment`) VALUES (@conclusion_number, @point, @comment)");
+                    commandScore.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    commandScore.Parameters.Add("@point", MySqlDbType.Int32).Value = 2;
+                    commandScore.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox2.Text;
+                }
             }
 
             //MySqlCommand commandScore = new MySqlCommand(, db.getConnection());
             
-            if (commandScore.ExecuteNonQuery() == 1)
-                MessageBox.Show("Добавилось");
-            else
-                MessageBox.Show("Не добавилось");
+            if(cmd != "")
+            {
+                if (commandScore.ExecuteNonQuery() == 1)
+                    MessageBox.Show("Добавилось");
+                else
+                    MessageBox.Show("Не добавилось");
+            }
             
         }
 
@@ -163,7 +190,6 @@ namespace ContrAgent
             }
         }
 
-        
         private void resultUpdater()
         {
             if(resultInt == 0 )
@@ -185,10 +211,6 @@ namespace ContrAgent
         }
 
 
-
-
-
-
         private void button4_Click(object sender, EventArgs e)
         {
             var conclusionNumber = conclusionNumberField.Text;
@@ -205,7 +227,7 @@ namespace ContrAgent
             var wordApp = new Word.Application();
             wordApp.Visible = false;
 
-            var wordDocument = wordApp.Documents.Open(@"C:\Users\laput\source\repos\ContrAgent\pattern.docx");
+            var wordDocument = wordApp.Documents.Open(@"C:\учебка\agent\ContrAgent\pattern.docx");
             ReplaceWordStub("{conclusion_number}", conclusionNumber, wordDocument);
             ReplaceWordStub("{initiator}", initiator, wordDocument);
             ReplaceWordStub("{evaluation_date}", evaluationDate, wordDocument);
@@ -220,7 +242,7 @@ namespace ContrAgent
 
             addScoringToWord(conclusionNumber, wordDocument);
 
-            wordDocument.SaveAs(@"C:\Users\laput\source\repos\ContrAgent\test2.rtf");
+            wordDocument.SaveAs(@"C:\учебка\agent\ContrAgent\test2.rtf");
             wordApp.Visible = true;
 
         }
@@ -521,10 +543,281 @@ namespace ContrAgent
             resultUpdater();
         }
 
-        private void resultLabel_Click(object sender, EventArgs e)
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (checkBox1.Checked)
+            {
+                richTextBox16.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox16.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
+
+        private void checkBox18_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox18.Checked)
+            {
+                richTextBox17.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox17.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox20_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox20.Checked)
+            {
+                richTextBox19.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox19.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox19_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox19.Checked)
+            {
+                resultInt += 0.25;
+                richTextBox18.Show();
+            }
+            else if (!checkBox19.Checked && !checkBox21.Checked)
+            {
+                richTextBox18.Hide();
+                resultInt -= 0.25;
+            }
+            else
+            {
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox21_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox21.Checked)
+            {
+                resultInt += 0.25;
+                richTextBox18.Show();
+            }
+            else if (!checkBox21.Checked && !checkBox19.Checked)
+            {
+                richTextBox18.Hide();
+                resultInt -= 0.25;
+            }
+            else
+            {
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox22_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox22.Checked)
+            {
+                richTextBox21.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox21.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox23_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox23.Checked)
+            {
+                richTextBox22.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox22.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox24_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox24.Checked)
+            {
+                richTextBox23.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox23.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox25_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox25.Checked)
+            {
+                richTextBox24.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox24.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox26_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox26.Checked)
+            {
+                resultInt += 0.25;
+                richTextBox25.Show();
+            }
+            else if (!checkBox26.Checked && !checkBox27.Checked)
+            {
+                richTextBox25.Hide();
+                resultInt -= 0.25;
+            }
+            else
+            {
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox27_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox27.Checked)
+            {
+                resultInt += 0.25;
+                richTextBox25.Show();
+            }
+            else if (!checkBox26.Checked && !checkBox27.Checked)
+            {
+                richTextBox25.Hide();
+                resultInt -= 0.25;
+            }
+            else
+            {
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox28_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox28.Checked)
+            {
+                richTextBox26.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox26.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox29_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox29.Checked)
+            {
+                richTextBox27.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox27.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox30_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox30.Checked)
+            {
+                richTextBox28.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox28.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox31_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox31.Checked)
+            {
+                richTextBox29.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox29.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+        private void checkBox32_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox32.Checked)
+            {
+                richTextBox30.Show();
+                resultInt += 0.25;
+            }
+            else
+            {
+                richTextBox30.Hide();
+                resultInt -= 0.25;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
+
+
+
+
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
@@ -631,7 +924,9 @@ namespace ContrAgent
 
             db.openConnection();
 
-            using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM conclusion", db.getConnection()))
+            using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
+                "`subject`, `specification`, `initiator`, `object`," +
+                "`result`, `price`, `sad` FROM conclusion WHERE status = 0", db.getConnection()))
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -665,6 +960,42 @@ namespace ContrAgent
                 }
             }
             //dataGridView1.Rows[1].Cells[7].Style.BackColor = Color.Yellow;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var conc = conclusionSearchField.Text;
+            
+
+            DB db = new DB();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            db.openConnection();
+
+            MySqlCommand command = new MySqlCommand("SELECT * FROM conclusion WHERE `conclusion number` = @conc", db.getConnection());
+            command.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conc;
+            //если нет мессадж бокс
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+
+                conclusionNumberField.Text = reader[0].ToString();
+                evaluationDateField.Text = reader[1].ToString();
+                reasonField.Text = reader[2].ToString();
+                subjectField.Text = reader[3].ToString();
+                specificationField.Text = reader[4].ToString();
+                initiatorField.Text = reader[5].ToString();
+                objectField.Text = reader[6].ToString();
+                result = reader[7].ToString();
+                priceField.Text = reader[8].ToString();
+                sadField.Text = reader[9].ToString();
+                
+
+            }
+            resultUpdater();
+            db.closeConnection();
+            //молоток
         }
     }
 }
