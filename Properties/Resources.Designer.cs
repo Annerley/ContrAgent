@@ -63,6 +63,26 @@ namespace ContrAgent.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap document_edit_icon_180794 {
+            get {
+                object obj = ResourceManager.GetObject("document_edit_icon_180794", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap edit_delete_icon_180812 {
+            get {
+                object obj = ResourceManager.GetObject("edit_delete_icon_180812", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);
@@ -76,6 +96,36 @@ namespace ContrAgent.Properties {
         internal static System.Drawing.Bitmap logoMin {
             get {
                 object obj = ResourceManager.GetObject("logoMin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap media_playback_start_icon_180875 {
+            get {
+                object obj = ResourceManager.GetObject("media_playback_start_icon_180875", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap value_increase_icon_180903 {
+            get {
+                object obj = ResourceManager.GetObject("value_increase_icon_180903", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap view_conceal_icon_180905 {
+            get {
+                object obj = ResourceManager.GetObject("view_conceal_icon_180905", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

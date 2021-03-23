@@ -45,7 +45,7 @@ namespace ContrAgent
             {
                 
                 MessageBox.Show("Успешная авторизация");
-                Form1 Form1 = new Form1(loginField.Text);
+                DataView Form1 = new DataView(loginField.Text);
                 Form1.Show();
 
                 

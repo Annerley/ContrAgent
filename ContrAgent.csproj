@@ -61,6 +61,12 @@
     <Compile Include="AuthorizationForm.Designer.cs">
       <DependentUpon>AuthorizationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataView.Designer.cs">
+      <DependentUpon>DataView.cs</DependentUpon>
+    </Compile>
     <Compile Include="DB.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -77,6 +83,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AuthorizationForm.resx">
       <DependentUpon>AuthorizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataView.resx">
+      <DependentUpon>DataView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -149,6 +158,21 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\value_increase_icon_180903.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\document_edit_icon_180794.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\edit_delete_icon_180812.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\media_playback_start_icon_180875.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\view_conceal_icon_180905.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
