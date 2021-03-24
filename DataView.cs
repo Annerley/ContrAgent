@@ -19,7 +19,7 @@ namespace ContrAgent
             InitializeComponent();
 
             label53.Text = "Пользователь: " + name;
-            name = this.name;
+            this.name = name;
             TimeUpdater();
 
 
@@ -100,7 +100,18 @@ namespace ContrAgent
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Form1 Form1 = new Form1(name);
+            Form1 Form1 = new Form1(name, "", 0);
+            Console.WriteLine(name);
+            Form1.Show();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            string number = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString();
+
+           
+            Form1 Form1 = new Form1(name, number, 1);
+            
             Form1.Show();
         }
     }

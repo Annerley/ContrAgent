@@ -17,25 +17,348 @@ namespace ContrAgent
     {
         double resultInt = 0;
         string result = "";
-
-        public Form1(string name)
+        public int statusMain = 0;
+        
+        public Form1(string name, string number, int status)
         {
             InitializeComponent();
+            Hide_Unnecessary();
+            statusMain = status;
+            uploadData(name, number, status);
+
             label53.Text = "Пользователь: " + name;
             resultUpdater();
             TimeUpdater();
-            Hide_Unnecessary();
-
-
+            
             label51.Text = resultInt.ToString();
 
+        }
+        private void uploadData(string name, string number, int status)
+        {
+
+            DB db = new DB();
+            db.openConnection();
             
+            if(statusMain == 1)
+            {
+               
+              
+
+               
+
+                MySqlCommand command = new MySqlCommand("SELECT * FROM conclusion WHERE `conclusion number` = @conc", db.getConnection());
+                command.Parameters.Add("@conc", MySqlDbType.VarChar).Value = number;
+                //если нет мессадж бокс
+                //подтянуть скоринг
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    conclusionNumberField.Text = reader[0].ToString();
+                    evaluationDateField.Text = reader[1].ToString();
+                    reasonField.Text = reader[2].ToString();
+                    subjectField.Text = reader[3].ToString();
+                    specificationField.Text = reader[4].ToString();
+                    initiatorField.Text = reader[5].ToString();
+                    objectField.Text = reader[6].ToString();
+                    result = reader[7].ToString();
+                    priceField.Text = reader[8].ToString();
+                    sadField.Text = reader[9].ToString();
 
 
+                }
+                db.closeConnection();
+                db.openConnection();
+                MySqlCommand command2 = new MySqlCommand("SELECT inn FROM main WHERE `conclusion number` = @number", db.getConnection());
+                command2.Parameters.Add("@number", MySqlDbType.VarChar).Value = number;
+                MySqlDataReader reader2 = command2.ExecuteReader();
+                reader2.Read();
+                var value = reader2[0];
+                db.closeConnection();
+                db.openConnection();
 
+                //костыли с reader`ом поправь потом
 
+                MySqlCommand command3 = new MySqlCommand("SELECT * FROM organisation WHERE `inn` = @inn", db.getConnection());
+                command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = value;
+                MySqlDataReader reader3 = command3.ExecuteReader();
+                
 
+                //очень костыли
 
+                while (reader3.Read())
+                {
+
+                    innField.Text = reader3[0].ToString();
+                    orgNameField.Text = reader3[1].ToString();
+                    factAdressField.Text = reader3[2].ToString();
+                    registrationDateField.Text = reader3[3].ToString();
+                    activityField.Text = reader3[4].ToString();
+                    legalAdressField.Text = reader3[5].ToString();
+                    emailField.Text = reader3[6].ToString();
+                    phoneField.Text = reader3[7].ToString();
+                    leaderField.Text = reader3[8].ToString();
+                    foundersField.Text = reader3[9].ToString();
+
+                }
+
+                updateScoring(number);
+                resultUpdater();
+
+                //молоток
+            }
+            else if(statusMain == 0)
+            {
+                MySqlCommand command = new MySqlCommand("SELECT letter FROM users WHERE name = @name", db.getConnection());
+                command.Parameters.Add("@name", MySqlDbType.VarChar).Value = name;
+                MySqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    conclusionNumberField.Text = reader[0].ToString()+"-";
+                }
+            }
+            db.closeConnection();
+        }
+        private void updateScoring(string number)
+        {
+            DB db = new DB();
+            db.openConnection();
+
+            MySqlCommand command = new MySqlCommand("SELECT point, comment FROM scoring WHERE `conclusion number` = @conc", db.getConnection());
+            command.Parameters.Add("@conc", MySqlDbType.VarChar).Value = number;
+            //если нет мессадж бокс
+            //подтянуть скоринг
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+
+                if(reader[0].ToString() == "1")
+                {
+                    
+                    richTextBox1.Show();
+                    checkBox2.Checked = true;
+                    richTextBox1.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "2")
+                {
+
+                    richTextBox2.Show();
+                    checkBox3.Checked = true;
+                    richTextBox2.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "3")
+                {
+
+                    richTextBox3.Show();
+                    checkBox4.Checked = true;
+                    richTextBox3.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "4")
+                {
+
+                    richTextBox4.Show();
+                    checkBox5.Checked = true;
+                    richTextBox4.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "5")
+                {
+
+                    richTextBox4.Show();
+                    checkBox6.Checked = true;
+                    richTextBox4.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "6")
+                {
+
+                    richTextBox5.Show();
+                    checkBox7.Checked = true;
+                    richTextBox5.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "7")
+                {
+
+                    richTextBox6.Show();
+                    checkBox8.Checked = true;
+                    richTextBox6.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "8")
+                {
+
+                    richTextBox7.Show();
+                    checkBox9.Checked = true;
+                    richTextBox7.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "9")
+                {
+
+                    richTextBox8.Show();
+                    checkBox10.Checked = true;
+                    richTextBox8.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "10")
+                {
+
+                    richTextBox9.Show();
+                    checkBox11.Checked = true;
+                    richTextBox9.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "11")
+                {
+
+                    richTextBox10.Show();
+                    checkBox12.Checked = true;
+                    richTextBox10.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "12")
+                {
+
+                    richTextBox11.Show();
+                    checkBox13.Checked = true;
+                    richTextBox11.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "13")
+                {
+
+                    richTextBox12.Show();
+                    checkBox14.Checked = true;
+                    richTextBox12.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "14")
+                {
+
+                    richTextBox13.Show();
+                    checkBox15.Checked = true;
+                    richTextBox13.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "15")
+                {
+
+                    richTextBox14.Show();
+                    checkBox16.Checked = true;
+                    richTextBox14.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "16")
+                {
+
+                    richTextBox15.Show();
+                    checkBox17.Checked = true;
+                    richTextBox15.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "17")
+                {
+
+                    richTextBox16.Show();
+                    checkBox1.Checked = true;
+                    richTextBox16.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "18")
+                {
+
+                    richTextBox17.Show();
+                    checkBox18.Checked = true;
+                    richTextBox17.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "19")
+                {
+
+                    richTextBox19.Show();
+                    checkBox20.Checked = true;
+                    richTextBox19.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "20")
+                {
+
+                    richTextBox18.Show();
+                    checkBox19.Checked = true;
+                    richTextBox18.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "21")
+                {
+
+                    richTextBox18.Show();
+                    checkBox21.Checked = true;
+                    richTextBox18.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "22")
+                {
+
+                    richTextBox21.Show();
+                    checkBox22.Checked = true;
+                    richTextBox21.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "23")
+                {
+
+                    richTextBox22.Show();
+                    checkBox23.Checked = true;
+                    richTextBox22.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "24")
+                {
+
+                    richTextBox23.Show();
+                    checkBox24.Checked = true;
+                    richTextBox23.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "25")
+                {
+
+                    richTextBox24.Show();
+                    checkBox25.Checked = true;
+                    richTextBox24.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "26")
+                {
+
+                    richTextBox25.Show();
+                    checkBox26.Checked = true;
+                    richTextBox25.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "27")
+                {
+
+                    richTextBox25.Show();
+                    checkBox27.Checked = true;
+                    richTextBox25.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "28")
+                {
+
+                    richTextBox26.Show();
+                    checkBox28.Checked = true;
+                    richTextBox26.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "29")
+                {
+
+                    richTextBox27.Show();
+                    checkBox29.Checked = true;
+                    richTextBox27.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "30")
+                {
+
+                    richTextBox28.Show();
+                    checkBox30.Checked = true;
+                    richTextBox28.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "31")
+                {
+
+                    richTextBox29.Show();
+                    checkBox31.Checked = true;
+                    richTextBox29.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "32")
+                {
+
+                    richTextBox30.Show();
+                    checkBox32.Checked = true;
+                    richTextBox30.Text = reader[1].ToString();
+                }
+            }
+            db.closeConnection();
         }
         private void Hide_Unnecessary()
         {
@@ -846,10 +1169,7 @@ namespace ContrAgent
             }
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
+        
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -962,40 +1282,6 @@ namespace ContrAgent
             //dataGridView1.Rows[1].Cells[7].Style.BackColor = Color.Yellow;
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            var conc = conclusionSearchField.Text;
-            
-
-            DB db = new DB();
-
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-            db.openConnection();
-
-            MySqlCommand command = new MySqlCommand("SELECT * FROM conclusion WHERE `conclusion number` = @conc", db.getConnection());
-            command.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conc;
-            //если нет мессадж бокс
-            MySqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-
-                conclusionNumberField.Text = reader[0].ToString();
-                evaluationDateField.Text = reader[1].ToString();
-                reasonField.Text = reader[2].ToString();
-                subjectField.Text = reader[3].ToString();
-                specificationField.Text = reader[4].ToString();
-                initiatorField.Text = reader[5].ToString();
-                objectField.Text = reader[6].ToString();
-                result = reader[7].ToString();
-                priceField.Text = reader[8].ToString();
-                sadField.Text = reader[9].ToString();
-                
-
-            }
-            resultUpdater();
-            db.closeConnection();
-            //молоток
-        }
+       
     }
 }

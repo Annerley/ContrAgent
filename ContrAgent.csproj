@@ -174,5 +174,8 @@
   <ItemGroup>
     <None Include="img\view_conceal_icon_180905.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="img\hammer_5015.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
