@@ -17,13 +17,14 @@ namespace ContrAgent
     {
         double resultInt = 0;
         string result = "";
-        public int statusMain = 0;
-        
+        public int statusMain = 1;
+        public string nameMain = "";
         public Form1(string name, string number, int status)
         {
             InitializeComponent();
             Hide_Unnecessary();
             statusMain = status;
+            nameMain = name;
             uploadData(name, number, status);
 
             label53.Text = "Пользователь: " + name;
@@ -32,6 +33,50 @@ namespace ContrAgent
             
             label51.Text = resultInt.ToString();
 
+            
+
+        }
+        private void blockEverything()
+        {
+            conclusionNumberField.ReadOnly = true;
+            innField.ReadOnly = true;
+            sadField.ReadOnly = true;
+            evaluationDateField.Enabled = false;
+            subjectField.ReadOnly = true;
+
+
+            richTextBox1.ReadOnly = true; ;
+            richTextBox2.ReadOnly = true;
+            richTextBox3.ReadOnly = true;
+            richTextBox4.ReadOnly = true;
+            richTextBox5.ReadOnly = true;
+            richTextBox6.ReadOnly = true;
+            richTextBox7.ReadOnly = true;
+            richTextBox8.ReadOnly = true;
+            richTextBox9.ReadOnly = true;
+            richTextBox10.ReadOnly = true;
+            richTextBox11.ReadOnly = true;
+            richTextBox12.ReadOnly = true;
+            richTextBox13.ReadOnly = true;
+            richTextBox14.ReadOnly = true;
+            richTextBox15.ReadOnly = true;
+            richTextBox16.ReadOnly = true;
+            richTextBox17.ReadOnly = true;
+            richTextBox18.ReadOnly = true;
+            richTextBox19.ReadOnly = true;
+            richTextBox21.ReadOnly = true;
+            richTextBox22.ReadOnly = true;
+            richTextBox23.ReadOnly = true;
+            richTextBox24.ReadOnly = true;
+            richTextBox25.ReadOnly = true;
+            richTextBox26.ReadOnly = true;
+            richTextBox27.ReadOnly = true;
+            richTextBox28.ReadOnly = true;
+            richTextBox29.ReadOnly = true;
+            richTextBox30.ReadOnly = true;
+
+            //тоже самое для чекбоксов
+
         }
         private void uploadData(string name, string number, int status)
         {
@@ -39,12 +84,15 @@ namespace ContrAgent
             DB db = new DB();
             db.openConnection();
             
-            if(statusMain == 1)
+            if(statusMain == 1 || statusMain == 0)
             {
-               
-              
 
-               
+
+                if (statusMain == 0)
+                {
+                    blockEverything();
+                }
+
 
                 MySqlCommand command = new MySqlCommand("SELECT * FROM conclusion WHERE `conclusion number` = @conc", db.getConnection());
                 command.Parameters.Add("@conc", MySqlDbType.VarChar).Value = number;
@@ -69,18 +117,22 @@ namespace ContrAgent
                 }
                 db.closeConnection();
                 db.openConnection();
+                var value = "";
                 MySqlCommand command2 = new MySqlCommand("SELECT inn FROM main WHERE `conclusion number` = @number", db.getConnection());
                 command2.Parameters.Add("@number", MySqlDbType.VarChar).Value = number;
                 MySqlDataReader reader2 = command2.ExecuteReader();
-                reader2.Read();
-                var value = reader2[0];
+                while(reader2.Read())
+                {
+                    innField.Text = reader2[0].ToString();
+                }
+                
                 db.closeConnection();
                 db.openConnection();
 
                 //костыли с reader`ом поправь потом
 
                 MySqlCommand command3 = new MySqlCommand("SELECT * FROM organisation WHERE `inn` = @inn", db.getConnection());
-                command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = value;
+                command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
                 MySqlDataReader reader3 = command3.ExecuteReader();
                 
 
@@ -107,7 +159,7 @@ namespace ContrAgent
 
                 //молоток
             }
-            else if(statusMain == 0)
+            else if(statusMain == 2)
             {
                 MySqlCommand command = new MySqlCommand("SELECT letter FROM users WHERE name = @name", db.getConnection());
                 command.Parameters.Add("@name", MySqlDbType.VarChar).Value = name;
@@ -405,61 +457,151 @@ namespace ContrAgent
            
 
             // Если уже есть, обновить
-            MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion number`, `evaluation date`,`reason for rating`,`subject`," +
-                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`) " +
+            if(statusMain == 2)
+            {
+                MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion number`, `evaluation date`,`reason for rating`,`subject`," +
+                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`) " +
                 "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
-                "@specification,  @initiator, @object, '' , @price, @sad, @status)", db.getConnection());
-            command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-            //Console.WriteLine(evaluationDateField.Text);
-            command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
-            
-            command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
-            command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
-            command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
-            command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
-            command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
-            if(priceField.Text == "")
-            {
-                command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
+                "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter)", db.getConnection());
+
+                command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                //Console.WriteLine(evaluationDateField.Text);
+                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
+
+                command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
+                command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
+                command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
+                command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
+                command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
+                command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
+                db.openConnection();
+                var letter = "";
+                MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
+                cmd2.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+
+                MySqlDataReader reader2 = cmd2.ExecuteReader();
+                reader2.Read();
+                letter = reader2[0].ToString();
+
+                db.closeConnection();
+                db.openConnection();
+
+                command.Parameters.Add("@letter", MySqlDbType.Text).Value = letter;
+                if (priceField.Text == "")
+                {
+                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
+                }
+                else
+                {
+                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+                }
+                command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
+                if (hammerCheck.Checked)
+                {
+                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
+                }
+                else
+                {
+                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
+                }
+                MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion number`) VALUES(@inn, @conclusion_number) ", db.getConnection());
+                command2.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                command2.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+
+
+                MySqlCommand command3 = new MySqlCommand("INSERT INTO `organisation` (`inn`, `name`,`fact adress`,`registration date`," +
+               "`activity`,`legal adress`, `email`, `phone`, `leader`, `founder`) " +
+               "VALUES (@inn, @name, @fact_adress, @reg_date," +
+               "@activity,  @legal_adress, @email, @phone , @leader, @founder)", db.getConnection());
+
+                command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
+                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                command3.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+                command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
+                command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
+                command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
+                command3.Parameters.Add("@email", MySqlDbType.VarChar).Value = emailField.Text;
+                command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
+                command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
+                command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
+
+                db.openConnection();
+
+
+                addScoringToDb(db);
+
+                if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery()==1)
+                    MessageBox.Show("Добавилось");
+                else
+                    MessageBox.Show("Не добавилось");
             }
             else
             {
-                command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+                MySqlCommand command = new MySqlCommand("UPDATE `conclusion` SET `evaluation date` = @evaluation_date, `reason for rating` = @reason_for_rating, " +
+                    "`subject` = @subject, `specification` = @specification, `initiator` = @initiator, `object` = @object, `result` = @result, `price` = @price," +
+                    " `sad` = @sad WHERE `conclusion number` = @number" , db.getConnection());
+
+
+                //Console.WriteLine(evaluationDateField.Text);
+                command.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
+
+                command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
+                command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
+                command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
+                command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
+                command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
+                command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
+                if (priceField.Text == "")
+                {
+                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
+                }
+                else
+                {
+                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+                }
+                command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
+                if (hammerCheck.Checked)
+                {
+                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
+                }
+                else
+                {
+                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
+                }
+
+                MySqlCommand command3 = new MySqlCommand("UPDATE `organisation` SET  `name` = @name,`fact adress` = @fact_adress,`registration date` = @reg_date," +
+               "`activity` = @activity,`legal adress` = @legal_adress, `email` = @email, `phone` = @phone, `leader` = @leader, `founder` = @founder) " +
+               "WHERE `inn` = @inn)", db.getConnection());
+
+                command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
+                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                command3.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+                command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
+                command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
+                command3.Parameters.Add("@email", MySqlDbType.VarChar).Value = emailField.Text;
+                command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
+                command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
+                command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
+
+                db.openConnection();
+
+                if (command.ExecuteNonQuery() == 1 )
+                    MessageBox.Show("Добавилось");
+                else
+                    MessageBox.Show("Не добавилось");
+
+                db.closeConnection();
+                
+                addScoringToDb(db);
+
+                
             }
-            command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
-            if(hammerCheck.Checked)
-            {
-                command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
-            }
-            else
-            {
-                command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
-            }
-            MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion number`) VALUES(@inn, @conclusion_number) ", db.getConnection());
-            command2.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-            command2.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
-
-
-
-
-            db.openConnection();
-
-           
-            addScoringToDb(db);
             
-            
-
-
-            if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery()==1)
-                MessageBox.Show("Добавилось");
-            else
-                MessageBox.Show("Не добавилось");
 
             db.closeConnection();
 
 
-            //для select
-            //adapter.Fill(table);
             
 
 
@@ -468,38 +610,295 @@ namespace ContrAgent
         private void addScoringToDb(DB db)
         {
             string cmd = "";
-            MySqlCommand commandScore = new MySqlCommand(cmd, db.getConnection());
+           
             if(conclusionNumberField.Text=="")
             {
                 MessageBox.Show("Введите номер заключения");
             }
-            else
+            else 
             {
+               
+                //допилить, не работает
+
+               
+                db.openConnection();
+
+                if(statusMain == 1)
+                {
+                    cmd = ("DELETE FROM `scoring` WHERE `conclusion number` = @conclusion_number ");
+                    MySqlCommand commandScore = new MySqlCommand(cmd, db.getConnection());
+                    commandScore.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+
+
+                    commandScore.ExecuteNonQuery();
+                }
+
+
+                cmd = ("INSERT INTO `scoring` (`conclusion number`, `point`, `comment`) VALUES (@conclusion_number, @point, @comment) ");
+                
                 if (checkBox2.Checked)
                 {
-                    cmd = ("INSERT INTO `scoring` (`conclusion number`, `point`, `comment`) VALUES (@conclusion_number, @point, @comment)");
-                    commandScore.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    commandScore.Parameters.Add("@point", MySqlDbType.Int32).Value = 1;
-                    commandScore.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox1.Text;
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 1;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox1.Text;
+                    command.ExecuteNonQuery();
                 }
                 if (checkBox3.Checked)
                 {
-                    cmd = ("INSERT INTO `scoring` (`conclusion number`, `point`, `comment`) VALUES (@conclusion_number, @point, @comment)");
-                    commandScore.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    commandScore.Parameters.Add("@point", MySqlDbType.Int32).Value = 2;
-                    commandScore.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox2.Text;
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 2;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox2.Text;
+                    command.ExecuteNonQuery();
+
                 }
+                if (checkBox4.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 3;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox3.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox5.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 4;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox4.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox6.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 5;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox4.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox7.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 6;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox5.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox8.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 7;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox6.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox9.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 8;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox7.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox10.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 9;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox8.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox11.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 10;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox9.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox12.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 11;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox10.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox13.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 12;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox11.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox14.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 13;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox12.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox15.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 14;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox12.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox16.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 15;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox14.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox17.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 16;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox15.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox1.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 17;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox16.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox18.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 18;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox17.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox19.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 21;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox18.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox20.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 19;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox19.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox21.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 20;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox18.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox22.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 22;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox21.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox23.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 23;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox22.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox24.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 24;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox23.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox25.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 25;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox24.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox26.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 26;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox25.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox27.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 27;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox25.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox28.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 28;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox26.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox29.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 29;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox27.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox30.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 30;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox28.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox31.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 31;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox29.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox32.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 32;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox30.Text;
+                    command.ExecuteNonQuery();
+                }
+
             }
 
             //MySqlCommand commandScore = new MySqlCommand(, db.getConnection());
             
-            if(cmd != "")
-            {
-                if (commandScore.ExecuteNonQuery() == 1)
-                    MessageBox.Show("Добавилось");
-                else
-                    MessageBox.Show("Не добавилось");
-            }
+            
             
         }
 
@@ -546,14 +945,16 @@ namespace ContrAgent
             var subject = subjectField.Text;
             var price = priceField.Text;
             var extra = extraField.Text;
+            var name = orgNameField.Text;
 
             var wordApp = new Word.Application();
             wordApp.Visible = false;
 
-            var wordDocument = wordApp.Documents.Open(@"C:\учебка\agent\ContrAgent\pattern.docx");
+            var wordDocument = wordApp.Documents.Open(@"C:\Users\laput\source\repos\Contr\pattern.docx");
             ReplaceWordStub("{conclusion_number}", conclusionNumber, wordDocument);
             ReplaceWordStub("{initiator}", initiator, wordDocument);
             ReplaceWordStub("{evaluation_date}", evaluationDate, wordDocument);
+            ReplaceWordStub("{name}", name, wordDocument);
             ReplaceWordStub("{sad_number}", sad_number, wordDocument);
             ReplaceWordStub("{object}", object_field, wordDocument);
             ReplaceWordStub("{inn}", inn, wordDocument);
@@ -565,7 +966,7 @@ namespace ContrAgent
 
             addScoringToWord(conclusionNumber, wordDocument);
 
-            wordDocument.SaveAs(@"C:\учебка\agent\ContrAgent\test2.rtf");
+            wordDocument.SaveAs(@"C:\Users\laput\source\repos\Contr\text.docx");
             wordApp.Visible = true;
 
         }
@@ -583,6 +984,7 @@ namespace ContrAgent
             while (reader.Read())
             {
                 result+= reader[0].ToString() + ". " + reader[1].ToString();
+                //пофиксить, кривой символ
                 result += "\r\n";
             }
             ReplaceWordStub("{scoring}", result, wordDocument);
@@ -1171,46 +1573,7 @@ namespace ContrAgent
 
         
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //стереть старое
-            DB db = new DB();
-
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-            db.openConnection();
-
-            List<Label> labels = new List<Label>();
-            MySqlCommand command = new MySqlCommand("SELECT `conclusion number` FROM main WHERE inn = @inn", db.getConnection());
-            command.Parameters.Add("@inn", MySqlDbType.Int32).Value = innSearchField.Text;
-
-            MySqlDataReader reader = command.ExecuteReader();
-            int i = 0;
-            int x = 15;
-            int y = 100;
-            while (reader.Read())
-            {
-                
-                labels.Add(new Label());
-                tabPage6.Controls.Add(labels[i]);
-                labels[i].Text = reader[0].ToString();
-                labels[i].Location = new Point(x, y);
-                labels[i].ForeColor = Color.Black;
-                labels[i].Font = label51.Font;
-                labels[i].AutoSize = true;
-                labels[i].Show();
-                
-                y += 25;
-                
-                
-                i++;
-                
-                
-            }
-
-            db.closeConnection();
-
-        }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {

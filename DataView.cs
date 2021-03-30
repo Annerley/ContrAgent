@@ -13,13 +13,13 @@ namespace ContrAgent
 {
     public partial class DataView : Form
     {
-        string name = "";
+        string nameMain = "";
         public DataView(string name)
         {
             InitializeComponent();
 
             label53.Text = "Пользователь: " + name;
-            this.name = name;
+            nameMain = name;
             TimeUpdater();
 
 
@@ -64,7 +64,7 @@ namespace ContrAgent
 
             using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
                 "`subject`, `specification`, `initiator`, `object`," +
-                "`result`, `price`, `sad` FROM conclusion WHERE status = 0", db.getConnection()))
+                "`result`, `price`, `sad` FROM conclusion WHERE status = 1", db.getConnection()))
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -91,7 +91,7 @@ namespace ContrAgent
                 {
                     dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Red;
                 }
-                else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно с ограничениями")
+                else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно c ограничением")
                 {
                     dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Yellow;
                 }
@@ -100,8 +100,8 @@ namespace ContrAgent
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Form1 Form1 = new Form1(name, "", 0);
-            Console.WriteLine(name);
+            Form1 Form1 = new Form1(nameMain, "", 2);
+            Console.WriteLine(nameMain);
             Form1.Show();
         }
 
@@ -109,10 +109,211 @@ namespace ContrAgent
         {
             string number = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString();
 
-           
-            Form1 Form1 = new Form1(name, number, 1);
+            DB db = new DB();
+
+            db.openConnection();
+            MySqlCommand cmd = new MySqlCommand("SELECT `status` FROM conclusion WHERE `conclusion number` = @number", db.getConnection());
+            cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = number;
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
             
-            Form1.Show();
+            if(reader[0].ToString() == "0" )
+            {
+                Form1 Form1 = new Form1(nameMain, number, 0);
+                Form1.Show();
+            }
+            else
+            {
+                Form1 Form1 = new Form1(nameMain, number, 1);
+                Form1.Show();
+            }
+
+            
+            
+           
+            db.closeConnection();
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            
+           if(checkBox2.Checked && !checkBox1.Checked)
+           {
+                DataTable dtConclusion = new DataTable();
+
+                DB db = new DB();
+
+                db.openConnection();
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
+                    "`subject`, `specification`, `initiator`, `object`," +
+                    "`result`, `price`, `sad` FROM conclusion ", db.getConnection()))
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+           }
+            else if(checkBox1.Checked && checkBox2.Checked)
+            {
+                DataTable dtConclusion = new DataTable();
+                var letter = "";
+                DB db = new DB();
+
+                db.openConnection();
+                MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
+                cmd2.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+
+                MySqlDataReader reader2 = cmd2.ExecuteReader();
+                reader2.Read();
+                letter = reader2[0].ToString();
+                db.closeConnection();
+                db.openConnection();
+                //опять костыли
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
+                    "`subject`, `specification`, `initiator`, `object`," +
+                    "`result`, `price`, `sad` FROM conclusion WHERE letter = @name", db.getConnection()))
+                {
+                    cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+            }
+            else if (checkBox1.Checked && !checkBox2.Checked)
+            {
+
+                var letter = "";
+
+                DataTable dtConclusion = new DataTable();
+
+                DB db = new DB();
+
+                db.openConnection();
+                MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
+                cmd2.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+
+                MySqlDataReader reader2 = cmd2.ExecuteReader();
+                reader2.Read();
+                letter = reader2[0].ToString();
+                db.closeConnection();
+                db.openConnection();
+                //опять костыли
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
+                    "`subject`, `specification`, `initiator`, `object`," +
+                    "`result`, `price`, `sad` FROM conclusion WHERE letter = @name AND status = 1", db.getConnection()))
+                {
+                    cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+            }
+            else
+            {
+                dataGridView1.DataSource = getConclusionList();
+            }
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            var letter = "";
+            if (checkBox1.Checked && !checkBox2.Checked)
+            {
+
+                
+
+                DataTable dtConclusion = new DataTable();
+
+                DB db = new DB();
+
+                db.openConnection();
+                MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
+                cmd2.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+
+                MySqlDataReader reader2 = cmd2.ExecuteReader();
+                reader2.Read();
+                letter = reader2[0].ToString();
+                db.closeConnection();
+                db.openConnection();
+                //опять костыли
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
+                    "`subject`, `specification`, `initiator`, `object`," +
+                    "`result`, `price`, `sad` FROM conclusion WHERE letter = @name AND status = 1", db.getConnection()))
+                {
+                    cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+            }
+            else if (checkBox2.Checked && !checkBox1.Checked)
+            {
+                DataTable dtConclusion = new DataTable();
+
+                DB db = new DB();
+
+                db.openConnection();
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
+                    "`subject`, `specification`, `initiator`, `object`," +
+                    "`result`, `price`, `sad` FROM conclusion ", db.getConnection()))
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+            }
+            else if (checkBox1.Checked && checkBox2.Checked)
+            {
+                DataTable dtConclusion = new DataTable();
+
+                DB db = new DB();
+
+                db.openConnection();
+                MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
+                cmd2.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+
+                MySqlDataReader reader2 = cmd2.ExecuteReader();
+                reader2.Read();
+                letter = reader2[0].ToString();
+                db.closeConnection();
+                db.openConnection();
+                //опять костыли
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
+                    "`subject`, `specification`, `initiator`, `object`," +
+                    "`result`, `price`, `sad` FROM conclusion WHERE letter = @name", db.getConnection()))
+                {
+                    cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+            }
+            else
+            {
+                dataGridView1.DataSource = getConclusionList();
+            }
         }
     }
 

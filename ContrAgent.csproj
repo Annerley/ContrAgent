@@ -177,5 +177,32 @@
   <ItemGroup>
     <None Include="img\hammer_5015.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="img\binoculars_search_find_icon_179063.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\camera_security_surevillance_icon_179337.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\cat.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\edit_pencil_modify_write_icon_179065.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\images_photo_icon_179183.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\padlock_lock_close_icon_179140.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\plus_add_insert_append_icon_179162.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\ticket_paper_icon_179218.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\trash_delete_recycle_bin_remove_icon_179056.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
