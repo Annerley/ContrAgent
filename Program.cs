@@ -17,7 +17,7 @@ namespace ContrAgent
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DataView("admin"));
+            Application.Run(new AuthorizationForm());
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
@@ -950,7 +951,8 @@ namespace ContrAgent
             var wordApp = new Word.Application();
             wordApp.Visible = false;
 
-            var wordDocument = wordApp.Documents.Open(@"C:\Users\laput\source\repos\Contr\pattern.docx");
+            string patternPath = Directory.GetCurrentDirectory() + "\\pattern.docx";
+            var wordDocument = wordApp.Documents.Open(@patternPath);
             ReplaceWordStub("{conclusion_number}", conclusionNumber, wordDocument);
             ReplaceWordStub("{initiator}", initiator, wordDocument);
             ReplaceWordStub("{evaluation_date}", evaluationDate, wordDocument);
@@ -965,8 +967,16 @@ namespace ContrAgent
             ReplaceWordStub("{result}", result, wordDocument);
 
             addScoringToWord(conclusionNumber, wordDocument);
+            //берем из конфига
+            string path = "C:\\Users\\laput\\source\\repos\\Contr\\" + conclusionNumberField.Text;
 
-            wordDocument.SaveAs(@"C:\Users\laput\source\repos\Contr\text.docx");
+            if (!Directory.Exists(@path))
+            {
+                Directory.CreateDirectory(@path);
+            }
+
+            string adress = path + "\\" + conclusionNumberField.Text + ".docx";
+            wordDocument.SaveAs(@adress);
             wordApp.Visible = true;
 
         }
