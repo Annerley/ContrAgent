@@ -162,14 +162,27 @@ namespace ContrAgent
             }
             else if(statusMain == 2)
             {
+                string result = "";
                 MySqlCommand command = new MySqlCommand("SELECT letter FROM users WHERE name = @name", db.getConnection());
                 command.Parameters.Add("@name", MySqlDbType.VarChar).Value = name;
                 MySqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    conclusionNumberField.Text = reader[0].ToString()+"-";
+                   result = reader[0].ToString()+"-";
                 }
+                db.closeConnection();
+                db.openConnection();
+                MySqlCommand command2 = new MySqlCommand("SELECT last FROM users WHERE name = @name", db.getConnection());
+                command2.Parameters.Add("@name", MySqlDbType.VarChar).Value = name;
+                MySqlDataReader reader2 = command2.ExecuteReader();
+
+                while (reader2.Read())
+                {
+                    result = result + reader2[0].ToString();
+                }
+
+                conclusionNumberField.Text = result;
             }
             db.closeConnection();
         }
@@ -531,7 +544,15 @@ namespace ContrAgent
 
                 addScoringToDb(db);
 
-                if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery()==1)
+
+                MySqlCommand command4 = new MySqlCommand("UPDATE `users` SET `last` = @last WHERE `name` = @name" , db.getConnection());
+
+                int last = Convert.ToInt32(conclusionNumberField.Text.Remove(0, 2));
+                last++;
+                command4.Parameters.Add("@last", MySqlDbType.Int32).Value = last;
+                command4.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+
+                if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery()==1 && command4.ExecuteNonQuery() == 1)
                     MessageBox.Show("Добавилось");
                 else
                     MessageBox.Show("Не добавилось");
@@ -1655,6 +1676,6 @@ namespace ContrAgent
             //dataGridView1.Rows[1].Cells[7].Style.BackColor = Color.Yellow;
         }
 
-       
+        
     }
 }
