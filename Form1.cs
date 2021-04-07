@@ -10,6 +10,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
+using Microsoft.Office.Interop.Word;
 
 namespace ContrAgent
 {
@@ -44,9 +45,25 @@ namespace ContrAgent
             sadField.ReadOnly = true;
             evaluationDateField.Enabled = false;
             subjectField.ReadOnly = true;
+            reasonField.Enabled = false;
+            specificationField.ReadOnly = true;
+            initiatorField.Enabled = false;
+            objectField.Enabled = false;
+            priceField.ReadOnly = true;
+            expcheckBox.Enabled = false;
+            extraField.ReadOnly = true;
+            hideExtraField.ReadOnly = true;
+            orgNameField.ReadOnly = true;
+            factAdressField.ReadOnly = true;
+            registrationDateField.Enabled = false;
+            activityField.ReadOnly = true;
+            legalAdressField.ReadOnly = true;
+            emailField.ReadOnly = true;
+            phoneField.ReadOnly = true;
+            leaderField.ReadOnly = true;
+            foundersField.ReadOnly = true;
 
-
-            richTextBox1.ReadOnly = true; ;
+            richTextBox1.ReadOnly = true; 
             richTextBox2.ReadOnly = true;
             richTextBox3.ReadOnly = true;
             richTextBox4.ReadOnly = true;
@@ -113,6 +130,12 @@ namespace ContrAgent
                     result = reader[7].ToString();
                     priceField.Text = reader[8].ToString();
                     sadField.Text = reader[9].ToString();
+                    if(reader[12].ToString() =="Есть опыт договорных отношений")
+                    {
+                        expcheckBox.Checked = true;
+                    }
+                    extraField.Text = reader[13].ToString();
+                    hideExtraField.Text = reader[14].ToString();
 
 
                 }
@@ -465,7 +488,7 @@ namespace ContrAgent
 
             DB db = new DB();
 
-            DataTable table = new DataTable();
+            System.Data.DataTable table = new System.Data.DataTable();
 
             MySqlDataAdapter adapter = new MySqlDataAdapter();
            
@@ -474,9 +497,9 @@ namespace ContrAgent
             if(statusMain == 2)
             {
                 MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion number`, `evaluation date`,`reason for rating`,`subject`," +
-                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`) " +
+                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`, `exp`, `extra`, `hide extra`) " +
                 "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
-                "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter)", db.getConnection());
+                "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter, @exp, @extra, @hide)", db.getConnection());
 
                 command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 //Console.WriteLine(evaluationDateField.Text);
@@ -488,6 +511,16 @@ namespace ContrAgent
                 command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
                 command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
                 command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
+                if(expcheckBox.Checked)
+                {
+                    command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Есть опыт договорных отношений";
+                }
+                else
+                {
+                    command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Нет опыта договорных отношений";
+                }
+                command.Parameters.Add("@extra", MySqlDbType.Text).Value = extraField.Text;
+                command.Parameters.Add("@hide", MySqlDbType.Text).Value = hideExtraField.Text;
                 db.openConnection();
                 var letter = "";
                 MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
@@ -561,19 +594,36 @@ namespace ContrAgent
             {
                 MySqlCommand command = new MySqlCommand("UPDATE `conclusion` SET `evaluation date` = @evaluation_date, `reason for rating` = @reason_for_rating, " +
                     "`subject` = @subject, `specification` = @specification, `initiator` = @initiator, `object` = @object, `result` = @result, `price` = @price," +
-                    " `sad` = @sad WHERE `conclusion number` = @number" , db.getConnection());
+                    " `sad` = @sad, `status` = @status, `exp` = @exp, `extra` =@extra, `hide extra`=@hide WHERE `conclusion number` = @number" , db.getConnection());
 
 
                 //Console.WriteLine(evaluationDateField.Text);
                 command.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
-
+                if (hammerCheck.Checked)
+                {
+                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
+                }
+                else
+                {
+                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
+                }
                 command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
                 command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
                 command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
                 command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
                 command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
                 command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
+                if (expcheckBox.Checked)
+                {
+                    command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Есть опыт договорных отношений";
+                }
+                else
+                {
+                    command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Нет опыта договорных отношений";
+                }
+                command.Parameters.Add("@extra", MySqlDbType.Text).Value = extraField.Text;
+                command.Parameters.Add("@hide", MySqlDbType.Text).Value = hideExtraField.Text;
                 if (priceField.Text == "")
                 {
                     command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
@@ -583,24 +633,18 @@ namespace ContrAgent
                     command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
                 }
                 command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
-                if (hammerCheck.Checked)
-                {
-                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
-                }
-                else
-                {
-                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
-                }
+               
 
                 MySqlCommand command3 = new MySqlCommand("UPDATE `organisation` SET  `name` = @name,`fact adress` = @fact_adress,`registration date` = @reg_date," +
-               "`activity` = @activity,`legal adress` = @legal_adress, `email` = @email, `phone` = @phone, `leader` = @leader, `founder` = @founder) " +
-               "WHERE `inn` = @inn)", db.getConnection());
+               "`activity` = @activity,`legal adress` = @legal_adress, `email` = @email, `phone` = @phone, `leader` = @leader, `founder` = @founder " +
+               "WHERE `inn` = @inn", db.getConnection());
 
                 command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
                 command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
                 command3.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
                 command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
                 command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
+                command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
                 command3.Parameters.Add("@email", MySqlDbType.VarChar).Value = emailField.Text;
                 command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
                 command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
@@ -608,7 +652,7 @@ namespace ContrAgent
 
                 db.openConnection();
 
-                if (command.ExecuteNonQuery() == 1 )
+                if (command.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery() == 1)
                     MessageBox.Show("Добавилось");
                 else
                     MessageBox.Show("Не добавилось");
@@ -930,7 +974,7 @@ namespace ContrAgent
             while (true)
             {
                 customTimer.Text = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
-                await Task.Delay(1000*60);
+                await System.Threading.Tasks.Task.Delay(1000*60);
             }
         }
 
@@ -966,8 +1010,15 @@ namespace ContrAgent
             var reason = reasonField.Text;
             var subject = subjectField.Text;
             var price = priceField.Text;
-            var extra = extraField.Text;
+            var extra = extraField.Rtf;
             var name = orgNameField.Text;
+            string exp = "";
+            if (expcheckBox.Checked)
+            {
+                exp = "Имеет опыт договорных отношений";
+            }
+            else
+                exp = "Не имеет опыт договорных отношений";
 
             var wordApp = new Word.Application();
             wordApp.Visible = false;
@@ -986,22 +1037,51 @@ namespace ContrAgent
             ReplaceWordStub("{price}", price, wordDocument);
             ReplaceWordStub("{extra}", extra, wordDocument);
             ReplaceWordStub("{result}", result, wordDocument);
+            ReplaceWordStub("{exp}", exp, wordDocument);
 
             addScoringToWord(conclusionNumber, wordDocument);
             //берем из конфига
-            string path = "C:\\Users\\laput\\source\\repos\\Contr\\" + conclusionNumberField.Text;
+            string path = getConfigPath(0)+"\\" + conclusionNumberField.Text;
+
+            //string path =  + conclusionNumberField.Text;
 
             if (!Directory.Exists(@path))
             {
                 Directory.CreateDirectory(@path);
             }
-
+            string pdf = path + "\\" + conclusionNumberField.Text + ".pdf";
             string adress = path + "\\" + conclusionNumberField.Text + ".docx";
+
+            object oMissing = System.Reflection.Missing.Value;
             wordDocument.SaveAs(@adress);
+            //wordDocument.SaveAs(@pdf);
+            wordDocument.ExportAsFixedFormat(pdf, (WdExportFormat)WdSaveFormat.wdFormatPDF, false, WdExportOptimizeFor.wdExportOptimizeForOnScreen,
+                    WdExportRange.wdExportAllDocument, 1, 1, WdExportItem.wdExportDocumentContent, true, true,
+                    WdExportCreateBookmarks.wdExportCreateHeadingBookmarks, true, true, false, ref oMissing);
             wordApp.Visible = true;
 
         }
+        private string getConfigPath(int j)
+        {
+            string line;
+            string path = Directory.GetCurrentDirectory()+ "\\config.txt";
+            using (StreamReader sr = new StreamReader(path))
+            {
+                int i = 0;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if(i == j)
+                    {
+                        return line;
+                    }
 
+                    Console.WriteLine(line);
+                    i++;
+                }
+            }
+            return "default";
+            
+        }
         private void addScoringToWord(string conclusionNumber, Word.Document wordDocument)
         {
             DB db = new DB();
@@ -1016,8 +1096,9 @@ namespace ContrAgent
             {
                 result+= reader[0].ToString() + ". " + reader[1].ToString();
                 //пофиксить, кривой символ
-                result += "\r\n";
+                result += "^p";
             }
+            Console.WriteLine(result);
             ReplaceWordStub("{scoring}", result, wordDocument);
 
         }
@@ -1025,8 +1106,10 @@ namespace ContrAgent
         private void ReplaceWordStub(string stubToReplace, string text, Word.Document wordDocument)
         {
             var range = wordDocument.Content;
+
+            text = text.Replace("\n","^p");
             //Сбрасываем форматирование
-            range.Find.ClearFormatting();
+            //range.Find.ClearFormatting();
 
             range.Find.Execute(FindText: stubToReplace, ReplaceWith: text, Format: true);
 
@@ -1580,7 +1663,7 @@ namespace ContrAgent
             var rtb = this.ActiveControl as RichTextBox;
             if (rtb != null)
             {
-                rtb.SelectionFont = new Font(rtb.Font, FontStyle.Bold);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold);
             }
         }
 
@@ -1589,7 +1672,7 @@ namespace ContrAgent
             var rtb = this.ActiveControl as RichTextBox;
             if (rtb != null)
             {
-                rtb.SelectionFont = new Font(rtb.Font, FontStyle.Regular);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
         }
 
@@ -1598,7 +1681,7 @@ namespace ContrAgent
             var rtb = this.ActiveControl as RichTextBox;
             if (rtb != null)
             {
-                rtb.SelectionFont = new Font(rtb.Font, FontStyle.Italic);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Italic);
             }
         }
 
@@ -1606,33 +1689,13 @@ namespace ContrAgent
 
         
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-            
-            dataGridView1.DataSource = getConclusionList();
-            dataGridView1.Columns[0].HeaderText = "Номер заключения";
-            dataGridView1.Columns[1].HeaderText = "Дата оценки";
-            dataGridView1.Columns[2].HeaderText = "Основание оценки";
-            dataGridView1.Columns[3].HeaderText = "Предмет";
-            dataGridView1.Columns[4].HeaderText = "Спецификация";
-            dataGridView1.Columns[5].HeaderText = "Инициатор";
-            dataGridView1.Columns[6].HeaderText = "Объект строительства";
-            dataGridView1.Columns[7].HeaderText = "Установление договорных отношений";
-            dataGridView1.Columns[8].HeaderText = "Цена";
-            dataGridView1.Columns[9].HeaderText = "Номер СЭД";
-
-
-            
-
-
-        }
+       
 
         
 
-        private DataTable getConclusionList()
+        private System.Data.DataTable getConclusionList()
         {
-            DataTable dtConclusion = new DataTable();
+            System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
             DB db = new DB();
 
@@ -1655,27 +1718,6 @@ namespace ContrAgent
             return dtConclusion;
         }
 
-        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
-            {
-                if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно")
-                {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Green;
-                }
-                else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Невозможно")
-                {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Red;
-                }
-                else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно с ограничениями")
-                {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Yellow;
-                }
-            }
-            //dataGridView1.Rows[1].Cells[7].Style.BackColor = Color.Yellow;
-        }
-
-        
+       
     }
 }

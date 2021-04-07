@@ -63,12 +63,12 @@ namespace ContrAgent
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(24, 412);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 214);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dataGridView1.RowHeadersWidth = 82;
-            this.dataGridView1.Size = new System.Drawing.Size(1436, 471);
+            this.dataGridView1.Size = new System.Drawing.Size(718, 245);
             this.dataGridView1.TabIndex = 14;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
@@ -78,10 +78,10 @@ namespace ContrAgent
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(36, 48);
-            this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label13.Location = new System.Drawing.Point(18, 25);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(232, 39);
+            this.label13.Size = new System.Drawing.Size(117, 19);
             this.label13.TabIndex = 49;
             this.label13.Text = "Текущее время:";
             // 
@@ -91,10 +91,10 @@ namespace ContrAgent
             | System.Windows.Forms.AnchorStyles.Left)));
             this.customTimer.AutoSize = true;
             this.customTimer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.customTimer.Location = new System.Drawing.Point(280, 48);
-            this.customTimer.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.customTimer.Location = new System.Drawing.Point(140, 25);
+            this.customTimer.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.customTimer.Name = "customTimer";
-            this.customTimer.Size = new System.Drawing.Size(191, 39);
+            this.customTimer.Size = new System.Drawing.Size(93, 19);
             this.customTimer.TabIndex = 48;
             this.customTimer.Text = "customTimer";
             // 
@@ -104,10 +104,10 @@ namespace ContrAgent
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label53.Location = new System.Drawing.Point(36, 112);
-            this.label53.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label53.Location = new System.Drawing.Point(18, 58);
+            this.label53.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(91, 39);
+            this.label53.Size = new System.Drawing.Size(45, 19);
             this.label53.TabIndex = 53;
             this.label53.Text = "name";
             // 
@@ -120,10 +120,10 @@ namespace ContrAgent
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(44, 188);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.checkBox1.Location = new System.Drawing.Point(22, 98);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(383, 29);
+            this.checkBox1.Size = new System.Drawing.Size(200, 17);
             this.checkBox1.TabIndex = 59;
             this.checkBox1.Text = "Показать только мои заключения";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -134,10 +134,10 @@ namespace ContrAgent
             this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(44, 231);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.checkBox2.Location = new System.Drawing.Point(22, 120);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(365, 29);
+            this.checkBox2.Size = new System.Drawing.Size(189, 17);
             this.checkBox2.TabIndex = 60;
             this.checkBox2.Text = "+ сформированные заключения";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -148,10 +148,10 @@ namespace ContrAgent
             this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox5.Image = global::ContrAgent.Properties.Resources.logo;
             this.pictureBox5.ImageLocation = "";
-            this.pictureBox5.Location = new System.Drawing.Point(1147, 22);
-            this.pictureBox5.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.pictureBox5.Location = new System.Drawing.Point(574, 11);
+            this.pictureBox5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(324, 312);
+            this.pictureBox5.Size = new System.Drawing.Size(162, 162);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox5.TabIndex = 58;
             this.pictureBox5.TabStop = false;
@@ -160,10 +160,10 @@ namespace ContrAgent
             // 
             this.pictureBox4.Image = global::ContrAgent.Properties.Resources.binoculars_search_find_icon_179063;
             this.pictureBox4.ImageLocation = "";
-            this.pictureBox4.Location = new System.Drawing.Point(212, 318);
-            this.pictureBox4.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.pictureBox4.Location = new System.Drawing.Point(106, 165);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(83, 82);
+            this.pictureBox4.Size = new System.Drawing.Size(42, 43);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 57;
             this.pictureBox4.TabStop = false;
@@ -172,69 +172,73 @@ namespace ContrAgent
             // 
             this.pictureBox3.Image = global::ContrAgent.Properties.Resources.trash_delete_recycle_bin_remove_icon_179056;
             this.pictureBox3.ImageLocation = "";
-            this.pictureBox3.Location = new System.Drawing.Point(307, 318);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.pictureBox3.Location = new System.Drawing.Point(154, 165);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(83, 82);
+            this.pictureBox3.Size = new System.Drawing.Size(42, 43);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 56;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::ContrAgent.Properties.Resources.edit_pencil_modify_write_icon_179065;
             this.pictureBox2.ImageLocation = "";
-            this.pictureBox2.Location = new System.Drawing.Point(117, 318);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.pictureBox2.Location = new System.Drawing.Point(58, 165);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(83, 82);
+            this.pictureBox2.Size = new System.Drawing.Size(42, 43);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 55;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.pictureBox2.MouseHover += new System.EventHandler(this.pictureBox2_MouseHover);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::ContrAgent.Properties.Resources.plus_add_insert_append_icon_179162;
             this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.Location = new System.Drawing.Point(24, 318);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 165);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(83, 82);
+            this.pictureBox1.Size = new System.Drawing.Size(42, 43);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 54;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.MouseHover += new System.EventHandler(this.pictureBox1_MouseHover);
             // 
             // pictureBox6
             // 
             this.pictureBox6.Image = global::ContrAgent.Properties.Resources.images_photo_icon_179183;
             this.pictureBox6.ImageLocation = "";
-            this.pictureBox6.Location = new System.Drawing.Point(400, 318);
-            this.pictureBox6.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.pictureBox6.Location = new System.Drawing.Point(200, 165);
+            this.pictureBox6.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(83, 82);
+            this.pictureBox6.Size = new System.Drawing.Size(42, 43);
             this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox6.TabIndex = 61;
             this.pictureBox6.TabStop = false;
+            this.pictureBox6.Click += new System.EventHandler(this.pictureBox6_Click);
             // 
             // pictureBox7
             // 
             this.pictureBox7.Image = global::ContrAgent.Properties.Resources.ticket_paper_icon_179218;
             this.pictureBox7.ImageLocation = "";
-            this.pictureBox7.Location = new System.Drawing.Point(493, 318);
-            this.pictureBox7.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.pictureBox7.Location = new System.Drawing.Point(246, 165);
+            this.pictureBox7.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(83, 82);
+            this.pictureBox7.Size = new System.Drawing.Size(42, 43);
             this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox7.TabIndex = 62;
             this.pictureBox7.TabStop = false;
             // 
             // DataView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1484, 906);
+            this.ClientSize = new System.Drawing.Size(742, 471);
             this.Controls.Add(this.pictureBox7);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.checkBox2);
@@ -249,7 +253,7 @@ namespace ContrAgent
             this.Controls.Add(this.customTimer);
             this.Controls.Add(this.dataGridView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "DataView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";

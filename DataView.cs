@@ -21,6 +21,7 @@ namespace ContrAgent
             label53.Text = "Пользователь: " + name;
             nameMain = name;
             TimeUpdater();
+            checkBox1.Checked = true;
 
 
         }
@@ -314,6 +315,51 @@ namespace ContrAgent
             {
                 dataGridView1.DataSource = getConclusionList();
             }
+        }
+
+        private void pictureBox1_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.InitialDelay = 0;
+            tt.SetToolTip(this.pictureBox1, "Создать");
+        }
+
+        private void pictureBox2_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.InitialDelay = 0;
+            tt.SetToolTip(this.pictureBox1, "Открыть");
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            string number = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString();
+
+            DB db = new DB();
+
+            db.openConnection();
+            if(nameMain == "admin")
+            {
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM conclusion WHERE `conclusion number` = @number", db.getConnection());
+                cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = number;
+                if(cmd.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Успешно удалено");
+                }
+            }
+            else
+            {
+                MessageBox.Show("У вас нет прав администратора");
+            }
+            db.closeConnection();
+        }
+
+       
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            string number = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString();
+
         }
     }
 
