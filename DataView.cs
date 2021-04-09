@@ -321,14 +321,14 @@ namespace ContrAgent
         {
             ToolTip tt = new ToolTip();
             tt.InitialDelay = 0;
-            tt.SetToolTip(this.pictureBox1, "Создать");
+            tt.SetToolTip(this.pictureBox1, "Создать новое заключение");
         }
 
         private void pictureBox2_MouseHover(object sender, EventArgs e)
         {
             ToolTip tt = new ToolTip();
             tt.InitialDelay = 0;
-            tt.SetToolTip(this.pictureBox1, "Открыть");
+            tt.SetToolTip(this.pictureBox2, "Открыть выбранное");
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)

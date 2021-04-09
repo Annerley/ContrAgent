@@ -34,6 +34,7 @@ namespace ContrAgent
             TimeUpdater();
             
             label51.Text = resultInt.ToString();
+            //label51.Show();
 
             
 
@@ -92,6 +93,7 @@ namespace ContrAgent
             richTextBox28.ReadOnly = true;
             richTextBox29.ReadOnly = true;
             richTextBox30.ReadOnly = true;
+            richTextBox31.ReadOnly = true;
 
             //тоже самое для чекбоксов
 
@@ -243,19 +245,26 @@ namespace ContrAgent
                     checkBox4.Checked = true;
                     richTextBox3.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "4")
+                else if (reader[0].ToString() == "4.1")
                 {
 
                     richTextBox4.Show();
                     checkBox5.Checked = true;
                     richTextBox4.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "5")
+                else if (reader[0].ToString() == "4.2")
                 {
 
                     richTextBox4.Show();
                     checkBox6.Checked = true;
                     richTextBox4.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "5")
+                {
+
+                    richTextBox31.Show();
+                    checkBox33.Checked = true;
+                    richTextBox31.Text = reader[1].ToString();
                 }
                 else if (reader[0].ToString() == "6")
                 {
@@ -355,91 +364,92 @@ namespace ContrAgent
                     checkBox20.Checked = true;
                     richTextBox19.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "20")
+                else if (reader[0].ToString() == "20.1")
+                {
+
+                    richTextBox21.Show();
+                    checkBox19.Checked = true;
+                    richTextBox18.Text = reader[1].ToString();
+                }
+                else if (reader[0].ToString() == "20.2")
                 {
 
                     richTextBox18.Show();
                     checkBox19.Checked = true;
                     richTextBox18.Text = reader[1].ToString();
                 }
+                
                 else if (reader[0].ToString() == "21")
-                {
-
-                    richTextBox18.Show();
-                    checkBox21.Checked = true;
-                    richTextBox18.Text = reader[1].ToString();
-                }
-                else if (reader[0].ToString() == "22")
                 {
 
                     richTextBox21.Show();
                     checkBox22.Checked = true;
                     richTextBox21.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "23")
+                else if (reader[0].ToString() == "22")
                 {
 
                     richTextBox22.Show();
                     checkBox23.Checked = true;
                     richTextBox22.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "24")
+                else if (reader[0].ToString() == "23")
                 {
 
                     richTextBox23.Show();
                     checkBox24.Checked = true;
                     richTextBox23.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "25")
+                else if (reader[0].ToString() == "24")
                 {
 
                     richTextBox24.Show();
                     checkBox25.Checked = true;
                     richTextBox24.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "26")
+                else if (reader[0].ToString() == "25.1")
                 {
 
                     richTextBox25.Show();
                     checkBox26.Checked = true;
                     richTextBox25.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "27")
+                else if (reader[0].ToString() == "25.2")
                 {
 
                     richTextBox25.Show();
                     checkBox27.Checked = true;
                     richTextBox25.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "28")
+                else if (reader[0].ToString() == "26")
                 {
 
                     richTextBox26.Show();
                     checkBox28.Checked = true;
                     richTextBox26.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "29")
+                else if (reader[0].ToString() == "27")
                 {
 
                     richTextBox27.Show();
                     checkBox29.Checked = true;
                     richTextBox27.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "30")
+                else if (reader[0].ToString() == "28")
                 {
 
                     richTextBox28.Show();
                     checkBox30.Checked = true;
                     richTextBox28.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "31")
+                else if (reader[0].ToString() == "29")
                 {
 
                     richTextBox29.Show();
                     checkBox31.Checked = true;
                     richTextBox29.Text = reader[1].ToString();
                 }
-                else if (reader[0].ToString() == "32")
+                else if (reader[0].ToString() == "30")
                 {
 
                     richTextBox30.Show();
@@ -480,11 +490,22 @@ namespace ContrAgent
             richTextBox28.Hide();
             richTextBox29.Hide();
             richTextBox30.Hide();
+            richTextBox31.Hide();
         }
         private void button1_Click(object sender, EventArgs e)
         {
             
+            if(innField.Text == "")
+            {
+                MessageBox.Show("Введите ИНН");
+                return;
+            }
 
+            if (conclusionNumberField.Text == "")
+            {
+                MessageBox.Show("Введите номер заключения");
+                return;
+            }
 
             DB db = new DB();
 
@@ -706,7 +727,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 1;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 1;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox1.Text;
                     command.ExecuteNonQuery();
                 }
@@ -714,7 +735,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 2;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 2;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox2.Text;
                     command.ExecuteNonQuery();
 
@@ -723,7 +744,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 3;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 3;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox3.Text;
                     command.ExecuteNonQuery();
                 }
@@ -731,15 +752,23 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 4;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 4.1;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox4.Text;
+                    command.ExecuteNonQuery();
+                }
+                if (checkBox33.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 5;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox31.Text;
                     command.ExecuteNonQuery();
                 }
                 if (checkBox6.Checked)
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 5;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 4.2;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox4.Text;
                     command.ExecuteNonQuery();
                 }
@@ -747,7 +776,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 6;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 6;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox5.Text;
                     command.ExecuteNonQuery();
                 }
@@ -755,7 +784,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 7;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 7;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox6.Text;
                     command.ExecuteNonQuery();
                 }
@@ -763,7 +792,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 8;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 8;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox7.Text;
                     command.ExecuteNonQuery();
                 }
@@ -771,7 +800,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 9;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 9;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox8.Text;
                     command.ExecuteNonQuery();
                 }
@@ -779,7 +808,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 10;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 10;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox9.Text;
                     command.ExecuteNonQuery();
                 }
@@ -787,7 +816,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 11;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 11;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox10.Text;
                     command.ExecuteNonQuery();
                 }
@@ -795,7 +824,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 12;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 12;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox11.Text;
                     command.ExecuteNonQuery();
                 }
@@ -803,7 +832,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 13;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 13;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox12.Text;
                     command.ExecuteNonQuery();
                 }
@@ -811,7 +840,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 14;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 14;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox12.Text;
                     command.ExecuteNonQuery();
                 }
@@ -819,7 +848,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 15;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 15;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox14.Text;
                     command.ExecuteNonQuery();
                 }
@@ -827,7 +856,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 16;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 16;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox15.Text;
                     command.ExecuteNonQuery();
                 }
@@ -835,7 +864,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 17;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 17;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox16.Text;
                     command.ExecuteNonQuery();
                 }
@@ -843,7 +872,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 18;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 18;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox17.Text;
                     command.ExecuteNonQuery();
                 }
@@ -851,7 +880,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 21;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 20.2;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox18.Text;
                     command.ExecuteNonQuery();
                 }
@@ -859,7 +888,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 19;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 19;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox19.Text;
                     command.ExecuteNonQuery();
                 }
@@ -867,7 +896,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 20;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 20.1;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox18.Text;
                     command.ExecuteNonQuery();
                 }
@@ -875,7 +904,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 22;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 21;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox21.Text;
                     command.ExecuteNonQuery();
                 }
@@ -883,7 +912,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 23;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 22;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox22.Text;
                     command.ExecuteNonQuery();
                 }
@@ -891,7 +920,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 24;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 23;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox23.Text;
                     command.ExecuteNonQuery();
                 }
@@ -899,7 +928,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 25;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 24;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox24.Text;
                     command.ExecuteNonQuery();
                 }
@@ -907,7 +936,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 26;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 25.1;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox25.Text;
                     command.ExecuteNonQuery();
                 }
@@ -915,7 +944,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 27;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 25.2;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox25.Text;
                     command.ExecuteNonQuery();
                 }
@@ -923,7 +952,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 28;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 26;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox26.Text;
                     command.ExecuteNonQuery();
                 }
@@ -931,7 +960,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 29;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 27;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox27.Text;
                     command.ExecuteNonQuery();
                 }
@@ -939,7 +968,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 30;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 28;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox28.Text;
                     command.ExecuteNonQuery();
                 }
@@ -947,7 +976,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 31;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 29;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox29.Text;
                     command.ExecuteNonQuery();
                 }
@@ -955,7 +984,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 32;
+                    command.Parameters.Add("@point", MySqlDbType.Int32).Value = 30;
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox30.Text;
                     command.ExecuteNonQuery();
                 }
@@ -1010,7 +1039,7 @@ namespace ContrAgent
             var reason = reasonField.Text;
             var subject = subjectField.Text;
             var price = priceField.Text;
-            var extra = extraField.Rtf;
+            var extra = extraField.Text;
             var name = orgNameField.Text;
             string exp = "";
             if (expcheckBox.Checked)
@@ -1654,7 +1683,21 @@ namespace ContrAgent
             resultUpdater();
         }
 
-
+        private void checkBox33_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox33.Checked)
+            {
+                richTextBox31.Show();
+                resultInt += 1;
+            }
+            else
+            {
+                richTextBox31.Hide();
+                resultInt -= 1;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
 
 
 
@@ -1718,6 +1761,6 @@ namespace ContrAgent
             return dtConclusion;
         }
 
-       
+        
     }
 }

@@ -123,11 +123,35 @@
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>104, 17</value>
   </metadata>
+  <data name="label36.Text" xml:space="preserve">
+    <value>Согласно информации из открытых источников и бухгалтерской отчетности у контрагента отсутствуют ресурсы, необходимые для выполнения своих обязательств по договору (транспорт, склад, штат работников и т. п.)</value>
+  </data>
+  <data name="label35.Text" xml:space="preserve">
+    <value>Учредители/руководитель контрагента/дочерние и зависимые общества имеют негативный опыт ведения бизнеса, а именно юридическое лицо, контролируемое ранее указанными лицами, ликвидировано вследствие банкротства* </value>
+  </data>
+  <data name="label47.Text" xml:space="preserve">
+    <value>Контрагент аффилирован с организациями, в том числе недействующими, ликвидированными по решению ФНС России, либо имеющими обязательные (однозначные) признаки неблагонадежности**, и/или учредителем контрагента выступает компания с признаками неблагонадежности**</value>
+  </data>
+  <data name="label45.Text" xml:space="preserve">
+    <value>Предмет договора, планируемый к заключению контрагентом с Обществом, существенно отличается от вида деятельности, заявленного в ЕГРЮЛ в качестве основного/ как в качестве основного, так и в качестве дополнительного</value>
+  </data>
+  <data name="label41.Text" xml:space="preserve">
+    <value>Контрагент имеет просроченные обязательства пред ООО «МИП-Строй № 1» в рамках выплаченных авансов или согласно данным комитета по работе с дебиторской и кредиторской задолженностью в размере более 5 млн. рублей/ более 100 млн. рублей</value>
+  </data>
+  <data name="label38.Text" xml:space="preserve">
+    <value>Неоднократное снятие с учета и постановка на учет в налоговых органах налогоплательщика в связи с изменением места нахождения («миграция» между налоговыми органами – 3 раза и более в течение последних двух лет)</value>
+  </data>
+  <data name="label37.Text" xml:space="preserve">
+    <value>За последние 2 года вынесены решения суда по делам, связанным с недобросовестным выполнением своих обязательств (отказ от исполнения / просрочка исполнения / некачественное исполнение), размер которых превышает 10% размера балансовой стоимости активов контрагента на последний завершенный отчётный год</value>
+  </data>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>104, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="toolStripButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAHYcAAB2HAY/l8WUAACT2SURBVHhe7d2J/211Xe9xmUEhQSEB7SIoDqBkqaU5F+XI
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAACT2SURBVHhe7d2J/211Xe9xmUEhQSEB7SIoDqBkqaU5F+XI
         LafKMvUql6wUsgFQG0hL0ZCU29VwSMObE3o1RKXUDKMwUUNzCmfBCRQQQWa6728euudx/Jzfb/1+v733
         Wmuv5+vxeP4B7P3lnPfZe+21bpL+A2AkrouLt+Lz8blNPhYfin+Id8db403xqjg5Tojj49j49Xh8HBYP
         iLvFAbFHbBvS0lb9TwbA93wnLohz42/jtfFn8ax4crThcO9oo2HXkEZTdeABWJ8ro30K0T55OCXaJw1H
@@ -291,7 +315,7 @@
   <data name="toolStripButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAHYcAAB2HAY/l8WUAACZdSURBVHhe7d15/H3VvPjxJs0UlVBdhVtxC6krbgO6QsMl
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAACZdSURBVHhe7d15/H3VvPjxJs0UlVBdhVtxC6krbgO6QsMl
         kggRIm4DRTQRSrldXZVcESJEkxuaiBAh+pXhypD0S4lGjSrV7/daxtR7nfMZzvBee7+ej8frn/Oob9/P
         2Wutvfucs/daQJIkSZIkSZIkSdKovZWu63inkyRJ+rOF6DL6fx3vbnoUSZIkbEbRCbOLHUiSJAnHU3Sy
         7GKX08IkSVKvLUe3UXSy7GqbkyRJvbYbRSfJLnciSZLUaxdSdJLscrfTCiRJUi+tR9EJsg+9gSRJ6qUj
@@ -461,7 +485,7 @@
   <data name="toolStripButton3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAHYcAAB2HAY/l8WUAABBwSURBVHhe7d3Ly8f5GMbxz2BIomShlBybZJqmKcnKrCQl
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABBwSURBVHhe7d3Ly8f5GMbxz2BIomShlBybZJqmKcnKrCQl
         G+emQRNZyGbYyAYL0eSYQ2xkQbJgIUlNkxyaHFeIhJKN5Hwacrp/zfK+Niyv3+tV1z/w1HN/n8X7+X4P
         8H/77uw/Zhb35BlAnUfM/j5Lh8/s2vfrGUClZ8/S4TOzc740A6j0hlk6fGZ2zjtmAJU+MUuHz8zOedEM
         oNL3Z+nwmdk5T5gB1HnU7J+zdPjMrn2/nAFUeu4sHT4zO+fzM4BKd8/S4TOzc946A6j06Vk6fGZ2zvNn
@@ -534,27 +558,6 @@
         rTOAOpcA8LezdPjMrn0PzASAQKWnzdLhM7NzvjUD/mfn/BcHa73zzXuLRgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="label36.Text" xml:space="preserve">
-    <value>Согласно информации из открытых источников и бухгалтерской отчетности у контрагента отсутствуют ресурсы, необходимые для выполнения своих обязательств по договору (транспорт, склад, штат работников и т. п.)</value>
-  </data>
-  <data name="label35.Text" xml:space="preserve">
-    <value>Учредители/руководитель контрагента/дочерние и зависимые общества имеют негативный опыт ведения бизнеса, а именно юридическое лицо, контролируемое ранее указанными лицами, ликвидировано вследствие банкротства* </value>
-  </data>
-  <data name="label47.Text" xml:space="preserve">
-    <value>Контрагент аффилирован с организациями, в том числе недействующими, ликвидированными по решению ФНС России, либо имеющими обязательные (однозначные) признаки неблагонадежности**, и/или учредителем контрагента выступает компания с признаками неблагонадежности**</value>
-  </data>
-  <data name="label45.Text" xml:space="preserve">
-    <value>Предмет договора, планируемый к заключению контрагентом с Обществом, существенно отличается от вида деятельности, заявленного в ЕГРЮЛ в качестве основного/ как в качестве основного, так и в качестве дополнительного</value>
-  </data>
-  <data name="label41.Text" xml:space="preserve">
-    <value>Контрагент имеет просроченные обязательства пред ООО «МИП-Строй № 1» в рамках выплаченных авансов или согласно данным комитета по работе с дебиторской и кредиторской задолженностью в размере более 5 млн. рублей/ более 100 млн. рублей</value>
-  </data>
-  <data name="label38.Text" xml:space="preserve">
-    <value>Неоднократное снятие с учета и постановка на учет в налоговых органах налогоплательщика в связи с изменением места нахождения («миграция» между налоговыми органами – 3 раза и более в течение последних двух лет)</value>
-  </data>
-  <data name="label37.Text" xml:space="preserve">
-    <value>За последние 2 года вынесены решения суда по делам, связанным с недобросовестным выполнением своих обязательств (отказ от исполнения / просрочка исполнения / некачественное исполнение), размер которых превышает 10% размера балансовой стоимости активов контрагента на последний завершенный отчётный год</value>
-  </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -573,6 +576,9 @@
   <metadata name="conclusionTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>507, 17</value>
   </metadata>
+  <data name="label57.Text" xml:space="preserve">
+    <value>Наличие в отношении контрагента рассматриваемых текущих судебных процессов и возбужденных исполнительных производств на общую сумму более 30% балансовой стоимости активов контрагента на последний завершенный отчетный год</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
   </metadata>
