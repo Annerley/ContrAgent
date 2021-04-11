@@ -138,6 +138,7 @@ namespace ContrAgent
                     }
                     extraField.Text = reader[13].ToString();
                     hideExtraField.Text = reader[14].ToString();
+                    c1Field.Text = reader[15].ToString();
 
 
                 }
@@ -518,9 +519,9 @@ namespace ContrAgent
             if(statusMain == 2)
             {
                 MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion number`, `evaluation date`,`reason for rating`,`subject`," +
-                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`, `exp`, `extra`, `hide extra`) " +
+                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`, `exp`, `extra`, `hide extra`, `c1`) " +
                 "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
-                "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter, @exp, @extra, @hide)", db.getConnection());
+                "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter, @exp, @extra, @hide, @c1)", db.getConnection());
 
                 command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 //Console.WriteLine(evaluationDateField.Text);
@@ -531,6 +532,7 @@ namespace ContrAgent
                 command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
                 command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
                 command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
+                command.Parameters.Add("@c1", MySqlDbType.Text).Value = c1Field.Text;
                 command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
                 if(expcheckBox.Checked)
                 {
@@ -615,11 +617,12 @@ namespace ContrAgent
             {
                 MySqlCommand command = new MySqlCommand("UPDATE `conclusion` SET `evaluation date` = @evaluation_date, `reason for rating` = @reason_for_rating, " +
                     "`subject` = @subject, `specification` = @specification, `initiator` = @initiator, `object` = @object, `result` = @result, `price` = @price," +
-                    " `sad` = @sad, `status` = @status, `exp` = @exp, `extra` =@extra, `hide extra`=@hide WHERE `conclusion number` = @number" , db.getConnection());
+                    " `sad` = @sad, `status` = @status, `exp` = @exp, `extra` =@extra, `hide extra`=@hide, `c1` = @c WHERE `conclusion number` = @number" , db.getConnection());
 
 
                 //Console.WriteLine(evaluationDateField.Text);
                 command.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                command.Parameters.Add("@c", MySqlDbType.Text).Value = c1Field.Text;
                 command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
                 if (hammerCheck.Checked)
                 {
