@@ -53,6 +53,9 @@ namespace ContrAgent
             dataGridView1.Columns[7].HeaderText = "Установление договорных отношений";
             dataGridView1.Columns[8].HeaderText = "Цена";
             dataGridView1.Columns[9].HeaderText = "Номер СЭД";
+            dataGridView1.Columns[10].HeaderText = "ИНН";
+            dataGridView1.Columns[11].HeaderText = "Название Контрагента";
+
         }
 
         private DataTable getConclusionList()
@@ -63,9 +66,10 @@ namespace ContrAgent
 
             db.openConnection();
 
-            using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
-                "`subject`, `specification`, `initiator`, `object`," +
-                "`result`, `price`, `sad` FROM conclusion WHERE status = 1", db.getConnection()))
+            using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE conclusion.status = 1", db.getConnection()))
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -113,7 +117,7 @@ namespace ContrAgent
             DB db = new DB();
 
             db.openConnection();
-            MySqlCommand cmd = new MySqlCommand("SELECT `status` FROM conclusion WHERE `conclusion number` = @number", db.getConnection());
+            MySqlCommand cmd = new MySqlCommand("SELECT `status` FROM conclusion WHERE `conclusion_number` = @number", db.getConnection());
             cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = number;
 
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -147,9 +151,10 @@ namespace ContrAgent
 
                 db.openConnection();
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
-                    "`subject`, `specification`, `initiator`, `object`," +
-                    "`result`, `price`, `sad` FROM conclusion ", db.getConnection()))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn ", db.getConnection()))
                 {
                     MySqlDataReader reader = cmd.ExecuteReader();
                     dtConclusion.Load(reader);
@@ -176,9 +181,10 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
-                    "`subject`, `specification`, `initiator`, `object`," +
-                    "`result`, `price`, `sad` FROM conclusion WHERE letter = @name", db.getConnection()))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name", db.getConnection()))
                 {
                     cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -208,9 +214,10 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
-                    "`subject`, `specification`, `initiator`, `object`," +
-                    "`result`, `price`, `sad` FROM conclusion WHERE letter = @name AND status = 1", db.getConnection()))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND status = 1", db.getConnection()))
                 {
                     cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -250,9 +257,10 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
-                    "`subject`, `specification`, `initiator`, `object`," +
-                    "`result`, `price`, `sad` FROM conclusion WHERE letter = @name AND status = 1", db.getConnection()))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND status = 1", db.getConnection()))
                 {
                     cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -270,9 +278,10 @@ namespace ContrAgent
 
                 db.openConnection();
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
-                    "`subject`, `specification`, `initiator`, `object`," +
-                    "`result`, `price`, `sad` FROM conclusion ", db.getConnection()))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn", db.getConnection()))
                 {
                     MySqlDataReader reader = cmd.ExecuteReader();
                     dtConclusion.Load(reader);
@@ -299,9 +308,10 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
-                    "`subject`, `specification`, `initiator`, `object`," +
-                    "`result`, `price`, `sad` FROM conclusion WHERE letter = @name", db.getConnection()))
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name", db.getConnection()))
                 {
                     cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -340,7 +350,7 @@ namespace ContrAgent
             db.openConnection();
             if(nameMain == "admin")
             {
-                MySqlCommand cmd = new MySqlCommand("DELETE FROM conclusion WHERE `conclusion number` = @number", db.getConnection());
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM conclusion WHERE `conclusion_number` = @number", db.getConnection());
                 cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = number;
                 if(cmd.ExecuteNonQuery() == 1)
                 {

@@ -114,7 +114,7 @@ namespace ContrAgent
                 }
 
 
-                MySqlCommand command = new MySqlCommand("SELECT * FROM conclusion WHERE `conclusion number` = @conc", db.getConnection());
+                MySqlCommand command = new MySqlCommand("SELECT * FROM conclusion WHERE `conclusion_number` = @conc", db.getConnection());
                 command.Parameters.Add("@conc", MySqlDbType.VarChar).Value = number;
                 //если нет мессадж бокс
                 //подтянуть скоринг
@@ -145,7 +145,7 @@ namespace ContrAgent
                 db.closeConnection();
                 db.openConnection();
                 var value = "";
-                MySqlCommand command2 = new MySqlCommand("SELECT inn FROM main WHERE `conclusion number` = @number", db.getConnection());
+                MySqlCommand command2 = new MySqlCommand("SELECT inn FROM main WHERE `conclusion_number` = @number", db.getConnection());
                 command2.Parameters.Add("@number", MySqlDbType.VarChar).Value = number;
                 MySqlDataReader reader2 = command2.ExecuteReader();
                 while(reader2.Read())
@@ -178,6 +178,7 @@ namespace ContrAgent
                     phoneField.Text = reader3[7].ToString();
                     leaderField.Text = reader3[8].ToString();
                     foundersField.Text = reader3[9].ToString();
+                    gendirField.Text = reader3[10].ToString();
 
                 }
 
@@ -518,7 +519,7 @@ namespace ContrAgent
             // Если уже есть, обновить
             if(statusMain == 2)
             {
-                MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion number`, `evaluation date`,`reason for rating`,`subject`," +
+                MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion_number`, `evaluation date`,`reason for rating`,`subject`," +
                 "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`, `exp`, `extra`, `hide extra`, `c1`) " +
                 "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
                 "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter, @exp, @extra, @hide, @c1)", db.getConnection());
@@ -566,23 +567,18 @@ namespace ContrAgent
                     command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
                 }
                 command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
-                if (hammerCheck.Checked)
-                {
-                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
-                }
-                else
-                {
-                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
-                }
-                MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion number`) VALUES(@inn, @conclusion_number) ", db.getConnection());
+                
+                command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
+                
+                MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion_number`) VALUES(@inn, @conclusion_number) ", db.getConnection());
                 command2.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 command2.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
 
 
                 MySqlCommand command3 = new MySqlCommand("INSERT INTO `organisation` (`inn`, `name`,`fact adress`,`registration date`," +
-               "`activity`,`legal adress`, `email`, `phone`, `leader`, `founder`) " +
-               "VALUES (@inn, @name, @fact_adress, @reg_date," +
-               "@activity,  @legal_adress, @email, @phone , @leader, @founder)", db.getConnection());
+               "`activity`,`legal adress`, `email`, `phone`, `leader`, `founder`, `gendir`) " +
+               "VALUES (@inn, @name, @fact_adress, @reg_date, " +
+               "@activity,  @legal_adress, @email, @phone , @leader, @founder, @gendir)", db.getConnection());
 
                 command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
                 command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
@@ -594,6 +590,7 @@ namespace ContrAgent
                 command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
                 command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
                 command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
+                command3.Parameters.Add("@gendir", MySqlDbType.VarChar).Value = gendirField.Text;
 
                 db.openConnection();
 
@@ -617,7 +614,7 @@ namespace ContrAgent
             {
                 MySqlCommand command = new MySqlCommand("UPDATE `conclusion` SET `evaluation date` = @evaluation_date, `reason for rating` = @reason_for_rating, " +
                     "`subject` = @subject, `specification` = @specification, `initiator` = @initiator, `object` = @object, `result` = @result, `price` = @price," +
-                    " `sad` = @sad, `status` = @status, `exp` = @exp, `extra` =@extra, `hide extra`=@hide, `c1` = @c WHERE `conclusion number` = @number" , db.getConnection());
+                    " `sad` = @sad, `status` = @status, `exp` = @exp, `extra` =@extra, `hide extra`=@hide, `c1` = @c WHERE `conclusion_number` = @number" , db.getConnection());
 
 
                 //Console.WriteLine(evaluationDateField.Text);
@@ -660,7 +657,7 @@ namespace ContrAgent
                
 
                 MySqlCommand command3 = new MySqlCommand("UPDATE `organisation` SET  `name` = @name,`fact adress` = @fact_adress,`registration date` = @reg_date," +
-               "`activity` = @activity,`legal adress` = @legal_adress, `email` = @email, `phone` = @phone, `leader` = @leader, `founder` = @founder " +
+               "`activity` = @activity,`legal adress` = @legal_adress, `email` = @email, `phone` = @phone, `leader` = @leader, `founder` = @founder, `gendir` =@gendir " +
                "WHERE `inn` = @inn", db.getConnection());
 
                 command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
@@ -673,6 +670,7 @@ namespace ContrAgent
                 command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
                 command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
                 command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
+                command3.Parameters.Add("@gendir", MySqlDbType.VarChar).Value = gendirField.Text;
 
                 db.openConnection();
 
@@ -1747,7 +1745,7 @@ namespace ContrAgent
 
             db.openConnection();
 
-            using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion number`, `evaluation date`, `reason for rating`, " +
+            using (MySqlCommand cmd = new MySqlCommand("SELECT `conclusion_number`, `evaluation date`, `reason for rating`, " +
                 "`subject`, `specification`, `initiator`, `object`," +
                 "`result`, `price`, `sad` FROM conclusion WHERE status = 0", db.getConnection()))
             {
@@ -1764,6 +1762,245 @@ namespace ContrAgent
             return dtConclusion;
         }
 
-        
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (innField.Text == "")
+            {
+                MessageBox.Show("Введите ИНН");
+                return;
+            }
+
+            if (conclusionNumberField.Text == "")
+            {
+                MessageBox.Show("Введите номер заключения");
+                return;
+            }
+
+            DB db = new DB();
+
+            System.Data.DataTable table = new System.Data.DataTable();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+
+            // Если уже есть, обновить
+            if (statusMain == 2)
+            {
+                MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion_number`, `evaluation date`,`reason for rating`,`subject`," +
+                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`, `exp`, `extra`, `hide extra`, `c1`) " +
+                "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
+                "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter, @exp, @extra, @hide, @c1)", db.getConnection());
+
+                command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                //Console.WriteLine(evaluationDateField.Text);
+                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
+
+                command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
+                command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
+                command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
+                command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
+                command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
+                command.Parameters.Add("@c1", MySqlDbType.Text).Value = c1Field.Text;
+                command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
+                if (expcheckBox.Checked)
+                {
+                    command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Есть опыт договорных отношений";
+                }
+                else
+                {
+                    command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Нет опыта договорных отношений";
+                }
+                command.Parameters.Add("@extra", MySqlDbType.Text).Value = extraField.Text;
+                command.Parameters.Add("@hide", MySqlDbType.Text).Value = hideExtraField.Text;
+                db.openConnection();
+                var letter = "";
+                MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
+                cmd2.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+
+                MySqlDataReader reader2 = cmd2.ExecuteReader();
+                reader2.Read();
+                letter = reader2[0].ToString();
+
+                db.closeConnection();
+                db.openConnection();
+
+                command.Parameters.Add("@letter", MySqlDbType.Text).Value = letter;
+                if (priceField.Text == "")
+                {
+                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
+                }
+                else
+                {
+                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+                }
+                command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
+                if (hammerCheck.Checked)
+                {
+                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
+                }
+                else
+                {
+                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
+                }
+                MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion_number`) VALUES(@inn, @conclusion_number) ", db.getConnection());
+                command2.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                command2.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+
+
+                MySqlCommand command3 = new MySqlCommand("INSERT INTO `organisation` (`inn`, `name`,`fact adress`,`registration date`," +
+               "`activity`,`legal adress`, `email`, `phone`, `leader`, `founder`, `gendir`) " +
+               "VALUES (@inn, @name, @fact_adress, @reg_date," +
+               "@activity,  @legal_adress, @email, @phone , @leader, @founder)", db.getConnection());
+
+                command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
+                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                command3.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+                command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
+                command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
+                command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
+                command3.Parameters.Add("@email", MySqlDbType.VarChar).Value = emailField.Text;
+                command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
+                command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
+                command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
+                command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = gendirField.Text;
+
+                db.openConnection();
+
+
+                addScoringToDb(db);
+
+
+                MySqlCommand command4 = new MySqlCommand("UPDATE `users` SET `last` = @last WHERE `name` = @name", db.getConnection());
+
+                int last = Convert.ToInt32(conclusionNumberField.Text.Remove(0, 2));
+                last++;
+                command4.Parameters.Add("@last", MySqlDbType.Int32).Value = last;
+                command4.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+
+                if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery() == 1 && command4.ExecuteNonQuery() == 1)
+                    MessageBox.Show("Добавилось");
+                else
+                    MessageBox.Show("Не добавилось");
+            }
+            else
+            {
+                MySqlCommand command = new MySqlCommand("UPDATE `conclusion` SET `evaluation date` = @evaluation_date, `reason for rating` = @reason_for_rating, " +
+                    "`subject` = @subject, `specification` = @specification, `initiator` = @initiator, `object` = @object, `result` = @result, `price` = @price," +
+                    " `sad` = @sad, `status` = @status, `exp` = @exp, `extra` =@extra, `hide extra`=@hide, `c1` = @c WHERE `conclusion_number` = @number", db.getConnection());
+
+
+                //Console.WriteLine(evaluationDateField.Text);
+                command.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                command.Parameters.Add("@c", MySqlDbType.Text).Value = c1Field.Text;
+                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
+                
+                command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
+                
+                
+                command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
+                command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
+                command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
+                command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
+                command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
+                command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
+                if (expcheckBox.Checked)
+                {
+                    command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Есть опыт договорных отношений";
+                }
+                else
+                {
+                    command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Нет опыта договорных отношений";
+                }
+                command.Parameters.Add("@extra", MySqlDbType.Text).Value = extraField.Text;
+                command.Parameters.Add("@hide", MySqlDbType.Text).Value = hideExtraField.Text;
+                if (priceField.Text == "")
+                {
+                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
+                }
+                else
+                {
+                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+                }
+                command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
+
+
+                MySqlCommand command3 = new MySqlCommand("UPDATE `organisation` SET  `name` = @name,`fact adress` = @fact_adress,`registration date` = @reg_date," +
+               "`activity` = @activity,`legal adress` = @legal_adress, `email` = @email, `phone` = @phone, `leader` = @leader, `founder` = @founder, `gendir` =@gendir " +
+               "WHERE `inn` = @inn", db.getConnection());
+
+                command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
+                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                command3.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+                command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
+                command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
+                command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
+                command3.Parameters.Add("@email", MySqlDbType.VarChar).Value = emailField.Text;
+                command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
+                command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
+                command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
+                command3.Parameters.Add("@gendir", MySqlDbType.VarChar).Value = gendirField.Text;
+
+                db.openConnection();
+
+                if (command.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery() == 1)
+                    MessageBox.Show("Добавилось");
+                else
+                    MessageBox.Show("Не добавилось");
+
+                db.closeConnection();
+
+                addScoringToDb(db);
+
+
+            }
+
+
+            db.closeConnection();
+
+
+
+
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            System.Data.DataTable dtConclusion = new System.Data.DataTable();
+
+            DB db = new DB();
+
+            db.openConnection();
+
+            using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM license WHERE `conclusion_number` = @number", db.getConnection()))
+                
+            {
+                cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                dtConclusion.Load(reader);
+
+
+            }
+
+
+
+            db.closeConnection();
+            dataGridView1.DataSource =  dtConclusion;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            /*for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+
+                String insertData = "INSERT INTO CostList(SupplierName, CostPrice, PartsID) VALUES (@SupplierName, @CostPrice, @PartsID)";
+                MySqlCommand cmd = new cmd   (insertData, con);
+                cmd.Parameters.AddWithValue("@SupplierName", dataGridView1.Rows[i].Cells[0].Value);
+                cmd.Parameters.AddWithValue("@CostPrice", dataGridView1.Rows[i].Cells[1].Value);
+                cmd.Parameters.AddWithValue("@PartsID", textBox1.Text);
+                da.InsertCommand = cmd;
+                cmd.ExecuteNonQuery();
+            }*/
+        }
     }
 }
