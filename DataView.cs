@@ -107,7 +107,9 @@ namespace ContrAgent
         {
             Form1 Form1 = new Form1(nameMain, "", 2);
             Console.WriteLine(nameMain);
-            Form1.Show();
+            Form1.ShowDialog();
+            
+            
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -126,12 +128,12 @@ namespace ContrAgent
             if(reader[0].ToString() == "0" )
             {
                 Form1 Form1 = new Form1(nameMain, number, 0);
-                Form1.Show();
+                Form1.ShowDialog();
             }
             else
             {
                 Form1 Form1 = new Form1(nameMain, number, 1);
-                Form1.Show();
+                Form1.ShowDialog();
             }
 
             

@@ -36,7 +36,24 @@ namespace ContrAgent
             label51.Text = resultInt.ToString();
             //label51.Show();
 
+            TextBox[] saveButton = new TextBox[16];
+            // добавляем кнопку в следующую свободную ячейку
             
+            //tableLayoutPanel1.Controls.Add(saveButton);
+            // добавляем кнопку в ячейку (2,2)
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    saveButton[i + j] = new TextBox();
+                    saveButton[i+j].Dock = DockStyle.Fill;
+                    saveButton[i + j].Multiline = true;
+                    saveButton[i + j].Margin = new Padding(0, 0, 0, 0);
+                    saveButton[i + j].Padding = new Padding(0, 0, 0, 0);
+                    tableLayoutPanel1.Controls.Add(saveButton[i+j], i, j);
+                }
+            }
+
 
         }
         private void blockEverything()
@@ -572,25 +589,63 @@ namespace ContrAgent
                 
                 MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion_number`) VALUES(@inn, @conclusion_number) ", db.getConnection());
                 command2.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                command2.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+                command2.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
 
 
-                MySqlCommand command3 = new MySqlCommand("INSERT INTO `organisation` (`inn`, `name`,`fact adress`,`registration date`," +
+
+                MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM organisation WHERE inn = @inn", db.getConnection());
+                cmd.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
+
+                MySqlDataReader readercmd = cmd.ExecuteReader();
+                readercmd.Read();
+                MySqlCommand command3 = new MySqlCommand();
+                if ( readercmd[0].ToString() == "0")
+                {
+                    command3 = new MySqlCommand("INSERT INTO `organisation` (`inn`, `name`,`fact adress`,`registration date`," +
                "`activity`,`legal adress`, `email`, `phone`, `leader`, `founder`, `gendir`) " +
                "VALUES (@inn, @name, @fact_adress, @reg_date, " +
                "@activity,  @legal_adress, @email, @phone , @leader, @founder, @gendir)", db.getConnection());
 
-                command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
-                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
-                command3.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
-                command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
-                command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
-                command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
-                command3.Parameters.Add("@email", MySqlDbType.VarChar).Value = emailField.Text;
-                command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
-                command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
-                command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
-                command3.Parameters.Add("@gendir", MySqlDbType.VarChar).Value = gendirField.Text;
+                    command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
+                    command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                    command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
+                    command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
+                    command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
+                    command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
+                    command3.Parameters.Add("@email", MySqlDbType.VarChar).Value = emailField.Text;
+                    command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
+                    command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
+                    command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
+                    command3.Parameters.Add("@gendir", MySqlDbType.VarChar).Value = gendirField.Text;
+                }
+                else
+                {
+                    command3 = new MySqlCommand("UPDATE `organisation` SET  `name` = @name,`fact adress` = @fact_adress,`registration date` = @reg_date," +
+               "`activity` = @activity,`legal adress` = @legal_adress, `email` = @email, `phone` = @phone, `leader` = @leader, `founder` = @founder, `gendir` =@gendir " +
+               "WHERE `inn` = @inn", db.getConnection());
+
+                    command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
+                    command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                    command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
+                    command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
+                    command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
+                    command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
+                    command3.Parameters.Add("@email", MySqlDbType.VarChar).Value = emailField.Text;
+                    command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
+                    command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
+                    command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
+                    command3.Parameters.Add("@gendir", MySqlDbType.VarChar).Value = gendirField.Text;
+                }
+
+                db.closeConnection();
+                db.openConnection();
+
+
+
+
+
+
+                
 
                 db.openConnection();
 
@@ -621,14 +676,9 @@ namespace ContrAgent
                 command.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 command.Parameters.Add("@c", MySqlDbType.Text).Value = c1Field.Text;
                 command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
-                if (hammerCheck.Checked)
-                {
-                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
-                }
-                else
-                {
+                
                     command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
-                }
+                
                 command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
                 command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
                 command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
@@ -662,7 +712,7 @@ namespace ContrAgent
 
                 command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
                 command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
-                command3.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+                command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
                 command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
                 command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
                 command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
@@ -1834,17 +1884,12 @@ namespace ContrAgent
                     command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
                 }
                 command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
-                if (hammerCheck.Checked)
-                {
+                
                     command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
-                }
-                else
-                {
-                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
-                }
+                
                 MySqlCommand command2 = new MySqlCommand("INSERT INTO `main` (`inn`, `conclusion_number`) VALUES(@inn, @conclusion_number) ", db.getConnection());
                 command2.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                command2.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+                command2.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
 
 
                 MySqlCommand command3 = new MySqlCommand("INSERT INTO `organisation` (`inn`, `name`,`fact adress`,`registration date`," +
@@ -1854,7 +1899,7 @@ namespace ContrAgent
 
                 command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
                 command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
-                command3.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+                command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
                 command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
                 command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
                 command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
@@ -1930,7 +1975,7 @@ namespace ContrAgent
 
                 command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
                 command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
-                command3.Parameters.Add("@inn", MySqlDbType.Int32).Value = innField.Text;
+                command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
                 command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
                 command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
                 command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
@@ -1963,30 +2008,7 @@ namespace ContrAgent
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            System.Data.DataTable dtConclusion = new System.Data.DataTable();
-
-            DB db = new DB();
-
-            db.openConnection();
-
-            using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM license WHERE `conclusion_number` = @number", db.getConnection()))
-                
-            {
-                cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                dtConclusion.Load(reader);
-
-
-            }
-
-
-
-            db.closeConnection();
-            dataGridView1.DataSource =  dtConclusion;
-        }
+        
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -2001,6 +2023,11 @@ namespace ContrAgent
                 da.InsertCommand = cmd;
                 cmd.ExecuteNonQuery();
             }*/
+        }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            
         }
     }
 }
