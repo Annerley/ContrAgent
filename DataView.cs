@@ -54,7 +54,7 @@ namespace ContrAgent
             dataGridView1.Columns[8].HeaderText = "Цена";
             dataGridView1.Columns[9].HeaderText = "Номер СЭД";
             dataGridView1.Columns[10].HeaderText = "ИНН";
-            dataGridView1.Columns[11].HeaderText = "Название Контрагента";
+            dataGridView1.Columns[11].HeaderText = "Наименование Контрагента";
 
         }
 
@@ -90,7 +90,7 @@ namespace ContrAgent
             {
                 if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно")
                 {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.FromArgb(212, 227, 74);
+                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.FromArgb(160, 255, 160);
                 }
                 else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Невозможно")
                 {
@@ -98,7 +98,7 @@ namespace ContrAgent
                 }
                 else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно c ограничением")
                 {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Yellow;
+                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.FromArgb(255, 255, 191); ;
                 }
             }
         }
@@ -379,6 +379,11 @@ namespace ContrAgent
         private void pictureBox6_Click(object sender, EventArgs e)
         {
             string number = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString();
+
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
 
         }
     }

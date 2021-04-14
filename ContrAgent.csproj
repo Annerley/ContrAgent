@@ -204,5 +204,14 @@
   <ItemGroup>
     <None Include="img\trash_delete_recycle_bin_remove_icon_179056.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\imgonline-com-ua-Replace-color-hJDUxWAVRRpVUG4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\imgonline-com-ua-Replace-color-f3eylJoZJi8gg7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\first_back_arrow_left_icon_179189.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

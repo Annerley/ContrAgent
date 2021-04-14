@@ -2125,7 +2125,7 @@ namespace ContrAgent
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
             //MessageBox.Show("dpi");
-            Console.ReadLine();
+            /*Console.ReadLine();
             hideExtraField.Location = new System.Drawing.Point(extraField.Size.Width / 2 + extraField.Location.X, c1Field.Location.Y);
             hideExtraField.Size = new System.Drawing.Size(extraField.Size.Width / 2 , extraField.Size.Height / 2);
             c1Field.Size = new System.Drawing.Size(extraField.Size.Width / 2 - 40, extraField.Size.Height / 2);
@@ -2138,13 +2138,32 @@ namespace ContrAgent
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            hideExtraField.Location = new System.Drawing.Point(extraField.Size.Width / 2 +extraField.Location.X, c1Field.Location.Y);
+            /*hideExtraField.Location = new System.Drawing.Point(extraField.Size.Width / 2 +extraField.Location.X, c1Field.Location.Y);
             hideExtraField.Size = new System.Drawing.Size(extraField.Size.Width / 2, extraField.Size.Height / 2);
             c1Field.Size = new System.Drawing.Size(extraField.Size.Width / 2 - 40, extraField.Size.Height / 2);
 
             /*extraField.Text = "height:" + extraField.Size.Height + "width:" + extraField.Size.Width;
             hideExtraField.Text = "height:" + hideExtraField.Size.Height + "width:" + hideExtraField.Size.Width;
             c1Field.Text = "height:" + c1Field.Size.Height + "width:" + c1Field.Size.Width;*/
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            DB db = new DB();
+            db.openConnection();
+            addScoringToDb(db);
+            MySqlCommand command = new MySqlCommand("SELECT `point`, `comment` FROM scoring WHERE `conclusion number` = @conc", db.getConnection());
+            command.Parameters.Add("@conc", MySqlDbType.Text).Value = conclusionNumberField.Text;
+
+            MySqlDataReader reader = command.ExecuteReader();
+            var result = "";
+            while (reader.Read())
+            {
+                result += reader[0].ToString() + ". " + reader[1].ToString();
+                //пофиксить, кривой символ
+                result += "\n";
+            }
+            extraField.Text = result;
         }
     }
 }
