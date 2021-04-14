@@ -531,37 +531,46 @@ namespace ContrAgent
             System.Data.DataTable table = new System.Data.DataTable();
 
             MySqlDataAdapter adapter = new MySqlDataAdapter();
-           
 
+            db.closeConnection();
+            db.openConnection();
             // Если уже есть, обновить
-            if(statusMain == 2)
+            MySqlCommand command4 = new MySqlCommand("SELECT COUNT(*) FROM `conclusion` WHERE `conclusion_number` = @conc", db.getConnection());
+            command4.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+            MySqlDataReader readercmd4 = command4.ExecuteReader();
+            readercmd4.Read();
+
+            if (readercmd4[0].ToString() == "0")
             {
+                db.closeConnection();
+                db.openConnection();
                 MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion_number`, `evaluation date`,`reason for rating`,`subject`," +
                 "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`, `exp`, `extra`, `hide extra`, `c1`) " +
                 "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
                 "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter, @exp, @extra, @hide, @c1)", db.getConnection());
 
-                command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                //Console.WriteLine(evaluationDateField.Text);
-                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    //Console.WriteLine(evaluationDateField.Text);
+                    command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
 
-                command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
-                command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
-                command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
-                command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
-                command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
-                command.Parameters.Add("@c1", MySqlDbType.Text).Value = c1Field.Text;
-                command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
-                if(expcheckBox.Checked)
-                {
-                    command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Есть опыт договорных отношений";
-                }
-                else
-                {
-                    command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Нет опыта договорных отношений";
-                }
-                command.Parameters.Add("@extra", MySqlDbType.Text).Value = extraField.Text;
-                command.Parameters.Add("@hide", MySqlDbType.Text).Value = hideExtraField.Text;
+                    command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
+                    command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
+                    command.Parameters.Add("@specification", MySqlDbType.Text).Value = specificationField.Text;
+                    command.Parameters.Add("@initiator", MySqlDbType.VarChar).Value = initiatorField.Text;
+                    command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
+                    command.Parameters.Add("@c1", MySqlDbType.Text).Value = c1Field.Text;
+                    command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
+                    if (expcheckBox.Checked)
+                    {
+                        command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Есть опыт договорных отношений";
+                    }
+                    else
+                    {
+                        command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Не имеет опыт договорных отношений с ООО `МИП - СТРОЙ №1`";
+                    }
+                    command.Parameters.Add("@extra", MySqlDbType.Text).Value = extraField.Text;
+                    command.Parameters.Add("@hide", MySqlDbType.Text).Value = hideExtraField.Text;
+                
                 db.openConnection();
                 var letter = "";
                 MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
@@ -653,17 +662,38 @@ namespace ContrAgent
                 addScoringToDb(db);
 
 
-                MySqlCommand command4 = new MySqlCommand("UPDATE `users` SET `last` = @last WHERE `name` = @name" , db.getConnection());
+                MySqlCommand command5 = new MySqlCommand("SELECT COUNT(*) FROM `conclusion` WHERE `conclusion_number` = @conc", db.getConnection());
+                command5.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                MySqlDataReader readercmd5 = command5.ExecuteReader();
+                readercmd5.Read();
 
-                int last = Convert.ToInt32(conclusionNumberField.Text.Remove(0, 2));
-                last++;
-                command4.Parameters.Add("@last", MySqlDbType.Int32).Value = last;
-                command4.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
-
-                if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery()==1 && command4.ExecuteNonQuery() == 1)
-                    MessageBox.Show("Добавилось");
+                if (readercmd5[0].ToString() == "0")
+                {
+                    
+                    command5 = new MySqlCommand("UPDATE `users` SET `last` = @last WHERE `name` = @name", db.getConnection());
+                    int last = Convert.ToInt32(conclusionNumberField.Text.Remove(0, 2));
+                    last++;
+                    command5.Parameters.Add("@last", MySqlDbType.Int32).Value = last;
+                    command5.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+                    db.closeConnection();
+                    db.openConnection();
+                    if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery() == 1 && command5.ExecuteNonQuery() == 1)
+                        MessageBox.Show("Добавилось");
+                    else
+                        MessageBox.Show("Не добавилось");
+                }
                 else
-                    MessageBox.Show("Не добавилось");
+                {
+                    db.closeConnection();
+                    db.openConnection();
+                    if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery() == 1)
+                        MessageBox.Show("Добавилось");
+                    else
+                        MessageBox.Show("Не добавилось");
+                }
+                
+
+                
             }
             else
             {
@@ -721,7 +751,7 @@ namespace ContrAgent
                 command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
                 command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
                 command3.Parameters.Add("@gendir", MySqlDbType.VarChar).Value = gendirField.Text;
-
+                db.closeConnection();
                 db.openConnection();
 
                 if (command.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery() == 1)
@@ -761,8 +791,15 @@ namespace ContrAgent
                
                 db.openConnection();
 
-                if(statusMain == 1)
+                MySqlCommand command4 = new MySqlCommand("SELECT COUNT(*) FROM `conclusion` WHERE `conclusion_number` = @conc", db.getConnection());
+                command4.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                MySqlDataReader readercmd4 = command4.ExecuteReader();
+                readercmd4.Read();
+
+                if (readercmd4[0].ToString() != "0")
                 {
+                    db.closeConnection();
+                    db.openConnection();
                     cmd = ("DELETE FROM `scoring` WHERE `conclusion number` = @conclusion_number ");
                     MySqlCommand commandScore = new MySqlCommand(cmd, db.getConnection());
                     commandScore.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
@@ -773,7 +810,8 @@ namespace ContrAgent
 
 
                 cmd = ("INSERT INTO `scoring` (`conclusion number`, `point`, `comment`) VALUES (@conclusion_number, @point, @comment) ");
-                
+                db.closeConnection();
+                db.openConnection();
                 if (checkBox2.Checked)
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
@@ -803,7 +841,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 4.1;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "4.1";
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox4.Text;
                     command.ExecuteNonQuery();
                 }
@@ -819,7 +857,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 4.2;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "4.2";
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox4.Text;
                     command.ExecuteNonQuery();
                 }
@@ -892,7 +930,7 @@ namespace ContrAgent
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                     command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 14;
-                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox12.Text;
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox13.Text;
                     command.ExecuteNonQuery();
                 }
                 if (checkBox16.Checked)
@@ -931,7 +969,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 20.2;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "20.2";
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox18.Text;
                     command.ExecuteNonQuery();
                 }
@@ -947,7 +985,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 20.1;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "20.1";
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox18.Text;
                     command.ExecuteNonQuery();
                 }
@@ -987,7 +1025,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 25.1;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "25.1";
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox25.Text;
                     command.ExecuteNonQuery();
                 }
@@ -995,7 +1033,7 @@ namespace ContrAgent
                 {
                     MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
-                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = 25.2;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "25.2";
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox25.Text;
                     command.ExecuteNonQuery();
                 }
@@ -1092,6 +1130,7 @@ namespace ContrAgent
             var price = priceField.Text;
             var extra = extraField.Text;
             var name = orgNameField.Text;
+            var test = testField.Text;
             string exp = "";
             if (expcheckBox.Checked)
             {
@@ -1105,6 +1144,7 @@ namespace ContrAgent
 
             string patternPath = Directory.GetCurrentDirectory() + "\\pattern.docx";
             var wordDocument = wordApp.Documents.Open(@patternPath);
+            //ReplaceWordStub("{test}", test, wordDocument);
             ReplaceWordStub("{conclusion_number}", conclusionNumber, wordDocument);
             ReplaceWordStub("{initiator}", initiator, wordDocument);
             ReplaceWordStub("{evaluation_date}", evaluationDate, wordDocument);
@@ -1185,14 +1225,67 @@ namespace ContrAgent
 
         private void ReplaceWordStub(string stubToReplace, string text, Word.Document wordDocument)
         {
-            var range = wordDocument.Content;
+            if(stubToReplace == "{extra}")
+            {
+                testFunc(text,  wordDocument);
+                return;
+            }
+            Word.Find find;
+            find = wordDocument.Content.Application.Selection.Find;
+            //app.Selection.Find;
+
+            find.Text = stubToReplace; // текст поиска
+            find.Replacement.Text = text; // текст замены
+
+            find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
+                        MatchSoundsLike: Type.Missing, MatchAllWordForms: false, Forward: true, Wrap: Word.WdFindWrap.wdFindContinue,
+                        Format: true, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
+
+            
+            /*var range = wordDocument.Content;
 
             text = text.Replace("\n","^p");
             //Сбрасываем форматирование
             //range.Find.ClearFormatting();
 
-            range.Find.Execute(FindText: stubToReplace, ReplaceWith: text, Format: true);
+            range.Find.Execute(FindText: stubToReplace, ReplaceWith: text, Format: true);*/
 
+        }
+        
+        private void testFunc(string text, Word.Document wordDocument)
+        {
+            Word.Find find;
+            find = wordDocument.Content.Application.Selection.Find;
+            //app.Selection.Find;
+
+            find.Text = "{extra}"; // текст поиска
+            string newstr = text;
+            int i = 0;
+            while (true)
+            {
+                if(text.Length < 255)
+                {
+                    newstr = text.Substring(0, text.Length);
+                    find.Replacement.Text = newstr; // текст замены
+                    find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
+                        MatchSoundsLike: Type.Missing, MatchAllWordForms: false, Forward: true, Wrap: Word.WdFindWrap.wdFindContinue,
+                        Format: false, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
+                    break;
+                }
+                newstr = text.Substring(0, 248);
+                text = text.Remove(0, 248);
+                find.Replacement.Text = newstr + "{extra}"; // текст замены
+
+                find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
+                        MatchSoundsLike: Type.Missing, MatchAllWordForms: false, Forward: true, Wrap: Word.WdFindWrap.wdFindContinue,
+                        Format: false, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
+
+                i++;
+            }
+            
+
+            
+            
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
@@ -2025,9 +2118,33 @@ namespace ContrAgent
             }*/
         }
 
-        private void Form1_Activated(object sender, EventArgs e)
+       
+
+       
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            
+            //MessageBox.Show("dpi");
+            Console.ReadLine();
+            hideExtraField.Location = new System.Drawing.Point(extraField.Size.Width / 2 + extraField.Location.X, c1Field.Location.Y);
+            hideExtraField.Size = new System.Drawing.Size(extraField.Size.Width / 2 , extraField.Size.Height / 2);
+            c1Field.Size = new System.Drawing.Size(extraField.Size.Width / 2 - 40, extraField.Size.Height / 2);
+
+            /*extraField.Text = "height:" + extraField.Size.Height + "width:" + extraField.Size.Width;
+            hideExtraField.Text = "height:" + hideExtraField.Size.Height + "width:" + hideExtraField.Size.Width;
+            c1Field.Text = "height:" + c1Field.Size.Height + "width:" + c1Field.Size.Width;*/
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            hideExtraField.Location = new System.Drawing.Point(extraField.Size.Width / 2 +extraField.Location.X, c1Field.Location.Y);
+            hideExtraField.Size = new System.Drawing.Size(extraField.Size.Width / 2, extraField.Size.Height / 2);
+            c1Field.Size = new System.Drawing.Size(extraField.Size.Width / 2 - 40, extraField.Size.Height / 2);
+
+            /*extraField.Text = "height:" + extraField.Size.Height + "width:" + extraField.Size.Width;
+            hideExtraField.Text = "height:" + hideExtraField.Size.Height + "width:" + hideExtraField.Size.Width;
+            c1Field.Text = "height:" + c1Field.Size.Height + "width:" + c1Field.Size.Width;*/
         }
     }
 }

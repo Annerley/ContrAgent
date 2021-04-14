@@ -90,11 +90,11 @@ namespace ContrAgent
             {
                 if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно")
                 {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Green;
+                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.FromArgb(212, 227, 74);
                 }
                 else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Невозможно")
                 {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.Red;
+                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.FromArgb(255, 96, 98);
                 }
                 else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно c ограничением")
                 {
@@ -108,8 +108,13 @@ namespace ContrAgent
             Form1 Form1 = new Form1(nameMain, "", 2);
             Console.WriteLine(nameMain);
             Form1.ShowDialog();
+            updateTable();
             
             
+        }
+        private void updateTable()
+        {
+            dataGridView1.DataSource = getConclusionList();
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -129,11 +134,13 @@ namespace ContrAgent
             {
                 Form1 Form1 = new Form1(nameMain, number, 0);
                 Form1.ShowDialog();
+                updateTable();
             }
             else
             {
                 Form1 Form1 = new Form1(nameMain, number, 1);
                 Form1.ShowDialog();
+                updateTable();
             }
 
             
@@ -141,7 +148,7 @@ namespace ContrAgent
            
             db.closeConnection();
         }
-
+        
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             
@@ -364,6 +371,7 @@ namespace ContrAgent
                 MessageBox.Show("У вас нет прав администратора");
             }
             db.closeConnection();
+            updateTable();
         }
 
        
