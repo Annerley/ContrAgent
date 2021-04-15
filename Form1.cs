@@ -791,7 +791,7 @@ namespace ContrAgent
                
                 db.openConnection();
 
-                MySqlCommand command4 = new MySqlCommand("SELECT COUNT(*) FROM `conclusion` WHERE `conclusion_number` = @conc", db.getConnection());
+                MySqlCommand command4 = new MySqlCommand("SELECT COUNT(*) FROM `scoring` WHERE `conclusion number` = @conc", db.getConnection());
                 command4.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 MySqlDataReader readercmd4 = command4.ExecuteReader();
                 readercmd4.Read();
@@ -1214,7 +1214,8 @@ namespace ContrAgent
             var result = "";
             while (reader.Read())
             {
-                result+= reader[0].ToString() + ". " + reader[1].ToString();
+                //result+= reader[0].ToString() + ". " + reader[1].ToString();
+                result += reader[0].ToString() + ". " + getScoringText(reader[0].ToString());
                 //пофиксить, кривой символ
                 result += "^p";
             }
@@ -1223,11 +1224,22 @@ namespace ContrAgent
 
         }
 
+        private string getScoringText(string number)
+        {
+            string a = File.ReadAllText(Directory.GetCurrentDirectory() + "\\text\\" + number + ".txt");
+            return a;
+        }
+
         private void ReplaceWordStub(string stubToReplace, string text, Word.Document wordDocument)
         {
             if(stubToReplace == "{extra}")
             {
                 testFunc(text,  wordDocument);
+                return;
+            }
+            if (stubToReplace == "{scoring}")
+            {
+                testFuncForScor(text, wordDocument);
                 return;
             }
             Word.Find find;
@@ -1251,7 +1263,44 @@ namespace ContrAgent
             range.Find.Execute(FindText: stubToReplace, ReplaceWith: text, Format: true);*/
 
         }
-        
+        private void testFuncForScor(string text, Word.Document wordDocument)
+        {
+            Word.Find find;
+            find = wordDocument.Content.Application.Selection.Find;
+            //app.Selection.Find;
+
+            find.Text = "{scoring}"; // текст поиска
+            string newstr = text;
+            int i = 0;
+            while (true)
+            {
+                if (text.Length < 255)
+                {
+                    newstr = text.Substring(0, text.Length);
+                    newstr = newstr.Replace("\n", "^p");
+                    find.Replacement.Text = newstr; // текст замены
+                    find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
+                        MatchSoundsLike: Type.Missing, MatchAllWordForms: false, Forward: true, Wrap: Word.WdFindWrap.wdFindContinue,
+                        Format: false, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
+                    break;
+                }
+                newstr = text.Substring(0, 246);
+                newstr = newstr.Replace("\n", "^p");
+                text = text.Remove(0, 246);
+                find.Replacement.Text = newstr + "{scoring}"; // текст замены
+
+                find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
+                        MatchSoundsLike: Type.Missing, MatchAllWordForms: false, Forward: true, Wrap: Word.WdFindWrap.wdFindContinue,
+                        Format: false, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
+
+                i++;
+            }
+
+
+
+
+        }
+
         private void testFunc(string text, Word.Document wordDocument)
         {
             Word.Find find;
@@ -1266,14 +1315,16 @@ namespace ContrAgent
                 if(text.Length < 255)
                 {
                     newstr = text.Substring(0, text.Length);
+                    newstr = newstr.Replace("\n", "^p");
                     find.Replacement.Text = newstr; // текст замены
                     find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
                         MatchSoundsLike: Type.Missing, MatchAllWordForms: false, Forward: true, Wrap: Word.WdFindWrap.wdFindContinue,
                         Format: false, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
                     break;
                 }
-                newstr = text.Substring(0, 248);
-                text = text.Remove(0, 248);
+                newstr = text.Substring(0, 246);
+                newstr = newstr.Replace("\n", "^p");
+                text = text.Remove(0, 246);
                 find.Replacement.Text = newstr + "{extra}"; // текст замены
 
                 find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
@@ -2159,11 +2210,13 @@ namespace ContrAgent
             var result = "";
             while (reader.Read())
             {
-                result += reader[0].ToString() + ". " + reader[1].ToString();
+                result += "п." + reader[0].ToString() + ". " + reader[1].ToString();
                 //пофиксить, кривой символ
                 result += "\n";
             }
             extraField.Text = result;
         }
+
+       
     }
 }
