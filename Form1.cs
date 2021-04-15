@@ -29,10 +29,10 @@ namespace ContrAgent
             nameMain = name;
             uploadData(name, number, status);
 
-            label53.Text = "Пользователь: " + name;
-            resultUpdater();
-            TimeUpdater();
             
+            resultUpdater();
+            
+            label13.Text += conclusionNumberField.Text;
             label51.Text = resultInt.ToString();
             //label51.Show();
 
@@ -121,7 +121,7 @@ namespace ContrAgent
             DB db = new DB();
             db.openConnection();
             
-            if(statusMain == 1 || statusMain == 0)
+            if(statusMain == 1 || statusMain == 0 || statusMain == 4)
             {
 
 
@@ -204,8 +204,10 @@ namespace ContrAgent
 
                 //молоток
             }
-            else if(statusMain == 2)
+            if(statusMain == 2 || statusMain == 4)
             {
+                db.closeConnection();
+                db.openConnection();
                 string result = "";
                 MySqlCommand command = new MySqlCommand("SELECT letter FROM users WHERE name = @name", db.getConnection());
                 command.Parameters.Add("@name", MySqlDbType.VarChar).Value = name;
@@ -229,6 +231,10 @@ namespace ContrAgent
                 conclusionNumberField.Text = result;
             }
             db.closeConnection();
+            if(statusMain == 4)
+            {
+                statusMain = 2; 
+            }
         }
         private void updateScoring(string number)
         {
@@ -551,7 +557,7 @@ namespace ContrAgent
 
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                     //Console.WriteLine(evaluationDateField.Text);
-                    command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
+                    command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = getUsualDate(evaluationDateField.Text);
 
                     command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
                     command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
@@ -705,9 +711,9 @@ namespace ContrAgent
                 //Console.WriteLine(evaluationDateField.Text);
                 command.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 command.Parameters.Add("@c", MySqlDbType.Text).Value = c1Field.Text;
-                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
-                
-                    command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
+                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = getUsualDate(evaluationDateField.Text);
+
+                command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
                 
                 command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
                 command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
@@ -1086,15 +1092,13 @@ namespace ContrAgent
             
         }
 
-
-        async void TimeUpdater()
+        private string getUsualDate(string date)
         {
-            while (true)
-            {
-                customTimer.Text = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
-                await System.Threading.Tasks.Task.Delay(1000*60);
-            }
+            DateTime dateTime = DateTime.Parse(date);
+
+            return dateTime.ToString("yyyy-MM-dd");
         }
+        
 
         private void resultUpdater()
         {
@@ -1130,7 +1134,6 @@ namespace ContrAgent
             var price = priceField.Text;
             var extra = extraField.Text;
             var name = orgNameField.Text;
-            var test = testField.Text;
             string exp = "";
             if (expcheckBox.Checked)
             {
@@ -1987,7 +1990,7 @@ namespace ContrAgent
 
                 command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 //Console.WriteLine(evaluationDateField.Text);
-                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
+                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = getUsualDate(evaluationDateField.Text);
 
                 command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
                 command.Parameters.Add("@subject", MySqlDbType.Text).Value = subjectField.Text;
@@ -2081,8 +2084,8 @@ namespace ContrAgent
                 //Console.WriteLine(evaluationDateField.Text);
                 command.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 command.Parameters.Add("@c", MySqlDbType.Text).Value = c1Field.Text;
-                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = evaluationDateField.Text;
-                
+                command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = getUsualDate(evaluationDateField.Text);
+
                 command.Parameters.Add("@status", MySqlDbType.Int32).Value = 0;
                 
                 
@@ -2217,6 +2220,19 @@ namespace ContrAgent
             extraField.Text = result;
         }
 
-       
+        private void label47_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.InitialDelay = 0;
+            tt.SetToolTip(this.label47, "Согласно данным из ИАС «Спарк» наличие у организации незавершенных исполнительных производств; отражение в бухгалтерской или налоговой отчетности организации убытков на протяжении двух последних лет / размер чистых активов имеет отрицательное значение за последний завершенный отчётный год; организация выступает в арбитражных судах только в роли ответчика; сведения в ЕГРЮЛ в отношении организации признаны недостоверными; организации, отсутствующие по юридическому адресу по данным ФНС России; в производстве арбитражного суда находится дело о признании должника (несостоятельным) банкротом; организация исключена из ЕГРЮЛ на основании п.2 ст.21.1 ФЗ от 08.08.2001 №129-ФЗ - `юридическое лицо, которое в течение последних двенадцати месяцев не представляло документы отчетности, предусмотренные законодательством РФ о налогах и сборах, и не осуществляло операций хотя бы по одному банковскому счету`");
+        }
+
+        private void label35_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.InitialDelay = 0;
+            
+            tt.SetToolTip(this.label35, "Учредители/руководитель контрагента были аффилированы с юридическим лицом (банкротом) в период возбуждения производства о признании его несостоятельным (банкротом)");
+        }
     }
 }

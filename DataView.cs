@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
+using System.ComponentModel;
+using System.IO;
 
 namespace ContrAgent
 {
@@ -380,10 +383,62 @@ namespace ContrAgent
         {
             string number = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString();
 
+
         }
 
         private void pictureBox7_Click(object sender, EventArgs e)
         {
+            string number = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString();
+
+            DB db = new DB();
+
+            db.openConnection();
+            
+            Form1 Form1 = new Form1(nameMain, number, 4);
+            Form1.ShowDialog();
+            updateTable();
+          
+
+
+
+
+            db.closeConnection();
+        }
+
+        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string a = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+            if(Directory.Exists(getConfigPath(0) + "\\" + a))
+            {
+                Process.Start(getConfigPath(0) + "\\" + a);
+            }          
+            else
+            {
+                MessageBox.Show("Директории не существует, создайте документы заключения");
+            }
+
+
+        }
+
+        private string getConfigPath(int j)
+        {
+            string line;
+            string path = Directory.GetCurrentDirectory() + "\\config.txt";
+            using (StreamReader sr = new StreamReader(path))
+            {
+                int i = 0;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (i == j)
+                    {
+                        return line;
+                    }
+
+                    Console.WriteLine(line);
+                    i++;
+                }
+            }
+            return "default";
 
         }
     }

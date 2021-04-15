@@ -70,6 +70,7 @@ namespace ContrAgent
             this.dataGridView1.RowHeadersWidth = 82;
             this.dataGridView1.Size = new System.Drawing.Size(718, 245);
             this.dataGridView1.TabIndex = 14;
+            this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
             // label13
@@ -257,7 +258,7 @@ namespace ContrAgent
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "DataView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = " ПО \"Проверка Контрагента\"  v0.7";
+            this.Text = " им";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DataView_FormClosed);
             this.Load += new System.EventHandler(this.DataView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
