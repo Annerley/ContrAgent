@@ -140,7 +140,7 @@ namespace ContrAgent
                 {
 
                     conclusionNumberField.Text = reader[0].ToString();
-                    evaluationDateField.Text = reader[1].ToString();
+                    evaluationDateField.Text = reader[1].ToString().Substring(0, reader[1].ToString().LastIndexOf(' '));
                     reasonField.Text = reader[2].ToString();
                     subjectField.Text = reader[3].ToString();
                     specificationField.Text = reader[4].ToString();
@@ -156,6 +156,18 @@ namespace ContrAgent
                     extraField.Text = reader[13].ToString();
                     hideExtraField.Text = reader[14].ToString();
                     c1Field.Text = reader[15].ToString();
+                    if(reader[16].ToString() == "0")
+                    {
+                        radioButton1.Checked = true;
+                    }
+                    else if (reader[16].ToString() == "0.5")
+                    {
+                        radioButton2.Checked = true;
+                    }
+                    else if(reader[16].ToString() == "1")
+                    {
+                        radioButton3.Checked = true;
+                    }
 
 
                 }
@@ -188,7 +200,10 @@ namespace ContrAgent
                     innField.Text = reader3[0].ToString();
                     orgNameField.Text = reader3[1].ToString();
                     factAdressField.Text = reader3[2].ToString();
-                    registrationDateField.Text = reader3[3].ToString();
+                    if(reader3[3].ToString()!= "")
+                    {
+                        registrationDateField.Text = reader3[3].ToString().Substring(0, reader3[3].ToString().LastIndexOf(' '));
+                    }
                     activityField.Text = reader3[4].ToString();
                     legalAdressField.Text = reader3[5].ToString();
                     emailField.Text = reader3[6].ToString();
@@ -212,7 +227,7 @@ namespace ContrAgent
                 MySqlCommand command = new MySqlCommand("SELECT letter FROM users WHERE name = @name", db.getConnection());
                 command.Parameters.Add("@name", MySqlDbType.VarChar).Value = name;
                 MySqlDataReader reader = command.ExecuteReader();
-
+                evaluationDateField.Text = DateTime.Now.ToShortDateString().ToString();
                 while (reader.Read())
                 {
                    result = reader[0].ToString()+"-";
@@ -551,9 +566,9 @@ namespace ContrAgent
                 db.closeConnection();
                 db.openConnection();
                 MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion_number`, `evaluation date`,`reason for rating`,`subject`," +
-                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`, `exp`, `extra`, `hide extra`, `c1`) " +
+                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`, `exp`, `extra`, `hide extra`, `c1`, `extra_point`) " +
                 "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
-                "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter, @exp, @extra, @hide, @c1)", db.getConnection());
+                "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter, @exp, @extra, @hide, @c1, @point)", db.getConnection());
 
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                     //Console.WriteLine(evaluationDateField.Text);
@@ -576,7 +591,19 @@ namespace ContrAgent
                     }
                     command.Parameters.Add("@extra", MySqlDbType.Text).Value = extraField.Text;
                     command.Parameters.Add("@hide", MySqlDbType.Text).Value = hideExtraField.Text;
-                
+                    if(radioButton2.Checked)
+                    {
+                        command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "0.5";
+                    }
+                    else if(radioButton3.Checked)
+                    {
+                        command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "1";
+                    }
+                    else
+                    {
+                        command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "0";
+                    }
+
                 db.openConnection();
                 var letter = "";
                 MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
@@ -592,11 +619,11 @@ namespace ContrAgent
                 command.Parameters.Add("@letter", MySqlDbType.Text).Value = letter;
                 if (priceField.Text == "")
                 {
-                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
+                    command.Parameters.Add("@price", MySqlDbType.VarChar).Value = "0";
                 }
                 else
                 {
-                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+                    command.Parameters.Add("@price", MySqlDbType.VarChar).Value = priceField.Text;
                 }
                 command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
                 
@@ -622,7 +649,7 @@ namespace ContrAgent
                "@activity,  @legal_adress, @email, @phone , @leader, @founder, @gendir)", db.getConnection());
 
                     command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
-                    command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                    command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = getUsualDate(registrationDateField.Text);
                     command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
                     command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
                     command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
@@ -640,7 +667,7 @@ namespace ContrAgent
                "WHERE `inn` = @inn", db.getConnection());
 
                     command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
-                    command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                    command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = getUsualDate(registrationDateField.Text);
                     command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
                     command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
                     command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
@@ -705,7 +732,7 @@ namespace ContrAgent
             {
                 MySqlCommand command = new MySqlCommand("UPDATE `conclusion` SET `evaluation date` = @evaluation_date, `reason for rating` = @reason_for_rating, " +
                     "`subject` = @subject, `specification` = @specification, `initiator` = @initiator, `object` = @object, `result` = @result, `price` = @price," +
-                    " `sad` = @sad, `status` = @status, `exp` = @exp, `extra` =@extra, `hide extra`=@hide, `c1` = @c WHERE `conclusion_number` = @number" , db.getConnection());
+                    " `sad` = @sad, `status` = @status, `exp` = @exp, `extra` =@extra, `hide extra`=@hide, `c1` = @c, `extra_point` = @point WHERE `conclusion_number` = @number" , db.getConnection());
 
 
                 //Console.WriteLine(evaluationDateField.Text);
@@ -733,21 +760,32 @@ namespace ContrAgent
                 command.Parameters.Add("@hide", MySqlDbType.Text).Value = hideExtraField.Text;
                 if (priceField.Text == "")
                 {
-                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
+                    command.Parameters.Add("@price", MySqlDbType.VarChar).Value = 0;
                 }
                 else
                 {
-                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+                    command.Parameters.Add("@price", MySqlDbType.VarChar).Value = priceField.Text;
                 }
                 command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
-               
 
-                MySqlCommand command3 = new MySqlCommand("UPDATE `organisation` SET  `name` = @name,`fact adress` = @fact_adress,`registration date` = @reg_date," +
+                if (radioButton2.Checked)
+                {
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "0.5";
+                }
+                else if (radioButton3.Checked)
+                {
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "1";
+                }
+                else 
+                {
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "0";
+                }
+                    MySqlCommand command3 = new MySqlCommand("UPDATE `organisation` SET  `name` = @name,`fact adress` = @fact_adress,`registration date` = @reg_date," +
                "`activity` = @activity,`legal adress` = @legal_adress, `email` = @email, `phone` = @phone, `leader` = @leader, `founder` = @founder, `gendir` =@gendir " +
                "WHERE `inn` = @inn", db.getConnection());
 
                 command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
-                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = getUsualDate(registrationDateField.Text);
                 command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
                 command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
                 command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
@@ -2024,11 +2062,11 @@ namespace ContrAgent
                 command.Parameters.Add("@letter", MySqlDbType.Text).Value = letter;
                 if (priceField.Text == "")
                 {
-                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
+                    command.Parameters.Add("@price", MySqlDbType.VarChar).Value = "0";
                 }
                 else
                 {
-                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+                    command.Parameters.Add("@price", MySqlDbType.VarChar).Value = priceField.Text;
                 }
                 command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
                 
@@ -2045,7 +2083,7 @@ namespace ContrAgent
                "@activity,  @legal_adress, @email, @phone , @leader, @founder)", db.getConnection());
 
                 command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
-                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = getUsualDate(registrationDateField.Text);
                 command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
                 command3.Parameters.Add("@fact_adress", MySqlDbType.VarChar).Value = factAdressField.Text;
                 command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
@@ -2107,11 +2145,11 @@ namespace ContrAgent
                 command.Parameters.Add("@hide", MySqlDbType.Text).Value = hideExtraField.Text;
                 if (priceField.Text == "")
                 {
-                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = 0;
+                    command.Parameters.Add("@price", MySqlDbType.VarChar).Value = "0";
                 }
                 else
                 {
-                    command.Parameters.Add("@price", MySqlDbType.Int32).Value = priceField.Text;
+                    command.Parameters.Add("@price", MySqlDbType.VarChar).Value = priceField.Text;
                 }
                 command.Parameters.Add("@sad", MySqlDbType.VarChar).Value = sadField.Text;
 
@@ -2121,7 +2159,7 @@ namespace ContrAgent
                "WHERE `inn` = @inn", db.getConnection());
 
                 command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
-                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = registrationDateField.Text;
+                command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = getUsualDate(registrationDateField.Text);
                 command3.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
                 command3.Parameters.Add("@activity", MySqlDbType.VarChar).Value = activityField.Text;
                 command3.Parameters.Add("@legal_adress", MySqlDbType.VarChar).Value = legalAdressField.Text;
@@ -2233,6 +2271,35 @@ namespace ContrAgent
             tt.InitialDelay = 0;
             
             tt.SetToolTip(this.label35, "Учредители/руководитель контрагента были аффилированы с юридическим лицом (банкротом) в период возбуждения производства о признании его несостоятельным (банкротом)");
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButton2.Checked)
+            {
+                resultInt+=0.5;
+            }
+            else
+            {
+                resultInt -= 0.5;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+            
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton3.Checked)
+            {
+                resultInt += 1;
+            }
+            else
+            {
+                resultInt -= 1;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
         }
     }
 }

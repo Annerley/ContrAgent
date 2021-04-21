@@ -58,7 +58,8 @@ namespace ContrAgent
             dataGridView1.Columns[9].HeaderText = "Номер СЭД";
             dataGridView1.Columns[10].HeaderText = "ИНН";
             dataGridView1.Columns[11].HeaderText = "Наименование Контрагента";
-
+            dataGridView1.Columns[12].HeaderText = "Status";
+            this.dataGridView1.Columns["Status"].Visible = false;
         }
 
         private DataTable getConclusionList()
@@ -70,7 +71,7 @@ namespace ContrAgent
             db.openConnection();
 
             using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE conclusion.status = 1", db.getConnection()))
             {
@@ -101,8 +102,16 @@ namespace ContrAgent
                 }
                 else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно c ограничением")
                 {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.FromArgb(255, 255, 191); ;
+                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.FromArgb(255, 255, 191);
                 }
+            }
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[12].Value.ToString() == "0")
+                {
+                    dataGridView1.Rows[i].Cells[0].Style.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                }
+
             }
         }
 
@@ -111,9 +120,9 @@ namespace ContrAgent
             Form1 Form1 = new Form1(nameMain, "", 2);
             Console.WriteLine(nameMain);
             Form1.ShowDialog();
-            updateTable();
-            
-            
+            loadDataCheckBox();
+
+
         }
         private void updateTable()
         {
@@ -132,31 +141,31 @@ namespace ContrAgent
 
             MySqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
-            
-            if(reader[0].ToString() == "0" )
+
+            if (reader[0].ToString() == "0")
             {
                 Form1 Form1 = new Form1(nameMain, number, 0);
                 Form1.ShowDialog();
-                updateTable();
+                loadDataCheckBox();
             }
             else
             {
                 Form1 Form1 = new Form1(nameMain, number, 1);
                 Form1.ShowDialog();
-                updateTable();
+                loadDataCheckBox();
             }
 
-            
-            
-           
+
+
+
             db.closeConnection();
         }
-        
+
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            
-           if(checkBox2.Checked && !checkBox1.Checked)
-           {
+
+            if (checkBox2.Checked && !checkBox1.Checked)
+            {
                 DataTable dtConclusion = new DataTable();
 
                 DB db = new DB();
@@ -164,7 +173,7 @@ namespace ContrAgent
                 db.openConnection();
 
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn ", db.getConnection()))
                 {
@@ -175,8 +184,8 @@ namespace ContrAgent
 
                 db.closeConnection();
                 dataGridView1.DataSource = dtConclusion;
-           }
-            else if(checkBox1.Checked && checkBox2.Checked)
+            }
+            else if (checkBox1.Checked && checkBox2.Checked)
             {
                 DataTable dtConclusion = new DataTable();
                 var letter = "";
@@ -194,7 +203,7 @@ namespace ContrAgent
                 //опять костыли
 
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name", db.getConnection()))
                 {
@@ -227,7 +236,7 @@ namespace ContrAgent
                 //опять костыли
 
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND status = 1", db.getConnection()))
                 {
@@ -244,6 +253,7 @@ namespace ContrAgent
                 dataGridView1.DataSource = getConclusionList();
             }
 
+            this.dataGridView1.Columns["Status"].Visible = false;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -252,7 +262,7 @@ namespace ContrAgent
             if (checkBox1.Checked && !checkBox2.Checked)
             {
 
-                
+
 
                 DataTable dtConclusion = new DataTable();
 
@@ -270,7 +280,7 @@ namespace ContrAgent
                 //опять костыли
 
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND status = 1", db.getConnection()))
                 {
@@ -291,7 +301,7 @@ namespace ContrAgent
                 db.openConnection();
 
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn", db.getConnection()))
                 {
@@ -321,7 +331,7 @@ namespace ContrAgent
                 //опять костыли
 
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name` FROM conclusion " +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name", db.getConnection()))
                 {
@@ -337,6 +347,8 @@ namespace ContrAgent
             {
                 dataGridView1.DataSource = getConclusionList();
             }
+
+            this.dataGridView1.Columns["Status"].Visible = false;
         }
 
         private void pictureBox1_MouseHover(object sender, EventArgs e)
@@ -360,11 +372,11 @@ namespace ContrAgent
             DB db = new DB();
 
             db.openConnection();
-            if(nameMain == "admin")
+            if (nameMain == "admin")
             {
                 MySqlCommand cmd = new MySqlCommand("DELETE FROM conclusion WHERE `conclusion_number` = @number", db.getConnection());
                 cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = number;
-                if(cmd.ExecuteNonQuery() == 1)
+                if (cmd.ExecuteNonQuery() == 1)
                 {
                     MessageBox.Show("Успешно удалено");
                 }
@@ -374,10 +386,10 @@ namespace ContrAgent
                 MessageBox.Show("У вас нет прав администратора");
             }
             db.closeConnection();
-            updateTable();
+            loadDataCheckBox();
         }
 
-       
+
 
         private void pictureBox6_Click(object sender, EventArgs e)
         {
@@ -393,11 +405,11 @@ namespace ContrAgent
             DB db = new DB();
 
             db.openConnection();
-            
+
             Form1 Form1 = new Form1(nameMain, number, 4);
             Form1.ShowDialog();
-            updateTable();
-          
+            loadDataCheckBox();
+
 
 
 
@@ -408,10 +420,10 @@ namespace ContrAgent
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string a = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            if(Directory.Exists(getConfigPath(0) + "\\" + a))
+            if (Directory.Exists(getConfigPath(0) + "\\" + a))
             {
                 Process.Start(getConfigPath(0) + "\\" + a);
-            }          
+            }
             else
             {
                 MessageBox.Show("Директории не существует, создайте документы заключения");
@@ -441,8 +453,156 @@ namespace ContrAgent
             return "default";
 
         }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if(textBox1.Text == "")
+                {
+                    loadDataCheckBox();
+                    return;
+                }
+                DataTable dtConclusion = new DataTable();
+
+                DB db = new DB();
+
+                db.openConnection();
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE conclusion.conclusion_number = @number ", db.getConnection()))
+                {
+                    cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = textBox1.Text;
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+                this.dataGridView1.Columns["Status"].Visible = false;
+            }
+        }
+
+        private void loadDataCheckBox()
+        {
+            if(checkBox1.Checked && !checkBox2.Checked)
+            {
+                DataTable dtConclusion = new DataTable();
+
+                DB db = new DB();
+
+                db.openConnection();
+                MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
+                cmd2.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+
+                MySqlDataReader reader2 = cmd2.ExecuteReader();
+                reader2.Read();
+                var letter = reader2[0].ToString();
+                db.closeConnection();
+                db.openConnection();
+                //опять костыли
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND `status` = 1", db.getConnection()))
+                {
+                    cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+            }
+            else if(checkBox1.Checked && checkBox2.Checked)
+            {
+                DataTable dtConclusion = new DataTable();
+
+                DB db = new DB();
+
+                db.openConnection();
+                MySqlCommand cmd2 = new MySqlCommand("SELECT `letter` FROM users WHERE name = @name", db.getConnection());
+                cmd2.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+
+                MySqlDataReader reader2 = cmd2.ExecuteReader();
+                reader2.Read();
+                var letter = reader2[0].ToString();
+                db.closeConnection();
+                db.openConnection();
+                //опять костыли
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name ", db.getConnection()))
+                {
+                    cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+            }
+            else if(!checkBox1.Checked && checkBox2.Checked)
+            {
+                DataTable dtConclusion = new DataTable();
+
+                DB db = new DB();
+
+                
+                db.openConnection();
+                //опять костыли
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn", db.getConnection()))
+                {
+                    
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+            }
+            else if(!checkBox1.Checked && !checkBox2.Checked)
+            {
+                DataTable dtConclusion = new DataTable();
+
+                DB db = new DB();
+
+                
+                db.openConnection();
+                //опять костыли
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE `status` = 1", db.getConnection()))
+                {
+                    
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+            }
+        }
+
+
     }
-
-
-
 }
