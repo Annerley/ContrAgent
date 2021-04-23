@@ -47,6 +47,7 @@ namespace ContrAgent
                 {
                     saveButton[i + j] = new TextBox();
                     saveButton[i+j].Dock = DockStyle.Fill;
+                    saveButton[i + j].Font = new System.Drawing.Font("Calibri", 12);
                     saveButton[i + j].Multiline = true;
                     saveButton[i + j].Margin = new Padding(0, 0, 0, 0);
                     saveButton[i + j].Padding = new Padding(0, 0, 0, 0);
@@ -54,7 +55,36 @@ namespace ContrAgent
                 }
             }
 
+            loadTableData();
 
+
+        }
+
+        private void loadTableData()
+        {
+            DB db = new DB();
+            db.openConnection();
+
+            MySqlCommand command = new MySqlCommand("SELECT `name`, `date`, `expired`, `extra` FROM `expirience` WHERE `conclusion_number` = @conc", db.getConnection());
+            command.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+            MySqlDataReader reader = command.ExecuteReader();
+            int i = 0;
+            while(reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    tableLayoutPanel1.GetControlFromPosition(0, i).Text = reader[0].ToString();
+                    tableLayoutPanel1.GetControlFromPosition(1, i).Text = reader[1].ToString();
+                    tableLayoutPanel1.GetControlFromPosition(2, i).Text = reader[2].ToString();
+                    tableLayoutPanel1.GetControlFromPosition(3, i).Text = reader[3].ToString();
+                    i++;
+                }
+                reader.NextResult();
+                
+            }
+            reader.Close();
+
+            
         }
         private void blockEverything()
         {
@@ -1200,6 +1230,16 @@ namespace ContrAgent
             ReplaceWordStub("{result}", result, wordDocument);
             ReplaceWordStub("{exp}", exp, wordDocument);
 
+            DB db = new DB();
+            db.openConnection();
+            MySqlCommand command = new MySqlCommand("SELECT `fio`, `position` FROM users WHERE `name` = @user", db.getConnection());
+            command.Parameters.Add("@user", MySqlDbType.Text).Value = nameMain;
+
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            ReplaceWordStub("{fio}", reader[0].ToString(), wordDocument);
+            ReplaceWordStub("{position}", reader[1].ToString(), wordDocument);
+            db.closeConnection();
             addScoringToWord(conclusionNumber, wordDocument);
             //берем из конфига
             string path = getConfigPath(0)+"\\" + conclusionNumberField.Text;
@@ -1588,12 +1628,12 @@ namespace ContrAgent
             if (checkBox14.Checked)
             {
                 richTextBox12.Show();
-                resultInt += 1;
+                resultInt += 0.5;
             }
             else
             {
                 richTextBox12.Hide();
-                resultInt -= 1;
+                resultInt -= 0.5;
             }
             label51.Text = resultInt.ToString();
             resultUpdater();
@@ -1636,12 +1676,12 @@ namespace ContrAgent
             if (checkBox17.Checked)
             {
                 richTextBox15.Show();
-                resultInt += 0.5;
+                resultInt += 0.25;
             }
             else
             {
                 richTextBox15.Hide();
-                resultInt -= 0.5;
+                resultInt -= 0.25;
             }
             label51.Text = resultInt.ToString();
             resultUpdater();
@@ -1892,12 +1932,12 @@ namespace ContrAgent
             if (checkBox31.Checked)
             {
                 richTextBox29.Show();
-                resultInt += 0.25;
+                resultInt += 0.15;
             }
             else
             {
                 richTextBox29.Hide();
-                resultInt -= 0.25;
+                resultInt -= 0.15;
             }
             label51.Text = resultInt.ToString();
             resultUpdater();
@@ -1908,12 +1948,12 @@ namespace ContrAgent
             if (checkBox32.Checked)
             {
                 richTextBox30.Show();
-                resultInt += 0.25;
+                resultInt += 0.2;
             }
             else
             {
                 richTextBox30.Hide();
-                resultInt -= 0.25;
+                resultInt -= 0.2;
             }
             label51.Text = resultInt.ToString();
             resultUpdater();
@@ -2080,7 +2120,7 @@ namespace ContrAgent
                 MySqlCommand command3 = new MySqlCommand("INSERT INTO `organisation` (`inn`, `name`,`fact adress`,`registration date`," +
                "`activity`,`legal adress`, `email`, `phone`, `leader`, `founder`, `gendir`) " +
                "VALUES (@inn, @name, @fact_adress, @reg_date," +
-               "@activity,  @legal_adress, @email, @phone , @leader, @founder)", db.getConnection());
+               "@activity,  @legal_adress, @email, @phone , @leader, @founder, @gendir)", db.getConnection());
 
                 command3.Parameters.Add("@name", MySqlDbType.VarChar).Value = orgNameField.Text;
                 command3.Parameters.Add("@reg_date", MySqlDbType.Date).Value = getUsualDate(registrationDateField.Text);
@@ -2092,7 +2132,7 @@ namespace ContrAgent
                 command3.Parameters.Add("@phone", MySqlDbType.VarChar).Value = phoneField.Text;
                 command3.Parameters.Add("@leader", MySqlDbType.VarChar).Value = leaderField.Text;
                 command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = foundersField.Text;
-                command3.Parameters.Add("@founder", MySqlDbType.VarChar).Value = gendirField.Text;
+                command3.Parameters.Add("@gendir", MySqlDbType.VarChar).Value = gendirField.Text;
 
                 db.openConnection();
 
@@ -2265,14 +2305,7 @@ namespace ContrAgent
             tt.SetToolTip(this.label47, "Согласно данным из ИАС «Спарк» наличие у организации незавершенных исполнительных производств; отражение в бухгалтерской или налоговой отчетности организации убытков на протяжении двух последних лет / размер чистых активов имеет отрицательное значение за последний завершенный отчётный год; организация выступает в арбитражных судах только в роли ответчика; сведения в ЕГРЮЛ в отношении организации признаны недостоверными; организации, отсутствующие по юридическому адресу по данным ФНС России; в производстве арбитражного суда находится дело о признании должника (несостоятельным) банкротом; организация исключена из ЕГРЮЛ на основании п.2 ст.21.1 ФЗ от 08.08.2001 №129-ФЗ - `юридическое лицо, которое в течение последних двенадцати месяцев не представляло документы отчетности, предусмотренные законодательством РФ о налогах и сборах, и не осуществляло операций хотя бы по одному банковскому счету`");
         }
 
-        private void label35_MouseHover(object sender, EventArgs e)
-        {
-            ToolTip tt = new ToolTip();
-            tt.InitialDelay = 0;
-            
-            tt.SetToolTip(this.label35, "Учредители/руководитель контрагента были аффилированы с юридическим лицом (банкротом) в период возбуждения производства о признании его несостоятельным (банкротом)");
-        }
-
+       
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             if(radioButton2.Checked)
@@ -2300,6 +2333,47 @@ namespace ContrAgent
             }
             label51.Text = resultInt.ToString();
             resultUpdater();
+        }
+
+        private void label36_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.InitialDelay = 0;
+
+            tt.SetToolTip(this.label35, "Учредители/руководитель контрагента были аффилированы с юридическим лицом (банкротом) в период возбуждения производства о признании его несостоятельным (банкротом)");
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            DB db = new DB();
+            db.openConnection();
+            MySqlCommand command = new MySqlCommand("DELETE  FROM expirience WHERE `conclusion_number` = @conc", db.getConnection());
+            command.Parameters.Add("@conc", MySqlDbType.Text).Value = conclusionNumberField.Text;
+
+            command.ExecuteNonQuery();
+            
+
+                db.closeConnection();
+                db.openConnection();
+                for (int i = 0; i < 4; i++)
+                {
+                    if (tableLayoutPanel1.GetControlFromPosition(0, i).Text != "")
+                    {
+                        MySqlCommand command2 = new MySqlCommand("INSERT INTO `expirience` (`conclusion_number`, `name`, `date`, `expired`, `extra`) VALUES(@conc, @name, @date, @expired, @extra) ", db.getConnection());
+                        command2.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                        command2.Parameters.Add("@name", MySqlDbType.VarChar).Value = tableLayoutPanel1.GetControlFromPosition(0, i).Text;
+                        command2.Parameters.Add("@date", MySqlDbType.VarChar).Value = tableLayoutPanel1.GetControlFromPosition(1, i).Text;
+                        command2.Parameters.Add("@expired", MySqlDbType.VarChar).Value = tableLayoutPanel1.GetControlFromPosition(2, i).Text;
+                        command2.Parameters.Add("@extra", MySqlDbType.VarChar).Value = tableLayoutPanel1.GetControlFromPosition(3, i).Text;
+                        command2.ExecuteNonQuery();                    
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                db.closeConnection();
+            
         }
     }
 }
