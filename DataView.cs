@@ -11,6 +11,7 @@ using MySql.Data.MySqlClient;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.IO;
+using Microsoft.Office.Interop.Excel;
 
 namespace ContrAgent
 {
@@ -40,7 +41,7 @@ namespace ContrAgent
 
         private void DataView_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
 
         private void DataView_Load(object sender, EventArgs e)
@@ -62,9 +63,9 @@ namespace ContrAgent
             this.dataGridView1.Columns["Status"].Visible = false;
         }
 
-        private DataTable getConclusionList()
+        private System.Data.DataTable getConclusionList()
         {
-            DataTable dtConclusion = new DataTable();
+            System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
             DB db = new DB();
 
@@ -109,7 +110,7 @@ namespace ContrAgent
             {
                 if (dataGridView1.Rows[i].Cells[12].Value.ToString() == "0")
                 {
-                    dataGridView1.Rows[i].Cells[0].Style.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                    dataGridView1.Rows[i].Cells[0].Style.Font = new System.Drawing.Font(e.CellStyle.Font, FontStyle.Bold);
                 }
 
             }
@@ -166,7 +167,7 @@ namespace ContrAgent
 
             if (checkBox2.Checked && !checkBox1.Checked)
             {
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
                 DB db = new DB();
 
@@ -187,7 +188,7 @@ namespace ContrAgent
             }
             else if (checkBox1.Checked && checkBox2.Checked)
             {
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
                 var letter = "";
                 DB db = new DB();
 
@@ -220,7 +221,7 @@ namespace ContrAgent
 
                 var letter = "";
 
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
                 DB db = new DB();
 
@@ -264,7 +265,7 @@ namespace ContrAgent
 
 
 
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
                 DB db = new DB();
 
@@ -294,7 +295,7 @@ namespace ContrAgent
             }
             else if (checkBox2.Checked && !checkBox1.Checked)
             {
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
                 DB db = new DB();
 
@@ -315,7 +316,7 @@ namespace ContrAgent
             }
             else if (checkBox1.Checked && checkBox2.Checked)
             {
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
                 DB db = new DB();
 
@@ -470,7 +471,7 @@ namespace ContrAgent
                     loadDataCheckBox();
                     return;
                 }
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
                 DB db = new DB();
 
@@ -497,7 +498,7 @@ namespace ContrAgent
         {
             if(checkBox1.Checked && !checkBox2.Checked)
             {
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
                 DB db = new DB();
 
@@ -527,7 +528,7 @@ namespace ContrAgent
             }
             else if(checkBox1.Checked && checkBox2.Checked)
             {
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
                 DB db = new DB();
 
@@ -557,7 +558,7 @@ namespace ContrAgent
             }
             else if(!checkBox1.Checked && checkBox2.Checked)
             {
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
                 DB db = new DB();
 
@@ -580,7 +581,7 @@ namespace ContrAgent
             }
             else if(!checkBox1.Checked && !checkBox2.Checked)
             {
-                DataTable dtConclusion = new DataTable();
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
 
                 DB db = new DB();
 
@@ -603,6 +604,39 @@ namespace ContrAgent
             }
         }
 
-
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // creating Excel Application  
+            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+            // creating new WorkBook within Excel application  
+            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+            // creating new Excelsheet in workbook  
+            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+            // see the excel sheet behind the program  
+            app.Visible = true;
+            // get the reference of first sheet. By default its name is Sheet1.  
+            // store its reference to worksheet  
+            worksheet = workbook.Sheets["Лист1"];
+            worksheet = workbook.ActiveSheet;
+            // changing the name of active sheet  
+            worksheet.Name = "Exported from gridview";
+            // storing header part in Excel  
+            for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+            {
+                worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
+            }
+            // storing Each row and column value to excel sheet  
+            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            {
+                for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                {
+                    worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                }
+            }
+            // save the application  
+            workbook.SaveAs("C:\\Users\\laput\\source\\repos\\Contr\\conclusions\\lala", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            // Exit from the application  
+            app.Quit();
+        }
     }
 }
