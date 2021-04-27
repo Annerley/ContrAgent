@@ -37,8 +37,9 @@ namespace ContrAgent
             //label51.Show();
 
             TextBox[] saveButton = new TextBox[16];
+            TextBox[] saveButton2 = new TextBox[20];
             // добавляем кнопку в следующую свободную ячейку
-            
+
             //tableLayoutPanel1.Controls.Add(saveButton);
             // добавляем кнопку в ячейку (2,2)
             for (int i = 0; i < 4; i++)
@@ -52,6 +53,19 @@ namespace ContrAgent
                     saveButton[i + j].Margin = new Padding(0, 0, 0, 0);
                     saveButton[i + j].Padding = new Padding(0, 0, 0, 0);
                     tableLayoutPanel1.Controls.Add(saveButton[i+j], i, j);
+                }
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    saveButton2[i + j] = new TextBox();
+                    saveButton2[i + j].Dock = DockStyle.Fill;
+                    saveButton2[i + j].Font = new System.Drawing.Font("Calibri", 12);
+                    saveButton2[i + j].Multiline = true;
+                    saveButton2[i + j].Margin = new Padding(0, 0, 0, 0);
+                    saveButton2[i + j].Padding = new Padding(0, 0, 0, 0);
+                    tableLayoutPanel2.Controls.Add(saveButton2[i + j], i, j);
                 }
             }
 
@@ -84,7 +98,28 @@ namespace ContrAgent
             }
             reader.Close();
 
-            
+            MySqlCommand command2 = new MySqlCommand("SELECT `name`, `start`, `price`, `percent`, `subject` FROM `work` WHERE `conclusion_number` = @conc", db.getConnection());
+            command2.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+
+            reader = command2.ExecuteReader();
+
+            i = 0;
+            while (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    tableLayoutPanel2.GetControlFromPosition(0, i).Text = reader[0].ToString();
+                    tableLayoutPanel2.GetControlFromPosition(1, i).Text = reader[1].ToString();
+                    tableLayoutPanel2.GetControlFromPosition(2, i).Text = reader[2].ToString();
+                    tableLayoutPanel2.GetControlFromPosition(3, i).Text = reader[3].ToString();
+                    tableLayoutPanel2.GetControlFromPosition(4, i).Text = reader[3].ToString();
+                    i++;
+                }
+                reader.NextResult();
+
+            }
+
+
         }
         private void blockEverything()
         {
@@ -258,6 +293,7 @@ namespace ContrAgent
                 command.Parameters.Add("@name", MySqlDbType.VarChar).Value = name;
                 MySqlDataReader reader = command.ExecuteReader();
                 evaluationDateField.Text = DateTime.Now.ToShortDateString().ToString();
+                registrationDateField.Text = DateTime.Now.ToShortDateString().ToString();
                 while (reader.Read())
                 {
                    result = reader[0].ToString()+"-";
@@ -839,8 +875,8 @@ namespace ContrAgent
 
                 
             }
-            
 
+            addTablesToDB();
             db.closeConnection();
 
 
@@ -2343,7 +2379,7 @@ namespace ContrAgent
             tt.SetToolTip(this.label35, "Учредители/руководитель контрагента были аффилированы с юридическим лицом (банкротом) в период возбуждения производства о признании его несостоятельным (банкротом)");
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private void addTablesToDB()
         {
             DB db = new DB();
             db.openConnection();
@@ -2373,7 +2409,36 @@ namespace ContrAgent
                     }
                 }
                 db.closeConnection();
+
+            db.openConnection();
+            MySqlCommand command3 = new MySqlCommand("DELETE  FROM work WHERE `conclusion_number` = @conc", db.getConnection());
+            command3.Parameters.Add("@conc", MySqlDbType.Text).Value = conclusionNumberField.Text;
+
+            command3.ExecuteNonQuery();
+
+
             
+            for (int i = 0; i < 4; i++)
+            {
+                if (tableLayoutPanel2.GetControlFromPosition(0, i).Text != "")
+                {
+                    MySqlCommand command4 = new MySqlCommand("INSERT INTO `work` (`conclusion_number`, `name`, `start`, `price`, `percent`, `subject`) VALUES(@conc, @name, @start, " +
+                        "@price, @percent, @subject) ", db.getConnection());
+                    command4.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command4.Parameters.Add("@name", MySqlDbType.Text).Value = tableLayoutPanel2.GetControlFromPosition(0, i).Text;
+                    command4.Parameters.Add("@start", MySqlDbType.Text).Value = tableLayoutPanel2.GetControlFromPosition(1, i).Text;
+                    command4.Parameters.Add("@price", MySqlDbType.VarChar).Value = tableLayoutPanel2.GetControlFromPosition(2, i).Text;
+                    command4.Parameters.Add("@percent", MySqlDbType.VarChar).Value = tableLayoutPanel2.GetControlFromPosition(3, i).Text;
+                    command4.Parameters.Add("@subject", MySqlDbType.Text).Value = tableLayoutPanel2.GetControlFromPosition(4, i).Text;
+                    command4.ExecuteNonQuery();
+                }
+                else
+                {
+                    break;
+                }
+            }
+            db.closeConnection();
+
         }
     }
 }

@@ -27,8 +27,12 @@ namespace ContrAgent
             TimeUpdater();
             checkBox1.Checked = true;
 
+            
+
 
         }
+
+
 
         async void TimeUpdater()
         {
@@ -46,7 +50,7 @@ namespace ContrAgent
 
         private void DataView_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = getConclusionList();
+            loadDataCheckBox();
             dataGridView1.Columns[0].HeaderText = "Номер заключения";
             dataGridView1.Columns[1].HeaderText = "Дата оценки";
             dataGridView1.Columns[2].HeaderText = "Основание оценки";
@@ -354,16 +358,20 @@ namespace ContrAgent
 
         private void pictureBox1_MouseHover(object sender, EventArgs e)
         {
+
+            
             ToolTip tt = new ToolTip();
             tt.InitialDelay = 0;
             tt.SetToolTip(this.pictureBox1, "Создать новое заключение");
+
+            
         }
 
         private void pictureBox2_MouseHover(object sender, EventArgs e)
         {
             ToolTip tt = new ToolTip();
             tt.InitialDelay = 0;
-            tt.SetToolTip(this.pictureBox2, "Открыть выбранное");
+            tt.SetToolTip(this.pictureBox2, "Редактировать");
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
@@ -618,8 +626,9 @@ namespace ContrAgent
             // store its reference to worksheet  
             worksheet = workbook.Sheets["Лист1"];
             worksheet = workbook.ActiveSheet;
-            // changing the name of active sheet  
-            worksheet.Name = "Exported from gridview";
+            // changing the name of active sheet  '
+            DateTime a = DateTime.Now;
+            worksheet.Name = a.ToShortDateString();
             // storing header part in Excel  
             for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
             {
@@ -634,9 +643,23 @@ namespace ContrAgent
                 }
             }
             // save the application  
-            workbook.SaveAs("C:\\Users\\laput\\source\\repos\\Contr\\conclusions\\lala", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            string date = DateTime.Now.ToShortDateString();
+            string path = getConfigPath(3) + "\\" + date +".xlsx";
+            workbook.SaveAs(@path, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             // Exit from the application  
+
+            //
             app.Quit();
+        }
+
+        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            (sender as PictureBox).Image = Image.FromFile("img\\plus_add_insert_append_icon_179162.png");
+        }
+
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            (sender as PictureBox).Image = Image.FromFile("img\\create_light.png");
         }
     }
 }

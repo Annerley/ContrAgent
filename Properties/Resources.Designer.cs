@@ -183,16 +183,6 @@ namespace ContrAgent.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap imgonline_com_ua_Replace_color_f3eylJoZJi8gg7 {
-            get {
-                object obj = ResourceManager.GetObject("imgonline-com-ua-Replace-color-f3eylJoZJi8gg7", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap imgonline_com_ua_Replace_color_hJDUxWAVRRpVUG4 {
             get {
                 object obj = ResourceManager.GetObject("imgonline-com-ua-Replace-color-hJDUxWAVRRpVUG4", resourceCulture);
