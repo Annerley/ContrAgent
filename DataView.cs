@@ -488,9 +488,9 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn WHERE conclusion.conclusion_number = @number ", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE conclusion.conclusion_number LIKE @number ", db.getConnection()))
                 {
-                    cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = textBox1.Text;
+                    cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = "%"+textBox1.Text+"%";
                     MySqlDataReader reader = cmd.ExecuteReader();
                     dtConclusion.Load(reader);
 
@@ -643,7 +643,8 @@ namespace ContrAgent
                 }
             }
             // save the application  
-            string date = DateTime.Now.ToShortDateString();
+            string date = DateTime.Now.ToString();
+            date = date.Replace(':', '.');
             string path = getConfigPath(3) + "\\" + date +".xlsx";
             workbook.SaveAs(@path, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             // Exit from the application  
@@ -660,6 +661,26 @@ namespace ContrAgent
         private void pictureBox1_MouseEnter(object sender, EventArgs e)
         {
             (sender as PictureBox).Image = Image.FromFile("img\\create_light.png");
+        }
+
+        private void pictureBox2_MouseEnter(object sender, EventArgs e)
+        {
+            (sender as PictureBox).Image = Image.FromFile("img\\edit_pencil_modify_write_icon_179065_.png");
+        }
+
+        private void pictureBox2_MouseLeave(object sender, EventArgs e)
+        {
+            (sender as PictureBox).Image = Image.FromFile("img\\edit_pencil_modify_write_icon_179065.png");
+        }
+
+        private void pictureBox3_MouseEnter(object sender, EventArgs e)
+        {
+            (sender as PictureBox).Image = Image.FromFile("img\\delete_red.png");
+        }
+
+        private void pictureBox3_MouseLeave(object sender, EventArgs e)
+        {
+            (sender as PictureBox).Image = Image.FromFile("img\\trash_delete_recycle_bin_remove_icon_179056.png");
         }
     }
 }

@@ -133,8 +133,8 @@
   <data name="media_playback_start_icon_180875" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\media_playback_start_icon_180875.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="media_playback_start_icon_1808751" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\media_playback_start_icon_180875.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="first_back_arrow_left_icon_179189" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\first_back_arrow_left_icon_179189.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="edit_delete_icon_1808121" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\edit_delete_icon_180812.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -142,23 +142,20 @@
   <data name="edit_delete_icon_180812" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\edit_delete_icon_180812.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\cat.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="hammer_50151" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\hammer_5015.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="plus_add_insert_append_icon_179162" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\plus_add_insert_append_icon_179162.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="edit_pencil_modify_write_icon_179065" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\edit_pencil_modify_write_icon_179065.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ticket_paper_icon_179218" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\ticket_paper_icon_179218.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="value_increase_icon_1809031" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\value_increase_icon_180903.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="trash_delete_recycle_bin_remove_icon_179056" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\trash_delete_recycle_bin_remove_icon_179056.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,19 +166,28 @@
   <data name="logo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cat" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\cat.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="media_playback_start_icon_1808751" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\media_playback_start_icon_180875.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="document_edit_icon_180794" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\document_edit_icon_180794.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="plus_add_insert_append_icon_179162" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\plus_add_insert_append_icon_179162.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="imgonline-com-ua-Replace-color-hJDUxWAVRRpVUG4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\imgonline-com-ua-Replace-color-hJDUxWAVRRpVUG4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logoMin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logoMin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="document_edit_icon_1807941" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\document_edit_icon_180794.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="binoculars_search_find_icon_179063" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\binoculars_search_find_icon_179063.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="document_edit_icon_1807941" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="value_increase_icon_1809031" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\value_increase_icon_180903.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="document_edit_icon_180794" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\document_edit_icon_180794.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="camera_security_surevillance_icon_179337" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -190,11 +196,7 @@
   <data name="view_conceal_icon_1809051" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\view_conceal_icon_180905.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="imgonline-com-ua-Replace-color-hJDUxWAVRRpVUG4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\imgonline-com-ua-Replace-color-hJDUxWAVRRpVUG4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  
-  <data name="first_back_arrow_left_icon_179189" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\first_back_arrow_left_icon_179189.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Без имени" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\img\Без имени.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

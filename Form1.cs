@@ -25,6 +25,7 @@ namespace ContrAgent
         {
             InitializeComponent();
             Hide_Unnecessary();
+            conclusionNumberField.Enabled = false;
             statusMain = status;
             nameMain = name;
             uploadData(name, number, status);
@@ -562,6 +563,13 @@ namespace ContrAgent
                     checkBox32.Checked = true;
                     richTextBox30.Text = reader[1].ToString();
                 }
+                else if (reader[0].ToString() == "31")
+                {
+
+                    richTextBox20.Show();
+                    checkBox34.Checked = true;
+                    richTextBox20.Text = reader[1].ToString();
+                }
             }
             db.closeConnection();
         }
@@ -586,6 +594,7 @@ namespace ContrAgent
             richTextBox17.Hide();
             richTextBox18.Hide();
             richTextBox19.Hide();
+            richTextBox20.Hide();
             richTextBox21.Hide();
             richTextBox22.Hide();
             richTextBox23.Hide();
@@ -1187,6 +1196,14 @@ namespace ContrAgent
                     command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox30.Text;
                     command.ExecuteNonQuery();
                 }
+                if (checkBox34.Checked)
+                {
+                    MySqlCommand command = new MySqlCommand(cmd, db.getConnection());
+                    command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                    command.Parameters.Add("@point", MySqlDbType.VarChar).Value = "31";
+                    command.Parameters.Add("@comment", MySqlDbType.Text).Value = richTextBox20.Text;
+                    command.ExecuteNonQuery();
+                }
 
             }
 
@@ -1198,9 +1215,20 @@ namespace ContrAgent
 
         private string getUsualDate(string date)
         {
-            DateTime dateTime = DateTime.Parse(date);
-
+            DateTime dateTime = DateTime.Now;
+            try
+            {
+                dateTime = DateTime.Parse(date);
+            }
+            catch
+            {
+                MessageBox.Show("Неправильный формат даты");
+                dateTime = DateTime.Now;
+            }
+            
             return dateTime.ToString("yyyy-MM-dd");
+            //System.FormatException
+
         }
         
 
@@ -1263,7 +1291,18 @@ namespace ContrAgent
             ReplaceWordStub("{subject}", subject, wordDocument);
             ReplaceWordStub("{price}", price, wordDocument);
             ReplaceWordStub("{extra}", extra, wordDocument);
-            ReplaceWordStub("{result}", result, wordDocument);
+            if (result == "Возможно")
+            {
+                ReplaceWordStub("{result}", "ВОЗМОЖНО", wordDocument);
+            }
+            else if (result == "Возможно c ограничением")
+            {
+                ReplaceWordStub("{result}", "ВОЗМОЖНО С ОГРАНИЧЕНИЕМ", wordDocument);
+            }
+            else if (result == "Невозможно")
+            {
+                ReplaceWordStub("{result}", "НЕВОЗМОЖНО", wordDocument);
+            }
             ReplaceWordStub("{exp}", exp, wordDocument);
 
             DB db = new DB();
@@ -2010,7 +2049,21 @@ namespace ContrAgent
             label51.Text = resultInt.ToString();
             resultUpdater();
         }
-
+        private void checkBox34_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox34.Checked)
+            {
+                richTextBox20.Show();
+                resultInt += 0.15;
+            }
+            else
+            {
+                richTextBox20.Hide();
+                resultInt -= 0.15;
+            }
+            label51.Text = resultInt.ToString();
+            resultUpdater();
+        }
 
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -2265,7 +2318,7 @@ namespace ContrAgent
 
 
 
-
+            this.Close();
 
         }
 
@@ -2438,6 +2491,26 @@ namespace ContrAgent
                 }
             }
             db.closeConnection();
+
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label67_Click(object sender, EventArgs e)
+        {
 
         }
     }

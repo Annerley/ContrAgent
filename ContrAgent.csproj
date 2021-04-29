@@ -222,5 +222,8 @@
   <ItemGroup>
     <None Include="Resources\first_back_arrow_left_icon_179189.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="img\Без имени.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
