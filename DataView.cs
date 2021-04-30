@@ -630,14 +630,14 @@ namespace ContrAgent
             DateTime a = DateTime.Now;
             worksheet.Name = a.ToShortDateString();
             // storing header part in Excel  
-            for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+            for (int i = 1; i < dataGridView1.Columns.Count ; i++)
             {
                 worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
             }
             // storing Each row and column value to excel sheet  
             for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
             {
-                for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                for (int j = 0; j < dataGridView1.Columns.Count -1; j++)
                 {
                     worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
                 }
@@ -681,6 +681,70 @@ namespace ContrAgent
         private void pictureBox3_MouseLeave(object sender, EventArgs e)
         {
             (sender as PictureBox).Image = Image.FromFile("img\\trash_delete_recycle_bin_remove_icon_179056.png");
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if (textBox2.Text == "")
+                {
+                    loadDataCheckBox();
+                    return;
+                }
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
+
+                DB db = new DB();
+
+                db.openConnection();
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE organisation.inn LIKE @number ", db.getConnection()))
+                {
+                    cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = "%" + textBox2.Text + "%";
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+                this.dataGridView1.Columns["Status"].Visible = false;
+            }
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if (textBox3.Text == "")
+                {
+                    loadDataCheckBox();
+                    return;
+                }
+                System.Data.DataTable dtConclusion = new System.Data.DataTable();
+
+                DB db = new DB();
+
+                db.openConnection();
+
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE organisation.name LIKE @number ", db.getConnection()))
+                {
+                    cmd.Parameters.Add("@number", MySqlDbType.VarChar).Value = "%" + textBox3.Text + "%";
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    dtConclusion.Load(reader);
+
+                }
+
+                db.closeConnection();
+                dataGridView1.DataSource = dtConclusion;
+                this.dataGridView1.Columns["Status"].Visible = false;
+            }
         }
     }
 }

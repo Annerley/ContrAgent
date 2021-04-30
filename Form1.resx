@@ -126,9 +126,6 @@
   <data name="label35.Text" xml:space="preserve">
     <value>Согласно информации из открытых источников и бухгалтерской отчетности у контрагента отсутствуют ресурсы, необходимые для выполнения своих обязательств по договору (транспорт, склад, штат работников и т. п.)</value>
   </data>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>104, 17</value>
-  </metadata>
   <data name="label47.Text" xml:space="preserve">
     <value>Контрагент аффилирован с организациями, в том числе недействующими, ликвидированными по решению ФНС России, либо имеющими обязательные (однозначные) признаки неблагонадежности**, и/или учредителем контрагента выступает компания с признаками неблагонадежности**</value>
   </data>
@@ -152,9 +149,6 @@
   </metadata>
   <metadata name="conclusionBindingSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>690, 17</value>
-  </metadata>
-  <metadata name="poDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>209, 17</value>
   </metadata>
   <metadata name="poDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>209, 17</value>

@@ -234,6 +234,11 @@ namespace ContrAgent
                     {
                         radioButton3.Checked = true;
                     }
+                    if(reader[17].ToString() == "True")
+                    {
+                        ndsCheckBox.Checked = true;
+                    }
+                    //Console.WriteLine(reader[17].ToString());
 
 
                 }
@@ -641,9 +646,9 @@ namespace ContrAgent
                 db.closeConnection();
                 db.openConnection();
                 MySqlCommand command = new MySqlCommand("INSERT INTO `conclusion` (`conclusion_number`, `evaluation date`,`reason for rating`,`subject`," +
-                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`, `exp`, `extra`, `hide extra`, `c1`, `extra_point`) " +
+                "`specification`,`initiator`, `object`, `result`, `price`, `sad`, `status`, `letter`, `exp`, `extra`, `hide extra`, `c1`, `extra_point`,`nds` ) " +
                 "VALUES (@conclusion_number, @evaluation_date, @reason_for_rating, @subject," +
-                "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter, @exp, @extra, @hide, @c1, @point)", db.getConnection());
+                "@specification,  @initiator, @object, @result , @price, @sad, @status, @letter, @exp, @extra, @hide, @c1, @point, @nds)", db.getConnection());
 
                     command.Parameters.Add("@conclusion_number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                     //Console.WriteLine(evaluationDateField.Text);
@@ -656,6 +661,14 @@ namespace ContrAgent
                     command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
                     command.Parameters.Add("@c1", MySqlDbType.Text).Value = c1Field.Text;
                     command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
+                    if(ndsCheckBox.Checked)
+                    {
+                        command.Parameters.Add("@nds", MySqlDbType.Bit).Value = 1;
+                    }
+                    else
+                    {
+                        command.Parameters.Add("@nds", MySqlDbType.Bit).Value = 0;
+                    }
                     if (expcheckBox.Checked)
                     {
                         command.Parameters.Add("@exp", MySqlDbType.VarChar).Value = "Есть опыт договорных отношений";
@@ -807,14 +820,21 @@ namespace ContrAgent
             {
                 MySqlCommand command = new MySqlCommand("UPDATE `conclusion` SET `evaluation date` = @evaluation_date, `reason for rating` = @reason_for_rating, " +
                     "`subject` = @subject, `specification` = @specification, `initiator` = @initiator, `object` = @object, `result` = @result, `price` = @price," +
-                    " `sad` = @sad, `status` = @status, `exp` = @exp, `extra` =@extra, `hide extra`=@hide, `c1` = @c, `extra_point` = @point WHERE `conclusion_number` = @number" , db.getConnection());
+                    " `sad` = @sad, `status` = @status, `exp` = @exp, `extra` =@extra, `hide extra`=@hide, `c1` = @c, `extra_point` = @point, `nds` = @nds WHERE `conclusion_number` = @number" , db.getConnection());
 
 
                 //Console.WriteLine(evaluationDateField.Text);
                 command.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 command.Parameters.Add("@c", MySqlDbType.Text).Value = c1Field.Text;
                 command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = getUsualDate(evaluationDateField.Text);
-
+                if (ndsCheckBox.Checked)
+                {
+                    command.Parameters.Add("@nds", MySqlDbType.Bit).Value = 1;
+                }
+                else
+                {
+                    command.Parameters.Add("@nds", MySqlDbType.Bit).Value = 0;
+                }
                 command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
                 
                 command.Parameters.Add("@reason_for_rating", MySqlDbType.VarChar).Value = reasonField.Text;
@@ -1289,7 +1309,14 @@ namespace ContrAgent
             ReplaceWordStub("{inn}", inn, wordDocument);
             ReplaceWordStub("{reason}", reason, wordDocument);
             ReplaceWordStub("{subject}", subject, wordDocument);
-            ReplaceWordStub("{price}", price, wordDocument);
+            if(ndsCheckBox.Checked)
+            {
+                ReplaceWordStub("{price}", price+" c НДС", wordDocument);
+            }
+            else
+            {
+                ReplaceWordStub("{price}", price + " без НДС", wordDocument);
+            }
             ReplaceWordStub("{extra}", extra, wordDocument);
             if (result == "Возможно")
             {
@@ -2510,6 +2537,21 @@ namespace ContrAgent
         }
 
         private void label67_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label68_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label44_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label50_Click(object sender, EventArgs e)
         {
 
         }
