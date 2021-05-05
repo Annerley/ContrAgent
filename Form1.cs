@@ -1352,15 +1352,15 @@ namespace ContrAgent
             ReplaceWordStub("{subject}", subject, wordDocument);
             if(decreaseNdsCheckBox.Checked)
             {
-                ReplaceWordStub("{price}", price+" c НДС"+"^p" + overallPriceField.Text + " без НДС", wordDocument);
+                ReplaceWordStub("{price}", priceField.Text + " (Включая НДС " + (Double.Parse(priceField.Text) - Double.Parse(overallPriceField.Text)).ToString() + ")", wordDocument);
             }
             else if(increaseNdsField.Checked)
             {
-                ReplaceWordStub("{price}", price + " без НДС" + "^p" + overallPriceField.Text + " с НДС", wordDocument);
+                ReplaceWordStub("{price}", overallPriceField.Text +" (Включая НДС " + (Double.Parse(overallPriceField.Text) - Double.Parse(priceField.Text)).ToString() +")", wordDocument);
             }
             else
             {
-                ReplaceWordStub("{price}", price + " без НДС", wordDocument);
+                ReplaceWordStub("{price}", price + "(НДС не облагается)", wordDocument);
             }
             ReplaceWordStub("{extra}", extra, wordDocument);
             if (result == "Возможно")
