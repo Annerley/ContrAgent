@@ -34,6 +34,11 @@ namespace ContrAgent
             this.button1 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.zeroNdsField = new System.Windows.Forms.CheckBox();
+            this.increaseNdsField = new System.Windows.Forms.CheckBox();
+            this.overallPriceField = new System.Windows.Forms.TextBox();
+            this.label106 = new System.Windows.Forms.Label();
+            this.decreaseNdsCheckBox = new System.Windows.Forms.CheckBox();
             this.registrationDateField = new System.Windows.Forms.TextBox();
             this.evaluationDateField = new System.Windows.Forms.TextBox();
             this.gendirField = new System.Windows.Forms.RichTextBox();
@@ -116,7 +121,6 @@ namespace ContrAgent
             this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.richTextBox8 = new System.Windows.Forms.RichTextBox();
             this.label29 = new System.Windows.Forms.Label();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.richTextBox7 = new System.Windows.Forms.RichTextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
@@ -141,6 +145,7 @@ namespace ContrAgent
             this.checkBox17 = new System.Windows.Forms.CheckBox();
             this.label59 = new System.Windows.Forms.Label();
             this.checkBox15 = new System.Windows.Forms.CheckBox();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label89 = new System.Windows.Forms.Label();
             this.label88 = new System.Windows.Forms.Label();
@@ -251,7 +256,7 @@ namespace ContrAgent
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.ndsCheckBox = new System.Windows.Forms.CheckBox();
+            this.label105 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -307,7 +312,11 @@ namespace ContrAgent
             this.tabPage1.AutoScroll = true;
             this.tabPage1.AutoScrollMargin = new System.Drawing.Size(10, 10);
             this.tabPage1.BackColor = System.Drawing.Color.Gainsboro;
-            this.tabPage1.Controls.Add(this.ndsCheckBox);
+            this.tabPage1.Controls.Add(this.zeroNdsField);
+            this.tabPage1.Controls.Add(this.increaseNdsField);
+            this.tabPage1.Controls.Add(this.overallPriceField);
+            this.tabPage1.Controls.Add(this.label106);
+            this.tabPage1.Controls.Add(this.decreaseNdsCheckBox);
             this.tabPage1.Controls.Add(this.registrationDateField);
             this.tabPage1.Controls.Add(this.evaluationDateField);
             this.tabPage1.Controls.Add(this.gendirField);
@@ -357,16 +366,78 @@ namespace ContrAgent
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "  Авторизация";
             // 
+            // zeroNdsField
+            // 
+            this.zeroNdsField.AutoSize = true;
+            this.zeroNdsField.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.zeroNdsField.Location = new System.Drawing.Point(319, 287);
+            this.zeroNdsField.Name = "zeroNdsField";
+            this.zeroNdsField.Size = new System.Drawing.Size(85, 23);
+            this.zeroNdsField.TabIndex = 86;
+            this.zeroNdsField.Text = "без НДС";
+            this.zeroNdsField.UseVisualStyleBackColor = true;
+            this.zeroNdsField.CheckedChanged += new System.EventHandler(this.zeroNdsField_CheckedChanged);
+            // 
+            // increaseNdsField
+            // 
+            this.increaseNdsField.AutoSize = true;
+            this.increaseNdsField.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.increaseNdsField.Location = new System.Drawing.Point(164, 287);
+            this.increaseNdsField.Name = "increaseNdsField";
+            this.increaseNdsField.Size = new System.Drawing.Size(134, 23);
+            this.increaseNdsField.TabIndex = 85;
+            this.increaseNdsField.Text = "Начислить НДС";
+            this.increaseNdsField.UseVisualStyleBackColor = true;
+            this.increaseNdsField.CheckedChanged += new System.EventHandler(this.increaseNdsField_CheckedChanged);
+            // 
+            // overallPriceField
+            // 
+            this.overallPriceField.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.overallPriceField.Location = new System.Drawing.Point(290, 238);
+            this.overallPriceField.Margin = new System.Windows.Forms.Padding(2);
+            this.overallPriceField.MaxLength = 30;
+            this.overallPriceField.Multiline = true;
+            this.overallPriceField.Name = "overallPriceField";
+            this.overallPriceField.ReadOnly = true;
+            this.overallPriceField.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.overallPriceField.Size = new System.Drawing.Size(255, 28);
+            this.overallPriceField.TabIndex = 83;
+            this.overallPriceField.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label106
+            // 
+            this.label106.AutoSize = true;
+            this.label106.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label106.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label106.Location = new System.Drawing.Point(285, 215);
+            this.label106.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label106.Name = "label106";
+            this.label106.Size = new System.Drawing.Size(66, 26);
+            this.label106.TabIndex = 84;
+            this.label106.Text = "Всего:";
+            // 
+            // decreaseNdsCheckBox
+            // 
+            this.decreaseNdsCheckBox.AutoSize = true;
+            this.decreaseNdsCheckBox.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.decreaseNdsCheckBox.Location = new System.Drawing.Point(16, 287);
+            this.decreaseNdsCheckBox.Name = "decreaseNdsCheckBox";
+            this.decreaseNdsCheckBox.Size = new System.Drawing.Size(129, 23);
+            this.decreaseNdsCheckBox.TabIndex = 82;
+            this.decreaseNdsCheckBox.Text = "Выделить НДС";
+            this.decreaseNdsCheckBox.UseVisualStyleBackColor = true;
+            this.decreaseNdsCheckBox.CheckedChanged += new System.EventHandler(this.decreaseNdsCheckBox_CheckedChanged);
+            // 
             // registrationDateField
             // 
             this.registrationDateField.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.registrationDateField.Location = new System.Drawing.Point(554, 261);
+            this.registrationDateField.Location = new System.Drawing.Point(554, 238);
             this.registrationDateField.Margin = new System.Windows.Forms.Padding(6);
             this.registrationDateField.Multiline = true;
             this.registrationDateField.Name = "registrationDateField";
             this.registrationDateField.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.registrationDateField.Size = new System.Drawing.Size(126, 28);
-            this.registrationDateField.TabIndex = 10;
+            this.registrationDateField.TabIndex = 9;
             // 
             // evaluationDateField
             // 
@@ -382,12 +453,12 @@ namespace ContrAgent
             // gendirField
             // 
             this.gendirField.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.gendirField.Location = new System.Drawing.Point(16, 749);
+            this.gendirField.Location = new System.Drawing.Point(16, 862);
             this.gendirField.Margin = new System.Windows.Forms.Padding(2);
             this.gendirField.MaxLength = 100;
             this.gendirField.Name = "gendirField";
             this.gendirField.Size = new System.Drawing.Size(664, 28);
-            this.gendirField.TabIndex = 13;
+            this.gendirField.TabIndex = 15;
             this.gendirField.Text = "";
             // 
             // label92
@@ -395,7 +466,7 @@ namespace ContrAgent
             this.label92.AutoSize = true;
             this.label92.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label92.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label92.Location = new System.Drawing.Point(11, 725);
+            this.label92.Location = new System.Drawing.Point(11, 838);
             this.label92.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label92.Name = "label92";
             this.label92.Size = new System.Drawing.Size(140, 26);
@@ -415,12 +486,12 @@ namespace ContrAgent
             // 
             this.foundersField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.foundersField.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.foundersField.Location = new System.Drawing.Point(16, 624);
+            this.foundersField.Location = new System.Drawing.Point(16, 737);
             this.foundersField.Margin = new System.Windows.Forms.Padding(2);
             this.foundersField.MaxLength = 500;
             this.foundersField.Name = "foundersField";
             this.foundersField.Size = new System.Drawing.Size(664, 98);
-            this.foundersField.TabIndex = 15;
+            this.foundersField.TabIndex = 14;
             this.foundersField.Text = "";
             // 
             // label20
@@ -428,7 +499,7 @@ namespace ContrAgent
             this.label20.AutoSize = true;
             this.label20.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label20.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label20.Location = new System.Drawing.Point(11, 596);
+            this.label20.Location = new System.Drawing.Point(11, 709);
             this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(123, 26);
@@ -519,7 +590,7 @@ namespace ContrAgent
             this.label15.AutoSize = true;
             this.label15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label15.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label15.Location = new System.Drawing.Point(11, 518);
+            this.label15.Location = new System.Drawing.Point(11, 631);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(270, 26);
@@ -529,24 +600,24 @@ namespace ContrAgent
             // activityField
             // 
             this.activityField.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.activityField.Location = new System.Drawing.Point(16, 543);
+            this.activityField.Location = new System.Drawing.Point(16, 656);
             this.activityField.Margin = new System.Windows.Forms.Padding(2);
             this.activityField.MaxLength = 255;
             this.activityField.Name = "activityField";
             this.activityField.Size = new System.Drawing.Size(664, 52);
-            this.activityField.TabIndex = 12;
+            this.activityField.TabIndex = 13;
             this.activityField.Text = "";
             // 
             // orgNameField
             // 
             this.orgNameField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.orgNameField.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.orgNameField.Location = new System.Drawing.Point(16, 239);
+            this.orgNameField.Location = new System.Drawing.Point(16, 352);
             this.orgNameField.Margin = new System.Windows.Forms.Padding(2);
             this.orgNameField.MaxLength = 255;
             this.orgNameField.Name = "orgNameField";
-            this.orgNameField.Size = new System.Drawing.Size(529, 50);
-            this.orgNameField.TabIndex = 9;
+            this.orgNameField.Size = new System.Drawing.Size(664, 50);
+            this.orgNameField.TabIndex = 10;
             this.orgNameField.Text = "";
             // 
             // label12
@@ -554,7 +625,7 @@ namespace ContrAgent
             this.label12.AutoSize = true;
             this.label12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label12.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(11, 211);
+            this.label12.Location = new System.Drawing.Point(11, 324);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(262, 26);
@@ -578,7 +649,7 @@ namespace ContrAgent
             this.label10.AutoSize = true;
             this.label10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label10.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(11, 392);
+            this.label10.Location = new System.Drawing.Point(11, 505);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(96, 26);
@@ -589,12 +660,12 @@ namespace ContrAgent
             // 
             this.subjectField.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.subjectField.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.subjectField.Location = new System.Drawing.Point(16, 420);
+            this.subjectField.Location = new System.Drawing.Point(16, 533);
             this.subjectField.Margin = new System.Windows.Forms.Padding(2);
             this.subjectField.MaxLength = 255;
             this.subjectField.Name = "subjectField";
             this.subjectField.Size = new System.Drawing.Size(664, 92);
-            this.subjectField.TabIndex = 14;
+            this.subjectField.TabIndex = 12;
             this.subjectField.Text = "";
             // 
             // label9
@@ -602,7 +673,7 @@ namespace ContrAgent
             this.label9.AutoSize = true;
             this.label9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label9.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(11, 299);
+            this.label9.Location = new System.Drawing.Point(11, 412);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(229, 26);
@@ -612,7 +683,7 @@ namespace ContrAgent
             // specificationField
             // 
             this.specificationField.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.specificationField.Location = new System.Drawing.Point(16, 327);
+            this.specificationField.Location = new System.Drawing.Point(16, 440);
             this.specificationField.Margin = new System.Windows.Forms.Padding(2);
             this.specificationField.Name = "specificationField";
             this.specificationField.Size = new System.Drawing.Size(664, 52);
@@ -623,7 +694,7 @@ namespace ContrAgent
             // 
             this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label8.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(549, 207);
+            this.label8.Location = new System.Drawing.Point(549, 184);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(131, 60);
@@ -633,13 +704,13 @@ namespace ContrAgent
             // priceField
             // 
             this.priceField.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.priceField.Location = new System.Drawing.Point(513, 177);
+            this.priceField.Location = new System.Drawing.Point(16, 238);
             this.priceField.Margin = new System.Windows.Forms.Padding(2);
             this.priceField.MaxLength = 30;
             this.priceField.Multiline = true;
             this.priceField.Name = "priceField";
             this.priceField.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.priceField.Size = new System.Drawing.Size(167, 28);
+            this.priceField.Size = new System.Drawing.Size(265, 28);
             this.priceField.TabIndex = 8;
             this.priceField.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -648,7 +719,7 @@ namespace ContrAgent
             this.label56.AutoSize = true;
             this.label56.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label56.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label56.Location = new System.Drawing.Point(508, 154);
+            this.label56.Location = new System.Drawing.Point(11, 215);
             this.label56.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(62, 26);
@@ -668,7 +739,7 @@ namespace ContrAgent
             this.reasonField.Location = new System.Drawing.Point(164, 177);
             this.reasonField.Margin = new System.Windows.Forms.Padding(2);
             this.reasonField.Name = "reasonField";
-            this.reasonField.Size = new System.Drawing.Size(343, 27);
+            this.reasonField.Size = new System.Drawing.Size(381, 27);
             this.reasonField.TabIndex = 7;
             // 
             // label5
@@ -689,6 +760,7 @@ namespace ContrAgent
             this.objectField.FormattingEnabled = true;
             this.objectField.Location = new System.Drawing.Point(16, 123);
             this.objectField.Margin = new System.Windows.Forms.Padding(6);
+            this.objectField.MaxLength = 255;
             this.objectField.Name = "objectField";
             this.objectField.Size = new System.Drawing.Size(664, 27);
             this.objectField.TabIndex = 5;
@@ -739,10 +811,10 @@ namespace ContrAgent
             this.innField.Location = new System.Drawing.Point(16, 177);
             this.innField.Margin = new System.Windows.Forms.Padding(2);
             this.innField.MaxLength = 12;
-            this.innField.Multiline = true;
             this.innField.Name = "innField";
-            this.innField.Size = new System.Drawing.Size(142, 28);
+            this.innField.Size = new System.Drawing.Size(142, 27);
             this.innField.TabIndex = 6;
+            this.innField.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.innField_KeyPress);
             // 
             // conclusionNumberField
             // 
@@ -908,12 +980,12 @@ namespace ContrAgent
             // 
             this.label74.AutoSize = true;
             this.label74.BackColor = System.Drawing.Color.Transparent;
-            this.label74.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label74.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label74.Location = new System.Drawing.Point(9, 1822);
             this.label74.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(84, 37);
+            this.label74.Size = new System.Drawing.Size(80, 37);
             this.label74.TabIndex = 141;
             this.label74.Text = "0,25";
             // 
@@ -921,12 +993,12 @@ namespace ContrAgent
             // 
             this.label73.AutoSize = true;
             this.label73.BackColor = System.Drawing.Color.Transparent;
-            this.label73.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label73.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label73.Location = new System.Drawing.Point(17, 1678);
             this.label73.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(65, 37);
+            this.label73.Size = new System.Drawing.Size(62, 37);
             this.label73.TabIndex = 140;
             this.label73.Text = "0,5";
             // 
@@ -934,12 +1006,12 @@ namespace ContrAgent
             // 
             this.label72.AutoSize = true;
             this.label72.BackColor = System.Drawing.Color.Transparent;
-            this.label72.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label72.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label72.Location = new System.Drawing.Point(17, 1564);
             this.label72.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(65, 37);
+            this.label72.Size = new System.Drawing.Size(62, 37);
             this.label72.TabIndex = 139;
             this.label72.Text = "0,5";
             // 
@@ -947,12 +1019,12 @@ namespace ContrAgent
             // 
             this.label71.AutoSize = true;
             this.label71.BackColor = System.Drawing.Color.Transparent;
-            this.label71.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label71.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label71.Location = new System.Drawing.Point(17, 1479);
             this.label71.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(65, 37);
+            this.label71.Size = new System.Drawing.Size(62, 37);
             this.label71.TabIndex = 138;
             this.label71.Text = "0,5";
             // 
@@ -960,12 +1032,12 @@ namespace ContrAgent
             // 
             this.label70.AutoSize = true;
             this.label70.BackColor = System.Drawing.Color.Transparent;
-            this.label70.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label70.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label70.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label70.Location = new System.Drawing.Point(33, 1393);
             this.label70.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(36, 37);
+            this.label70.Size = new System.Drawing.Size(33, 37);
             this.label70.TabIndex = 137;
             this.label70.Text = "1";
             // 
@@ -973,12 +1045,12 @@ namespace ContrAgent
             // 
             this.label69.AutoSize = true;
             this.label69.BackColor = System.Drawing.Color.Transparent;
-            this.label69.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label69.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label69.Location = new System.Drawing.Point(33, 1290);
             this.label69.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(36, 37);
+            this.label69.Size = new System.Drawing.Size(33, 37);
             this.label69.TabIndex = 136;
             this.label69.Text = "1";
             // 
@@ -986,12 +1058,12 @@ namespace ContrAgent
             // 
             this.label68.AutoSize = true;
             this.label68.BackColor = System.Drawing.Color.Transparent;
-            this.label68.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label68.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label68.Location = new System.Drawing.Point(33, 1163);
             this.label68.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(36, 37);
+            this.label68.Size = new System.Drawing.Size(33, 37);
             this.label68.TabIndex = 135;
             this.label68.Text = "1";
             this.label68.Click += new System.EventHandler(this.label68_Click);
@@ -1000,12 +1072,12 @@ namespace ContrAgent
             // 
             this.label67.AutoSize = true;
             this.label67.BackColor = System.Drawing.Color.Transparent;
-            this.label67.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label67.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label67.Location = new System.Drawing.Point(33, 1064);
             this.label67.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(36, 37);
+            this.label67.Size = new System.Drawing.Size(33, 37);
             this.label67.TabIndex = 134;
             this.label67.Text = "1";
             this.label67.Click += new System.EventHandler(this.label67_Click);
@@ -1014,12 +1086,12 @@ namespace ContrAgent
             // 
             this.label66.AutoSize = true;
             this.label66.BackColor = System.Drawing.Color.Transparent;
-            this.label66.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label66.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label66.Location = new System.Drawing.Point(33, 939);
             this.label66.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(36, 37);
+            this.label66.Size = new System.Drawing.Size(33, 37);
             this.label66.TabIndex = 133;
             this.label66.Text = "1";
             // 
@@ -1027,12 +1099,12 @@ namespace ContrAgent
             // 
             this.label65.AutoSize = true;
             this.label65.BackColor = System.Drawing.Color.Transparent;
-            this.label65.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label65.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label65.Location = new System.Drawing.Point(33, 801);
             this.label65.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(36, 37);
+            this.label65.Size = new System.Drawing.Size(33, 37);
             this.label65.TabIndex = 132;
             this.label65.Text = "1";
             // 
@@ -1040,12 +1112,12 @@ namespace ContrAgent
             // 
             this.label64.AutoSize = true;
             this.label64.BackColor = System.Drawing.Color.Transparent;
-            this.label64.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label64.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label64.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label64.Location = new System.Drawing.Point(33, 697);
             this.label64.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(36, 37);
+            this.label64.Size = new System.Drawing.Size(33, 37);
             this.label64.TabIndex = 131;
             this.label64.Text = "1";
             // 
@@ -1053,12 +1125,12 @@ namespace ContrAgent
             // 
             this.label63.AutoSize = true;
             this.label63.BackColor = System.Drawing.Color.Transparent;
-            this.label63.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label63.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label63.Location = new System.Drawing.Point(33, 573);
             this.label63.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(36, 37);
+            this.label63.Size = new System.Drawing.Size(33, 37);
             this.label63.TabIndex = 130;
             this.label63.Text = "1";
             // 
@@ -1066,12 +1138,12 @@ namespace ContrAgent
             // 
             this.label62.AutoSize = true;
             this.label62.BackColor = System.Drawing.Color.Transparent;
-            this.label62.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label62.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label62.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label62.Location = new System.Drawing.Point(34, 473);
             this.label62.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(36, 37);
+            this.label62.Size = new System.Drawing.Size(33, 37);
             this.label62.TabIndex = 129;
             this.label62.Text = "1";
             // 
@@ -1079,12 +1151,12 @@ namespace ContrAgent
             // 
             this.label91.AutoSize = true;
             this.label91.BackColor = System.Drawing.Color.Transparent;
-            this.label91.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label91.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label91.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label91.Location = new System.Drawing.Point(18, 403);
             this.label91.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(65, 37);
+            this.label91.Size = new System.Drawing.Size(62, 37);
             this.label91.TabIndex = 128;
             this.label91.Text = "0,5";
             // 
@@ -1092,12 +1164,12 @@ namespace ContrAgent
             // 
             this.label61.AutoSize = true;
             this.label61.BackColor = System.Drawing.Color.Transparent;
-            this.label61.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label61.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label61.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label61.Location = new System.Drawing.Point(33, 298);
             this.label61.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(36, 37);
+            this.label61.Size = new System.Drawing.Size(33, 37);
             this.label61.TabIndex = 127;
             this.label61.Text = "1";
             // 
@@ -1105,12 +1177,12 @@ namespace ContrAgent
             // 
             this.label60.AutoSize = true;
             this.label60.BackColor = System.Drawing.Color.Transparent;
-            this.label60.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label60.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label60.Location = new System.Drawing.Point(34, 182);
             this.label60.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(36, 37);
+            this.label60.Size = new System.Drawing.Size(33, 37);
             this.label60.TabIndex = 126;
             this.label60.Text = "1";
             // 
@@ -1123,7 +1195,7 @@ namespace ContrAgent
             this.richTextBox31.Location = new System.Drawing.Point(371, 512);
             this.richTextBox31.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox31.Name = "richTextBox31";
-            this.richTextBox31.Size = new System.Drawing.Size(876, 161);
+            this.richTextBox31.Size = new System.Drawing.Size(842, 161);
             this.richTextBox31.TabIndex = 108;
             this.richTextBox31.Text = "";
             // 
@@ -1161,7 +1233,7 @@ namespace ContrAgent
             this.richTextBox5.Location = new System.Drawing.Point(371, 675);
             this.richTextBox5.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox5.Name = "richTextBox5";
-            this.richTextBox5.Size = new System.Drawing.Size(876, 76);
+            this.richTextBox5.Size = new System.Drawing.Size(842, 76);
             this.richTextBox5.TabIndex = 105;
             this.richTextBox5.Text = "";
             // 
@@ -1174,7 +1246,7 @@ namespace ContrAgent
             this.richTextBox15.Location = new System.Drawing.Point(371, 1763);
             this.richTextBox15.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.richTextBox15.Name = "richTextBox15";
-            this.richTextBox15.Size = new System.Drawing.Size(876, 154);
+            this.richTextBox15.Size = new System.Drawing.Size(842, 154);
             this.richTextBox15.TabIndex = 103;
             this.richTextBox15.Text = "";
             // 
@@ -1202,7 +1274,7 @@ namespace ContrAgent
             this.richTextBox14.Location = new System.Drawing.Point(371, 1605);
             this.richTextBox14.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox14.Name = "richTextBox14";
-            this.richTextBox14.Size = new System.Drawing.Size(876, 156);
+            this.richTextBox14.Size = new System.Drawing.Size(842, 156);
             this.richTextBox14.TabIndex = 103;
             this.richTextBox14.Text = "";
             // 
@@ -1240,7 +1312,7 @@ namespace ContrAgent
             this.richTextBox13.Location = new System.Drawing.Point(371, 1539);
             this.richTextBox13.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox13.Name = "richTextBox13";
-            this.richTextBox13.Size = new System.Drawing.Size(876, 64);
+            this.richTextBox13.Size = new System.Drawing.Size(842, 64);
             this.richTextBox13.TabIndex = 100;
             this.richTextBox13.Text = "";
             // 
@@ -1266,7 +1338,7 @@ namespace ContrAgent
             this.richTextBox12.Location = new System.Drawing.Point(371, 1453);
             this.richTextBox12.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox12.Name = "richTextBox12";
-            this.richTextBox12.Size = new System.Drawing.Size(876, 84);
+            this.richTextBox12.Size = new System.Drawing.Size(842, 84);
             this.richTextBox12.TabIndex = 97;
             this.richTextBox12.Text = "";
             // 
@@ -1305,7 +1377,7 @@ namespace ContrAgent
             this.richTextBox11.Location = new System.Drawing.Point(371, 1367);
             this.richTextBox11.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox11.Name = "richTextBox11";
-            this.richTextBox11.Size = new System.Drawing.Size(876, 84);
+            this.richTextBox11.Size = new System.Drawing.Size(842, 84);
             this.richTextBox11.TabIndex = 94;
             this.richTextBox11.Text = "";
             // 
@@ -1344,7 +1416,7 @@ namespace ContrAgent
             this.richTextBox10.Location = new System.Drawing.Point(371, 1245);
             this.richTextBox10.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox10.Name = "richTextBox10";
-            this.richTextBox10.Size = new System.Drawing.Size(876, 120);
+            this.richTextBox10.Size = new System.Drawing.Size(842, 120);
             this.richTextBox10.TabIndex = 91;
             this.richTextBox10.Text = "";
             // 
@@ -1384,7 +1456,7 @@ namespace ContrAgent
             this.richTextBox9.Location = new System.Drawing.Point(371, 1123);
             this.richTextBox9.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox9.Name = "richTextBox9";
-            this.richTextBox9.Size = new System.Drawing.Size(876, 120);
+            this.richTextBox9.Size = new System.Drawing.Size(842, 120);
             this.richTextBox9.TabIndex = 88;
             this.richTextBox9.Text = "";
             // 
@@ -1423,7 +1495,7 @@ namespace ContrAgent
             this.richTextBox8.Location = new System.Drawing.Point(371, 1035);
             this.richTextBox8.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox8.Name = "richTextBox8";
-            this.richTextBox8.Size = new System.Drawing.Size(876, 86);
+            this.richTextBox8.Size = new System.Drawing.Size(842, 86);
             this.richTextBox8.TabIndex = 85;
             this.richTextBox8.Text = "";
             // 
@@ -1440,19 +1512,6 @@ namespace ContrAgent
             this.label29.Text = "Контрагент не соответствует обязательным квалификационным требованиям, предъявляе" +
     "мым к участникам закупочной процедуры";
             // 
-            // checkBox10
-            // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox10.Location = new System.Drawing.Point(52, 1029);
-            this.checkBox10.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(48, 23);
-            this.checkBox10.TabIndex = 83;
-            this.checkBox10.Text = "  9.";
-            this.checkBox10.UseVisualStyleBackColor = true;
-            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
-            // 
             // richTextBox7
             // 
             this.richTextBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1462,7 +1521,7 @@ namespace ContrAgent
             this.richTextBox7.Location = new System.Drawing.Point(371, 891);
             this.richTextBox7.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox7.Name = "richTextBox7";
-            this.richTextBox7.Size = new System.Drawing.Size(876, 142);
+            this.richTextBox7.Size = new System.Drawing.Size(842, 142);
             this.richTextBox7.TabIndex = 82;
             this.richTextBox7.Text = "";
             // 
@@ -1502,7 +1561,7 @@ namespace ContrAgent
             this.richTextBox6.Location = new System.Drawing.Point(371, 753);
             this.richTextBox6.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox6.Name = "richTextBox6";
-            this.richTextBox6.Size = new System.Drawing.Size(876, 136);
+            this.richTextBox6.Size = new System.Drawing.Size(842, 136);
             this.richTextBox6.TabIndex = 79;
             this.richTextBox6.Text = "";
             // 
@@ -1567,7 +1626,7 @@ namespace ContrAgent
             this.richTextBox4.Location = new System.Drawing.Point(371, 370);
             this.richTextBox4.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.Size = new System.Drawing.Size(876, 140);
+            this.richTextBox4.Size = new System.Drawing.Size(842, 140);
             this.richTextBox4.TabIndex = 72;
             this.richTextBox4.Text = "";
             // 
@@ -1607,7 +1666,7 @@ namespace ContrAgent
             this.richTextBox3.Location = new System.Drawing.Point(371, 264);
             this.richTextBox3.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(876, 104);
+            this.richTextBox3.Size = new System.Drawing.Size(842, 104);
             this.richTextBox3.TabIndex = 69;
             this.richTextBox3.Text = "";
             // 
@@ -1646,7 +1705,7 @@ namespace ContrAgent
             this.richTextBox2.Location = new System.Drawing.Point(371, 122);
             this.richTextBox2.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(876, 140);
+            this.richTextBox2.Size = new System.Drawing.Size(842, 140);
             this.richTextBox2.TabIndex = 66;
             this.richTextBox2.Text = "";
             // 
@@ -1686,7 +1745,7 @@ namespace ContrAgent
             this.richTextBox1.Location = new System.Drawing.Point(371, 16);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(876, 104);
+            this.richTextBox1.Size = new System.Drawing.Size(842, 104);
             this.richTextBox1.TabIndex = 63;
             this.richTextBox1.Text = "";
             // 
@@ -1746,12 +1805,12 @@ namespace ContrAgent
             // 
             this.label59.AutoSize = true;
             this.label59.BackColor = System.Drawing.Color.Transparent;
-            this.label59.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label59.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label59.Location = new System.Drawing.Point(33, 54);
             this.label59.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(36, 37);
+            this.label59.Size = new System.Drawing.Size(33, 37);
             this.label59.TabIndex = 109;
             this.label59.Text = "1";
             // 
@@ -1767,6 +1826,19 @@ namespace ContrAgent
             this.checkBox15.Text = "14.";
             this.checkBox15.UseVisualStyleBackColor = true;
             this.checkBox15.CheckedChanged += new System.EventHandler(this.checkBox15_CheckedChanged);
+            // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox10.Location = new System.Drawing.Point(52, 1029);
+            this.checkBox10.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(48, 23);
+            this.checkBox10.TabIndex = 83;
+            this.checkBox10.Text = "  9.";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
             // 
             // tabPage2
             // 
@@ -1849,12 +1921,12 @@ namespace ContrAgent
             // 
             this.label89.AutoSize = true;
             this.label89.BackColor = System.Drawing.Color.Transparent;
-            this.label89.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label89.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label89.Location = new System.Drawing.Point(13, 1872);
             this.label89.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(84, 37);
+            this.label89.Size = new System.Drawing.Size(78, 37);
             this.label89.TabIndex = 159;
             this.label89.Text = "0,15";
             // 
@@ -1862,12 +1934,12 @@ namespace ContrAgent
             // 
             this.label88.AutoSize = true;
             this.label88.BackColor = System.Drawing.Color.Transparent;
-            this.label88.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label88.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label88.Location = new System.Drawing.Point(23, 1799);
             this.label88.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label88.Name = "label88";
-            this.label88.Size = new System.Drawing.Size(65, 37);
+            this.label88.Size = new System.Drawing.Size(62, 37);
             this.label88.TabIndex = 158;
             this.label88.Text = "0,2";
             // 
@@ -1875,12 +1947,12 @@ namespace ContrAgent
             // 
             this.label87.AutoSize = true;
             this.label87.BackColor = System.Drawing.Color.Transparent;
-            this.label87.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label87.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label87.Location = new System.Drawing.Point(13, 1724);
             this.label87.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(84, 37);
+            this.label87.Size = new System.Drawing.Size(78, 37);
             this.label87.TabIndex = 157;
             this.label87.Text = "0,15";
             // 
@@ -1888,12 +1960,12 @@ namespace ContrAgent
             // 
             this.label86.AutoSize = true;
             this.label86.BackColor = System.Drawing.Color.Transparent;
-            this.label86.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label86.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label86.Location = new System.Drawing.Point(13, 1650);
             this.label86.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(84, 37);
+            this.label86.Size = new System.Drawing.Size(80, 37);
             this.label86.TabIndex = 156;
             this.label86.Text = "0,25";
             // 
@@ -1901,12 +1973,12 @@ namespace ContrAgent
             // 
             this.label85.AutoSize = true;
             this.label85.BackColor = System.Drawing.Color.Transparent;
-            this.label85.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label85.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label85.Location = new System.Drawing.Point(13, 1507);
             this.label85.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(84, 37);
+            this.label85.Size = new System.Drawing.Size(80, 37);
             this.label85.TabIndex = 155;
             this.label85.Text = "0,25";
             // 
@@ -1914,12 +1986,12 @@ namespace ContrAgent
             // 
             this.label84.AutoSize = true;
             this.label84.BackColor = System.Drawing.Color.Transparent;
-            this.label84.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label84.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label84.Location = new System.Drawing.Point(13, 1337);
             this.label84.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(84, 37);
+            this.label84.Size = new System.Drawing.Size(80, 37);
             this.label84.TabIndex = 154;
             this.label84.Text = "0,25";
             // 
@@ -1927,12 +1999,12 @@ namespace ContrAgent
             // 
             this.label83.AutoSize = true;
             this.label83.BackColor = System.Drawing.Color.Transparent;
-            this.label83.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label83.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label83.Location = new System.Drawing.Point(28, 1240);
             this.label83.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(36, 37);
+            this.label83.Size = new System.Drawing.Size(33, 37);
             this.label83.TabIndex = 153;
             this.label83.Text = "1";
             // 
@@ -1940,12 +2012,12 @@ namespace ContrAgent
             // 
             this.label82.AutoSize = true;
             this.label82.BackColor = System.Drawing.Color.Transparent;
-            this.label82.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label82.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label82.Location = new System.Drawing.Point(13, 1159);
             this.label82.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(84, 37);
+            this.label82.Size = new System.Drawing.Size(80, 37);
             this.label82.TabIndex = 152;
             this.label82.Text = "0,25";
             // 
@@ -1953,12 +2025,12 @@ namespace ContrAgent
             // 
             this.label81.AutoSize = true;
             this.label81.BackColor = System.Drawing.Color.Transparent;
-            this.label81.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label81.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label81.Location = new System.Drawing.Point(9, 1051);
             this.label81.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(84, 37);
+            this.label81.Size = new System.Drawing.Size(80, 37);
             this.label81.TabIndex = 151;
             this.label81.Text = "0,25";
             // 
@@ -1966,12 +2038,12 @@ namespace ContrAgent
             // 
             this.label80.AutoSize = true;
             this.label80.BackColor = System.Drawing.Color.Transparent;
-            this.label80.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label80.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label80.Location = new System.Drawing.Point(9, 959);
             this.label80.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(84, 37);
+            this.label80.Size = new System.Drawing.Size(80, 37);
             this.label80.TabIndex = 150;
             this.label80.Text = "0,25";
             // 
@@ -1979,12 +2051,12 @@ namespace ContrAgent
             // 
             this.label79.AutoSize = true;
             this.label79.BackColor = System.Drawing.Color.Transparent;
-            this.label79.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label79.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label79.Location = new System.Drawing.Point(9, 857);
             this.label79.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(84, 37);
+            this.label79.Size = new System.Drawing.Size(80, 37);
             this.label79.TabIndex = 149;
             this.label79.Text = "0,25";
             // 
@@ -1992,12 +2064,12 @@ namespace ContrAgent
             // 
             this.label103.AutoSize = true;
             this.label103.BackColor = System.Drawing.Color.Transparent;
-            this.label103.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label103.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label103.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label103.Location = new System.Drawing.Point(9, 722);
             this.label103.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label103.Name = "label103";
-            this.label103.Size = new System.Drawing.Size(84, 37);
+            this.label103.Size = new System.Drawing.Size(80, 37);
             this.label103.TabIndex = 148;
             this.label103.Text = "0,25";
             // 
@@ -2005,12 +2077,12 @@ namespace ContrAgent
             // 
             this.label78.AutoSize = true;
             this.label78.BackColor = System.Drawing.Color.Transparent;
-            this.label78.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label78.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label78.Location = new System.Drawing.Point(13, 617);
             this.label78.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(65, 37);
+            this.label78.Size = new System.Drawing.Size(62, 37);
             this.label78.TabIndex = 147;
             this.label78.Text = "0,5";
             // 
@@ -2018,12 +2090,12 @@ namespace ContrAgent
             // 
             this.label77.AutoSize = true;
             this.label77.BackColor = System.Drawing.Color.Transparent;
-            this.label77.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label77.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label77.Location = new System.Drawing.Point(9, 536);
             this.label77.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(84, 37);
+            this.label77.Size = new System.Drawing.Size(80, 37);
             this.label77.TabIndex = 146;
             this.label77.Text = "0,25";
             // 
@@ -2031,12 +2103,12 @@ namespace ContrAgent
             // 
             this.label76.AutoSize = true;
             this.label76.BackColor = System.Drawing.Color.Transparent;
-            this.label76.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label76.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label76.Location = new System.Drawing.Point(9, 419);
             this.label76.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(84, 37);
+            this.label76.Size = new System.Drawing.Size(80, 37);
             this.label76.TabIndex = 145;
             this.label76.Text = "0,25";
             // 
@@ -2044,12 +2116,12 @@ namespace ContrAgent
             // 
             this.label75.AutoSize = true;
             this.label75.BackColor = System.Drawing.Color.Transparent;
-            this.label75.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label75.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label75.Location = new System.Drawing.Point(9, 280);
             this.label75.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(84, 37);
+            this.label75.Size = new System.Drawing.Size(80, 37);
             this.label75.TabIndex = 144;
             this.label75.Text = "0,25";
             // 
@@ -2057,12 +2129,12 @@ namespace ContrAgent
             // 
             this.label102.AutoSize = true;
             this.label102.BackColor = System.Drawing.Color.Transparent;
-            this.label102.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label102.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label102.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label102.Location = new System.Drawing.Point(9, 99);
             this.label102.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label102.Name = "label102";
-            this.label102.Size = new System.Drawing.Size(84, 37);
+            this.label102.Size = new System.Drawing.Size(80, 37);
             this.label102.TabIndex = 143;
             this.label102.Text = "0,25";
             // 
@@ -2075,7 +2147,7 @@ namespace ContrAgent
             this.richTextBox20.Location = new System.Drawing.Point(371, 1847);
             this.richTextBox20.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox20.Name = "richTextBox20";
-            this.richTextBox20.Size = new System.Drawing.Size(872, 72);
+            this.richTextBox20.Size = new System.Drawing.Size(838, 72);
             this.richTextBox20.TabIndex = 141;
             this.richTextBox20.Text = "";
             // 
@@ -2113,7 +2185,7 @@ namespace ContrAgent
             this.richTextBox30.Location = new System.Drawing.Point(371, 1773);
             this.richTextBox30.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox30.Name = "richTextBox30";
-            this.richTextBox30.Size = new System.Drawing.Size(872, 72);
+            this.richTextBox30.Size = new System.Drawing.Size(838, 72);
             this.richTextBox30.TabIndex = 111;
             this.richTextBox30.Text = "";
             // 
@@ -2153,7 +2225,7 @@ namespace ContrAgent
             this.richTextBox29.Location = new System.Drawing.Point(371, 1699);
             this.richTextBox29.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox29.Name = "richTextBox29";
-            this.richTextBox29.Size = new System.Drawing.Size(872, 72);
+            this.richTextBox29.Size = new System.Drawing.Size(838, 72);
             this.richTextBox29.TabIndex = 108;
             this.richTextBox29.Text = "";
             // 
@@ -2191,7 +2263,7 @@ namespace ContrAgent
             this.richTextBox28.Location = new System.Drawing.Point(371, 1625);
             this.richTextBox28.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox28.Name = "richTextBox28";
-            this.richTextBox28.Size = new System.Drawing.Size(872, 72);
+            this.richTextBox28.Size = new System.Drawing.Size(838, 72);
             this.richTextBox28.TabIndex = 105;
             this.richTextBox28.Text = "";
             // 
@@ -2229,7 +2301,7 @@ namespace ContrAgent
             this.richTextBox27.Location = new System.Drawing.Point(371, 1425);
             this.richTextBox27.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox27.Name = "richTextBox27";
-            this.richTextBox27.Size = new System.Drawing.Size(872, 198);
+            this.richTextBox27.Size = new System.Drawing.Size(838, 198);
             this.richTextBox27.TabIndex = 102;
             this.richTextBox27.Text = "";
             // 
@@ -2268,7 +2340,7 @@ namespace ContrAgent
             this.richTextBox26.Location = new System.Drawing.Point(371, 1279);
             this.richTextBox26.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox26.Name = "richTextBox26";
-            this.richTextBox26.Size = new System.Drawing.Size(872, 144);
+            this.richTextBox26.Size = new System.Drawing.Size(838, 144);
             this.richTextBox26.TabIndex = 99;
             this.richTextBox26.Text = "";
             // 
@@ -2308,7 +2380,7 @@ namespace ContrAgent
             this.richTextBox25.Location = new System.Drawing.Point(371, 1133);
             this.richTextBox25.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox25.Name = "richTextBox25";
-            this.richTextBox25.Size = new System.Drawing.Size(872, 144);
+            this.richTextBox25.Size = new System.Drawing.Size(838, 144);
             this.richTextBox25.TabIndex = 95;
             this.richTextBox25.Text = "";
             // 
@@ -2346,7 +2418,7 @@ namespace ContrAgent
             this.richTextBox24.Location = new System.Drawing.Point(371, 1009);
             this.richTextBox24.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox24.Name = "richTextBox24";
-            this.richTextBox24.Size = new System.Drawing.Size(872, 122);
+            this.richTextBox24.Size = new System.Drawing.Size(838, 122);
             this.richTextBox24.TabIndex = 92;
             this.richTextBox24.Text = "";
             // 
@@ -2387,7 +2459,7 @@ namespace ContrAgent
             this.richTextBox23.Location = new System.Drawing.Point(371, 934);
             this.richTextBox23.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox23.Name = "richTextBox23";
-            this.richTextBox23.Size = new System.Drawing.Size(872, 72);
+            this.richTextBox23.Size = new System.Drawing.Size(838, 72);
             this.richTextBox23.TabIndex = 89;
             this.richTextBox23.Text = "";
             // 
@@ -2425,7 +2497,7 @@ namespace ContrAgent
             this.richTextBox22.Location = new System.Drawing.Point(371, 810);
             this.richTextBox22.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox22.Name = "richTextBox22";
-            this.richTextBox22.Size = new System.Drawing.Size(872, 122);
+            this.richTextBox22.Size = new System.Drawing.Size(838, 122);
             this.richTextBox22.TabIndex = 86;
             this.richTextBox22.Text = "";
             // 
@@ -2464,7 +2536,7 @@ namespace ContrAgent
             this.richTextBox21.Location = new System.Drawing.Point(371, 667);
             this.richTextBox21.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox21.Name = "richTextBox21";
-            this.richTextBox21.Size = new System.Drawing.Size(872, 142);
+            this.richTextBox21.Size = new System.Drawing.Size(838, 142);
             this.richTextBox21.TabIndex = 83;
             this.richTextBox21.Text = "";
             // 
@@ -2504,7 +2576,7 @@ namespace ContrAgent
             this.richTextBox18.Location = new System.Drawing.Point(371, 497);
             this.richTextBox18.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox18.Name = "richTextBox18";
-            this.richTextBox18.Size = new System.Drawing.Size(872, 168);
+            this.richTextBox18.Size = new System.Drawing.Size(838, 168);
             this.richTextBox18.TabIndex = 79;
             this.richTextBox18.Text = "";
             // 
@@ -2542,7 +2614,7 @@ namespace ContrAgent
             this.richTextBox19.Location = new System.Drawing.Point(371, 371);
             this.richTextBox19.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox19.Name = "richTextBox19";
-            this.richTextBox19.Size = new System.Drawing.Size(872, 124);
+            this.richTextBox19.Size = new System.Drawing.Size(838, 124);
             this.richTextBox19.TabIndex = 75;
             this.richTextBox19.Text = "";
             // 
@@ -2582,7 +2654,7 @@ namespace ContrAgent
             this.richTextBox17.Location = new System.Drawing.Point(371, 225);
             this.richTextBox17.Margin = new System.Windows.Forms.Padding(0);
             this.richTextBox17.Name = "richTextBox17";
-            this.richTextBox17.Size = new System.Drawing.Size(872, 144);
+            this.richTextBox17.Size = new System.Drawing.Size(838, 144);
             this.richTextBox17.TabIndex = 69;
             this.richTextBox17.Text = "";
             // 
@@ -2620,7 +2692,7 @@ namespace ContrAgent
             this.richTextBox16.Location = new System.Drawing.Point(371, 15);
             this.richTextBox16.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox16.Name = "richTextBox16";
-            this.richTextBox16.Size = new System.Drawing.Size(872, 208);
+            this.richTextBox16.Size = new System.Drawing.Size(838, 208);
             this.richTextBox16.TabIndex = 66;
             this.richTextBox16.Text = "";
             // 
@@ -2884,12 +2956,12 @@ namespace ContrAgent
             // 
             this.label104.AutoSize = true;
             this.label104.BackColor = System.Drawing.Color.Transparent;
-            this.label104.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label104.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label104.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label104.Location = new System.Drawing.Point(820, 269);
             this.label104.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label104.Name = "label104";
-            this.label104.Size = new System.Drawing.Size(36, 37);
+            this.label104.Size = new System.Drawing.Size(35, 37);
             this.label104.TabIndex = 119;
             this.label104.Text = "0";
             // 
@@ -2897,12 +2969,12 @@ namespace ContrAgent
             // 
             this.label101.AutoSize = true;
             this.label101.BackColor = System.Drawing.Color.Transparent;
-            this.label101.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label101.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label101.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label101.Location = new System.Drawing.Point(820, 321);
             this.label101.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label101.Name = "label101";
-            this.label101.Size = new System.Drawing.Size(65, 37);
+            this.label101.Size = new System.Drawing.Size(62, 37);
             this.label101.TabIndex = 118;
             this.label101.Text = "0,5";
             // 
@@ -2910,12 +2982,12 @@ namespace ContrAgent
             // 
             this.label90.AutoSize = true;
             this.label90.BackColor = System.Drawing.Color.Transparent;
-            this.label90.Font = new System.Drawing.Font("Arial Rounded MT Bold", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label90.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label90.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label90.Location = new System.Drawing.Point(820, 372);
             this.label90.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(36, 37);
+            this.label90.Size = new System.Drawing.Size(33, 37);
             this.label90.TabIndex = 117;
             this.label90.Text = "1";
             // 
@@ -2923,7 +2995,7 @@ namespace ContrAgent
             // 
             this.radioButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(784, 382);
+            this.radioButton3.Location = new System.Drawing.Point(750, 382);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(14, 13);
             this.radioButton3.TabIndex = 116;
@@ -2935,7 +3007,7 @@ namespace ContrAgent
             // 
             this.radioButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(784, 333);
+            this.radioButton2.Location = new System.Drawing.Point(750, 333);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(14, 13);
             this.radioButton2.TabIndex = 115;
@@ -2947,7 +3019,7 @@ namespace ContrAgent
             // 
             this.radioButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(784, 279);
+            this.radioButton1.Location = new System.Drawing.Point(750, 279);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(14, 13);
             this.radioButton1.TabIndex = 114;
@@ -2965,7 +3037,7 @@ namespace ContrAgent
             this.hideExtraField.Location = new System.Drawing.Point(28, 691);
             this.hideExtraField.Margin = new System.Windows.Forms.Padding(10);
             this.hideExtraField.Name = "hideExtraField";
-            this.hideExtraField.Size = new System.Drawing.Size(729, 110);
+            this.hideExtraField.Size = new System.Drawing.Size(695, 110);
             this.hideExtraField.TabIndex = 109;
             this.hideExtraField.Text = "";
             // 
@@ -2978,7 +3050,7 @@ namespace ContrAgent
             this.c1Field.Location = new System.Drawing.Point(28, 73);
             this.c1Field.Margin = new System.Windows.Forms.Padding(2);
             this.c1Field.Name = "c1Field";
-            this.c1Field.Size = new System.Drawing.Size(729, 110);
+            this.c1Field.Size = new System.Drawing.Size(695, 110);
             this.c1Field.TabIndex = 111;
             this.c1Field.Text = "";
             // 
@@ -3004,7 +3076,7 @@ namespace ContrAgent
             this.extraField.Location = new System.Drawing.Point(28, 206);
             this.extraField.Margin = new System.Windows.Forms.Padding(2);
             this.extraField.Name = "extraField";
-            this.extraField.Size = new System.Drawing.Size(729, 439);
+            this.extraField.Size = new System.Drawing.Size(695, 439);
             this.extraField.TabIndex = 107;
             this.extraField.Text = "";
             // 
@@ -3066,7 +3138,7 @@ namespace ContrAgent
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::ContrAgent.Properties.Resources.Без_имени;
-            this.pictureBox1.Location = new System.Drawing.Point(779, 206);
+            this.pictureBox1.Location = new System.Drawing.Point(745, 206);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(52, 48);
@@ -3100,7 +3172,7 @@ namespace ContrAgent
             // 
             this.label51.AutoSize = true;
             this.label51.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label51.Location = new System.Drawing.Point(422, 122);
+            this.label51.Location = new System.Drawing.Point(422, 97);
             this.label51.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(57, 19);
@@ -3113,7 +3185,7 @@ namespace ContrAgent
             this.resultLabel.BackColor = System.Drawing.SystemColors.Control;
             this.resultLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.resultLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.resultLabel.Location = new System.Drawing.Point(503, 72);
+            this.resultLabel.Location = new System.Drawing.Point(505, 134);
             this.resultLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(81, 19);
@@ -3145,7 +3217,7 @@ namespace ContrAgent
             this.label14.BackColor = System.Drawing.SystemColors.Control;
             this.label14.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label14.Location = new System.Drawing.Point(223, 72);
+            this.label14.Location = new System.Drawing.Point(225, 134);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(276, 19);
@@ -3158,7 +3230,7 @@ namespace ContrAgent
             this.label58.BackColor = System.Drawing.SystemColors.Control;
             this.label58.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label58.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label58.Location = new System.Drawing.Point(223, 122);
+            this.label58.Location = new System.Drawing.Point(225, 97);
             this.label58.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(195, 19);
@@ -3187,7 +3259,7 @@ namespace ContrAgent
             this.label13.BackColor = System.Drawing.SystemColors.Control;
             this.label13.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label13.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label13.Location = new System.Drawing.Point(223, 20);
+            this.label13.Location = new System.Drawing.Point(225, 20);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(150, 19);
@@ -3227,22 +3299,26 @@ namespace ContrAgent
             this.toolStripButton3.Text = "toolStripButton3";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
-            // ndsCheckBox
+            // label105
             // 
-            this.ndsCheckBox.AutoSize = true;
-            this.ndsCheckBox.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ndsCheckBox.Location = new System.Drawing.Point(612, 154);
-            this.ndsCheckBox.Name = "ndsCheckBox";
-            this.ndsCheckBox.Size = new System.Drawing.Size(68, 23);
-            this.ndsCheckBox.TabIndex = 82;
-            this.ndsCheckBox.Text = "с НДС";
-            this.ndsCheckBox.UseVisualStyleBackColor = true;
+            this.label105.AutoSize = true;
+            this.label105.BackColor = System.Drawing.SystemColors.Control;
+            this.label105.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label105.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label105.Location = new System.Drawing.Point(225, 58);
+            this.label105.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label105.Name = "label105";
+            this.label105.Size = new System.Drawing.Size(60, 19);
+            this.label105.TabIndex = 87;
+            this.label105.Text = "Статус: ";
+            this.label105.Click += new System.EventHandler(this.label105_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(1299, 742);
+            this.Controls.Add(this.label105);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label58);
@@ -3500,7 +3576,12 @@ namespace ContrAgent
         private System.Windows.Forms.Label label104;
         private System.Windows.Forms.Label label101;
         private System.Windows.Forms.Label label90;
-        private System.Windows.Forms.CheckBox ndsCheckBox;
+        private System.Windows.Forms.CheckBox decreaseNdsCheckBox;
+        private System.Windows.Forms.Label label105;
+        private System.Windows.Forms.CheckBox zeroNdsField;
+        private System.Windows.Forms.CheckBox increaseNdsField;
+        private System.Windows.Forms.TextBox overallPriceField;
+        private System.Windows.Forms.Label label106;
     }
 }
 

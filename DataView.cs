@@ -746,5 +746,15 @@ namespace ContrAgent
                 this.dataGridView1.Columns["Status"].Visible = false;
             }
         }
+
+        private void pictureBox7_MouseEnter(object sender, EventArgs e)
+        {
+            (sender as PictureBox).Image = Image.FromFile("img\\ticket_paper_icon_179218_.png");
+        }
+
+        private void pictureBox7_MouseLeave(object sender, EventArgs e)
+        {
+            (sender as PictureBox).Image = Image.FromFile("img\\ticket_paper_icon_179218.png");
+        }
     }
 }

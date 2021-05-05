@@ -28,6 +28,7 @@ namespace ContrAgent
             conclusionNumberField.Enabled = false;
             statusMain = status;
             nameMain = name;
+            setupFormName();
             uploadData(name, number, status);
 
             
@@ -73,6 +74,30 @@ namespace ContrAgent
             loadTableData();
 
 
+        }
+
+        private void setupFormName()
+        {
+            if(statusMain == 0)
+            {
+                this.Text = "Просмотр сформированного заключения";
+                label105.Text += "Сформировано";
+            }
+            else if(statusMain == 1)
+            {
+                this.Text = "Редактирование заключения";
+                label105.Text += "Не сформировано";
+            }
+            else if(statusMain == 2)
+            {
+                this.Text = "Новое заключение";
+                label105.Text += "Новое";
+            }
+            else if(statusMain == 4)
+            {
+                this.Text = "Новое заключение";
+                label105.Text += "Новое";
+            }
         }
 
         private void loadTableData()
@@ -234,11 +259,19 @@ namespace ContrAgent
                     {
                         radioButton3.Checked = true;
                     }
-                    if(reader[17].ToString() == "True")
+                    if(reader[17].ToString() == "0")
                     {
-                        ndsCheckBox.Checked = true;
+                        increaseNdsField.Checked = true;
                     }
-                    //Console.WriteLine(reader[17].ToString());
+                    else if(reader[17].ToString() == "1")
+                    {
+                        decreaseNdsCheckBox.Checked = true;
+                    }
+                    else
+                    {
+                        zeroNdsField.Checked = true;
+                    }
+                    Console.WriteLine(reader[17].ToString());
 
 
                 }
@@ -661,13 +694,17 @@ namespace ContrAgent
                     command.Parameters.Add("@object", MySqlDbType.Text).Value = objectField.Text;
                     command.Parameters.Add("@c1", MySqlDbType.Text).Value = c1Field.Text;
                     command.Parameters.Add("@result", MySqlDbType.Text).Value = result;
-                    if(ndsCheckBox.Checked)
+                    if(decreaseNdsCheckBox.Checked)
                     {
-                        command.Parameters.Add("@nds", MySqlDbType.Bit).Value = 1;
+                        command.Parameters.Add("@nds", MySqlDbType.Int32).Value = "1";
+                    }
+                    else if(increaseNdsField.Checked)
+                    {
+                        command.Parameters.Add("@nds", MySqlDbType.Int32).Value = "0";
                     }
                     else
                     {
-                        command.Parameters.Add("@nds", MySqlDbType.Bit).Value = 0;
+                         command.Parameters.Add("@nds", MySqlDbType.Int32).Value = "2";
                     }
                     if (expcheckBox.Checked)
                     {
@@ -827,13 +864,17 @@ namespace ContrAgent
                 command.Parameters.Add("@number", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
                 command.Parameters.Add("@c", MySqlDbType.Text).Value = c1Field.Text;
                 command.Parameters.Add("@evaluation_date", MySqlDbType.Date).Value = getUsualDate(evaluationDateField.Text);
-                if (ndsCheckBox.Checked)
+                if (decreaseNdsCheckBox.Checked)
                 {
-                    command.Parameters.Add("@nds", MySqlDbType.Bit).Value = 1;
+                    command.Parameters.Add("@nds", MySqlDbType.Int32).Value = "1";
+                }
+                else if (increaseNdsField.Checked)
+                {
+                    command.Parameters.Add("@nds", MySqlDbType.Int32).Value = "0";
                 }
                 else
                 {
-                    command.Parameters.Add("@nds", MySqlDbType.Bit).Value = 0;
+                    command.Parameters.Add("@nds", MySqlDbType.Int32).Value = "2";
                 }
                 command.Parameters.Add("@status", MySqlDbType.Int32).Value = 1;
                 
@@ -1309,9 +1350,13 @@ namespace ContrAgent
             ReplaceWordStub("{inn}", inn, wordDocument);
             ReplaceWordStub("{reason}", reason, wordDocument);
             ReplaceWordStub("{subject}", subject, wordDocument);
-            if(ndsCheckBox.Checked)
+            if(decreaseNdsCheckBox.Checked)
             {
-                ReplaceWordStub("{price}", price+" c НДС", wordDocument);
+                ReplaceWordStub("{price}", price+" c НДС"+"^p" + overallPriceField.Text + " без НДС", wordDocument);
+            }
+            else if(increaseNdsField.Checked)
+            {
+                ReplaceWordStub("{price}", price + " без НДС" + "^p" + overallPriceField.Text + " с НДС", wordDocument);
             }
             else
             {
@@ -1361,7 +1406,9 @@ namespace ContrAgent
             wordDocument.ExportAsFixedFormat(pdf, (WdExportFormat)WdSaveFormat.wdFormatPDF, false, WdExportOptimizeFor.wdExportOptimizeForOnScreen,
                     WdExportRange.wdExportAllDocument, 1, 1, WdExportItem.wdExportDocumentContent, true, true,
                     WdExportCreateBookmarks.wdExportCreateHeadingBookmarks, true, true, false, ref oMissing);
-            wordApp.Visible = true;
+            //wordApp.Visible = true;
+            MessageBox.Show("Документ сохранен");
+            wordDocument.Close();
 
         }
         private string getConfigPath(int j)
@@ -2418,7 +2465,8 @@ namespace ContrAgent
         {
             ToolTip tt = new ToolTip();
             tt.InitialDelay = 0;
-            tt.SetToolTip(this.label47, "Согласно данным из ИАС «Спарк» наличие у организации незавершенных исполнительных производств; отражение в бухгалтерской или налоговой отчетности организации убытков на протяжении двух последних лет / размер чистых активов имеет отрицательное значение за последний завершенный отчётный год; организация выступает в арбитражных судах только в роли ответчика; сведения в ЕГРЮЛ в отношении организации признаны недостоверными; организации, отсутствующие по юридическому адресу по данным ФНС России; в производстве арбитражного суда находится дело о признании должника (несостоятельным) банкротом; организация исключена из ЕГРЮЛ на основании п.2 ст.21.1 ФЗ от 08.08.2001 №129-ФЗ - `юридическое лицо, которое в течение последних двенадцати месяцев не представляло документы отчетности, предусмотренные законодательством РФ о налогах и сборах, и не осуществляло операций хотя бы по одному банковскому счету`");
+            tt.AutoPopDelay = 5000000;
+            tt.SetToolTip(this.label47, "Согласно данным из ИАС «Спарк» наличие у организации незавершенных исполнительных производств;"+"\n"+ " отражение в бухгалтерской или налоговой отчетности организации убытков на протяжении двух последних лет " + "\n" + "/ размер чистых активов имеет отрицательное значение за последний завершенный отчётный год;" + "\n" + " организация выступает в арбитражных судах только в роли ответчика;" + "\n" + " сведения в ЕГРЮЛ в отношении организации признаны недостоверными;" + "\n" + " организации, отсутствующие по юридическому адресу по данным ФНС России;" + "\n" + " в производстве арбитражного суда находится дело о признании должника (несостоятельным) банкротом;" + "\n" + " организация исключена из ЕГРЮЛ на основании п.2 ст.21.1 ФЗ от 08.08.2001" + "\n" + " №129-ФЗ - `юридическое лицо, которое в течение последних двенадцати месяцев не представляло документы отчетности," + "\n" + " предусмотренные законодательством РФ о налогах и сборах, и не осуществляло операций хотя бы по одному банковскому счету`");
         }
 
        
@@ -2455,8 +2503,9 @@ namespace ContrAgent
         {
             ToolTip tt = new ToolTip();
             tt.InitialDelay = 0;
+            tt.AutoPopDelay = 5000000;
+            tt.SetToolTip(this.label36, "Учредители/руководитель контрагента были аффилированы с юридическим лицом (банкротом)"+"\n"+"в период возбуждения производства о признании его несостоятельным (банкротом)");
 
-            tt.SetToolTip(this.label35, "Учредители/руководитель контрагента были аффилированы с юридическим лицом (банкротом) в период возбуждения производства о признании его несостоятельным (банкротом)");
         }
 
         private void addTablesToDB()
@@ -2554,6 +2603,109 @@ namespace ContrAgent
         private void label50_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void innField_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                DB db = new DB();
+
+                db.openConnection();
+
+                MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM `organisation` WHERE inn = @inn", db.getConnection());
+                cmd.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                if(reader[0].ToString()!= "0")
+                {
+                    const string message = "В базе данных есть организация с данным ИНН. Заполнить поля?";
+                    const string caption = "Найдена организация";
+                    var result = MessageBox.Show(message, caption,
+                                                 MessageBoxButtons.YesNo,
+                                                 MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        reader.Close();
+                        
+                        MySqlCommand cmd2 = new MySqlCommand("SELECT * FROM `organisation` WHERE inn = @inn", db.getConnection());
+                        cmd2.Parameters.Add("@inn", MySqlDbType.VarChar).Value = innField.Text;
+                        reader = cmd2.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            orgNameField.Text = reader[1].ToString();
+                            factAdressField.Text = reader[2].ToString();
+                            registrationDateField.Text = reader[3].ToString();
+                            activityField.Text = reader[4].ToString();
+                            legalAdressField.Text = reader[5].ToString();
+                            emailField.Text = reader[6].ToString();
+                            phoneField.Text = reader[7].ToString();
+                            leaderField.Text = reader[8].ToString();
+                            foundersField.Text = reader[9].ToString();
+                            gendirField.Text = reader[10].ToString();
+                        }
+                    }
+
+
+                }
+                Console.WriteLine(innField.Text);
+                innField.Text = innField.Text.Replace("\n", "");
+            }
+        }
+
+        private void label105_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void decreaseNdsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if(decreaseNdsCheckBox.Checked)
+            {
+                int x = Int32.Parse(priceField.Text);
+                overallPriceField.Text = (x - Math.Round((x / 1.20 - x) * (-1), 2)).ToString();
+                increaseNdsField.Enabled = false;
+                zeroNdsField.Enabled = false;
+            }
+            else
+            {
+                overallPriceField.Text = "";
+                increaseNdsField.Enabled = true;
+                zeroNdsField.Enabled = true;
+            }
+        }
+
+        private void increaseNdsField_CheckedChanged(object sender, EventArgs e)
+        {
+            if (increaseNdsField.Checked)
+            {
+                int x = Int32.Parse(priceField.Text);
+                overallPriceField.Text = Math.Round(x*1.20, 2).ToString();
+                decreaseNdsCheckBox.Enabled = false;
+                zeroNdsField.Enabled = false;
+            }
+            else
+            {
+                overallPriceField.Text = "";
+                decreaseNdsCheckBox.Enabled = true;
+                zeroNdsField.Enabled = true;
+            }
+        }
+
+        private void zeroNdsField_CheckedChanged(object sender, EventArgs e)
+        {
+            if (zeroNdsField.Checked)
+            {
+                overallPriceField.Text = priceField.Text;
+                decreaseNdsCheckBox.Enabled = false;
+                increaseNdsField.Enabled = false;
+            }
+            else
+            {
+                overallPriceField.Text = "";
+                decreaseNdsCheckBox.Enabled = true;
+                increaseNdsField.Enabled = true;
+            }
         }
     }
 }
