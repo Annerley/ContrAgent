@@ -1538,23 +1538,24 @@ namespace ContrAgent
             //app.Selection.Find;
 
             find.Text = "{extra}"; // текст поиска
+            text = text.Replace("\n", "^p");
             string newstr = text;
             int i = 0;
             while (true)
             {
-                if(text.Length < 220)
+                if(text.Length < 240)
                 {
                     newstr = text.Substring(0, text.Length);
-                    newstr = newstr.Replace("\n", "^p");
+                    
                     find.Replacement.Text = newstr; // текст замены
                     find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
                         MatchSoundsLike: Type.Missing, MatchAllWordForms: false, Forward: true, Wrap: Word.WdFindWrap.wdFindContinue,
                         Format: false, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
                     break;
                 }
-                newstr = text.Substring(0, 220);
-                newstr = newstr.Replace("\n", "^p");
-                text = text.Remove(0, 220);
+                newstr = text.Substring(0, 240);
+                
+                text = text.Remove(0, 240);
                 find.Replacement.Text = newstr + "{extra}"; // текст замены
 
                 find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
