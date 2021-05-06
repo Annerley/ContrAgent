@@ -1542,7 +1542,7 @@ namespace ContrAgent
             int i = 0;
             while (true)
             {
-                if(text.Length < 255)
+                if(text.Length < 220)
                 {
                     newstr = text.Substring(0, text.Length);
                     newstr = newstr.Replace("\n", "^p");
@@ -1552,9 +1552,9 @@ namespace ContrAgent
                         Format: false, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
                     break;
                 }
-                newstr = text.Substring(0, 246);
+                newstr = text.Substring(0, 220);
                 newstr = newstr.Replace("\n", "^p");
-                text = text.Remove(0, 246);
+                text = text.Remove(0, 220);
                 find.Replacement.Text = newstr + "{extra}"; // текст замены
 
                 find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
@@ -2301,16 +2301,31 @@ namespace ContrAgent
 
 
                 addScoringToDb(db);
-
-
-                MySqlCommand command4 = new MySqlCommand("UPDATE `users` SET `last` = @last WHERE `name` = @name", db.getConnection());
-
-                int last = Convert.ToInt32(conclusionNumberField.Text.Remove(0, 2));
-                last++;
-                command4.Parameters.Add("@last", MySqlDbType.Int32).Value = last;
-                command4.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
-
-                if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery() == 1 && command4.ExecuteNonQuery() == 1)
+                
+                MySqlCommand command4 = new MySqlCommand("SELECT COUNT(*) FROM `main` WHERE conclusion_number = @conc", db.getConnection());
+                command4.Parameters.Add("@conc", MySqlDbType.VarChar).Value = conclusionNumberField.Text;
+                MySqlDataReader reader4 = command4.ExecuteReader();
+                reader4.Read();
+                if(reader4[0].ToString() == "0")
+                {
+                    MySqlCommand command5 = new MySqlCommand("SELECT `last` FROM `users` WHERE `name` = @name", db.getConnection());
+                    db.closeConnection();
+                    db.openConnection();
+                    command5.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+                    MySqlDataReader reader5 = command5.ExecuteReader();
+                    reader5.Read();
+                    int last = Int32.Parse(reader5[0].ToString());
+                    last++;
+                    reader5.Close();
+                    MySqlCommand command6 = new MySqlCommand("UPDATE `users` SET `last` = @last WHERE `name` = @name", db.getConnection());
+                    command6.Parameters.Add("@name", MySqlDbType.VarChar).Value = nameMain;
+                    command6.Parameters.Add("@last", MySqlDbType.Int32).Value = last;
+                    command6.ExecuteNonQuery();
+                }
+                /*
+                
+                */
+                if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery() == 1)
                     MessageBox.Show("Добавилось");
                 else
                     MessageBox.Show("Не добавилось");
@@ -2662,7 +2677,7 @@ namespace ContrAgent
         {
             if(decreaseNdsCheckBox.Checked)
             {
-                int x = Int32.Parse(priceField.Text);
+                double x = Double.Parse(priceField.Text);
                 overallPriceField.Text = (x - Math.Round((x / 1.20 - x) * (-1), 2)).ToString();
                 increaseNdsField.Enabled = false;
                 zeroNdsField.Enabled = false;
@@ -2679,7 +2694,7 @@ namespace ContrAgent
         {
             if (increaseNdsField.Checked)
             {
-                int x = Int32.Parse(priceField.Text);
+                double x = Double.Parse(priceField.Text);
                 overallPriceField.Text = Math.Round(x*1.20, 2).ToString();
                 decreaseNdsCheckBox.Enabled = false;
                 zeroNdsField.Enabled = false;

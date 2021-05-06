@@ -144,9 +144,6 @@
   <data name="label37.Text" xml:space="preserve">
     <value>За последние 2 года вынесены решения суда по делам, связанным с недобросовестным выполнением своих обязательств (отказ от исполнения / просрочка исполнения / некачественное исполнение), размер которых превышает 10% размера балансовой стоимости активов контрагента на последний завершенный отчётный год</value>
   </data>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>104, 17</value>
-  </metadata>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

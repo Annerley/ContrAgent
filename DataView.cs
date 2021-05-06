@@ -756,5 +756,12 @@ namespace ContrAgent
         {
             (sender as PictureBox).Image = Image.FromFile("img\\ticket_paper_icon_179218.png");
         }
+
+        private void pictureBox7_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip tt = new ToolTip();
+            tt.InitialDelay = 0;
+            tt.SetToolTip(this.pictureBox1, "Скопировать выбранное заключение");
+        }
     }
 }
