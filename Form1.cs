@@ -221,12 +221,14 @@ namespace ContrAgent
                     blockEverything();
                 }
 
-
                 MySqlCommand command = new MySqlCommand("SELECT * FROM conclusion WHERE `conclusion_number` = @conc", db.getConnection());
                 command.Parameters.Add("@conc", MySqlDbType.VarChar).Value = number;
                 //если нет мессадж бокс
                 //подтянуть скоринг
+
+                string letter = "";
                 MySqlDataReader reader = command.ExecuteReader();
+               
                 while (reader.Read())
                 {
 
@@ -240,6 +242,7 @@ namespace ContrAgent
                     result = reader[7].ToString();
                     priceField.Text = reader[8].ToString();
                     sadField.Text = reader[9].ToString();
+                    letter = reader[11].ToString();
                     if(reader[12].ToString() =="Есть опыт договорных отношений")
                     {
                         expcheckBox.Checked = true;
@@ -271,13 +274,31 @@ namespace ContrAgent
                     {
                         zeroNdsField.Checked = true;
                     }
+
+
                     Console.WriteLine(reader[17].ToString());
 
+                    //костыли, пофиксить
+                    
+                   
+                    
 
                 }
+
                 db.closeConnection();
                 db.openConnection();
+                MySqlCommand cmd2 = new MySqlCommand("SELECT letter FROM users WHERE `name` = @user", db.getConnection());
+                cmd2.Parameters.Add("@user", MySqlDbType.VarChar).Value = nameMain;
+
+                MySqlDataReader rdr2 = cmd2.ExecuteReader();
+                rdr2.Read();
+                if (rdr2[0].ToString() != letter && letter!= "D")
+                {
+                    blockEverything();
+                }
                 var value = "";
+                db.closeConnection();
+                db.openConnection();
                 MySqlCommand command2 = new MySqlCommand("SELECT inn FROM main WHERE `conclusion_number` = @number", db.getConnection());
                 command2.Parameters.Add("@number", MySqlDbType.VarChar).Value = number;
                 MySqlDataReader reader2 = command2.ExecuteReader();
@@ -320,7 +341,7 @@ namespace ContrAgent
 
                 updateScoring(number);
                 resultUpdater();
-
+                reader.Close();
                 //молоток
             }
             if(statusMain == 2 || statusMain == 4)
@@ -1625,16 +1646,15 @@ namespace ContrAgent
             {
                 resultInt += 0.5;
                 richTextBox4.Show();
+                checkBox6.Enabled = false;
             }
             else if (!checkBox5.Checked && !checkBox6.Checked)
             {
                 richTextBox4.Hide();
+                checkBox6.Enabled = true;
                 resultInt -= 0.5;
             }
-            else
-            {
-                resultInt -= 0.5;
-            }
+            
             label51.Text = resultInt.ToString();
             resultUpdater();
         }
@@ -1645,16 +1665,15 @@ namespace ContrAgent
             {
                 resultInt += 1;
                 richTextBox4.Show();
+                checkBox5.Enabled = false;
             }
             else if (!checkBox5.Checked && !checkBox6.Checked)
             {
                 richTextBox4.Hide();
                 resultInt -= 1;
+                checkBox5.Enabled = true;
             }
-            else
-            {
-                resultInt -= 1;
-            }
+            
             label51.Text = resultInt.ToString();
             resultUpdater();
         }
@@ -1889,18 +1908,18 @@ namespace ContrAgent
         {
             if (checkBox19.Checked)
             {
-                resultInt += 0.25;
+                resultInt += 0.5;
                 richTextBox18.Show();
+                checkBox21.Enabled = false;
             }
-            else if (!checkBox19.Checked && !checkBox21.Checked)
+            else 
             {
                 richTextBox18.Hide();
-                resultInt -= 0.25;
+                resultInt -= 0.5;
+                checkBox21.Enabled = true;
+
             }
-            else
-            {
-                resultInt -= 0.25;
-            }
+            
             label51.Text = resultInt.ToString();
             resultUpdater();
         }
@@ -1911,16 +1930,15 @@ namespace ContrAgent
             {
                 resultInt += 0.25;
                 richTextBox18.Show();
+                checkBox19.Enabled = false;
             }
-            else if (!checkBox21.Checked && !checkBox19.Checked)
+            else 
             {
                 richTextBox18.Hide();
                 resultInt -= 0.25;
+                checkBox19.Enabled = true;
             }
-            else
-            {
-                resultInt -= 0.25;
-            }
+            
             label51.Text = resultInt.ToString();
             resultUpdater();
         }
@@ -1995,15 +2013,13 @@ namespace ContrAgent
             {
                 resultInt += 0.25;
                 richTextBox25.Show();
-            }
-            else if (!checkBox26.Checked && !checkBox27.Checked)
-            {
-                richTextBox25.Hide();
-                resultInt -= 0.25;
+                checkBox27.Enabled = false;
             }
             else
             {
                 resultInt -= 0.25;
+                richTextBox25.Hide();
+                checkBox27.Enabled = true;
             }
             label51.Text = resultInt.ToString();
             resultUpdater();
@@ -2013,17 +2029,15 @@ namespace ContrAgent
         {
             if (checkBox27.Checked)
             {
-                resultInt += 0.25;
+                resultInt += 1.0;
                 richTextBox25.Show();
-            }
-            else if (!checkBox26.Checked && !checkBox27.Checked)
-            {
-                richTextBox25.Hide();
-                resultInt -= 0.25;
+                checkBox26.Enabled = false;
             }
             else
             {
-                resultInt -= 0.25;
+                resultInt -= 1.0;
+                richTextBox25.Hide();
+                checkBox26.Enabled = true;
             }
             label51.Text = resultInt.ToString();
             resultUpdater();
@@ -2098,12 +2112,12 @@ namespace ContrAgent
             if (checkBox32.Checked)
             {
                 richTextBox30.Show();
-                resultInt += 0.2;
+                resultInt += 0.20;
             }
             else
             {
                 richTextBox30.Hide();
-                resultInt -= 0.2;
+                resultInt -= 0.20;
             }
             label51.Text = resultInt.ToString();
             resultUpdater();
@@ -2114,12 +2128,12 @@ namespace ContrAgent
             if (checkBox33.Checked)
             {
                 richTextBox31.Show();
-                resultInt += 1;
+                resultInt += 1.0;
             }
             else
             {
                 richTextBox31.Hide();
-                resultInt -= 1;
+                resultInt -= 1.0;
             }
             label51.Text = resultInt.ToString();
             resultUpdater();
@@ -2326,6 +2340,8 @@ namespace ContrAgent
                 /*
                 
                 */
+                db.closeConnection();
+                db.openConnection();
                 if (command.ExecuteNonQuery() == 1 && command2.ExecuteNonQuery() == 1 && command3.ExecuteNonQuery() == 1)
                     MessageBox.Show("Добавилось");
                 else

@@ -27,8 +27,8 @@ namespace ContrAgent
             TimeUpdater();
             checkBox1.Checked = true;
 
-            
 
+            //dataGridView1.Columns["Цена"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
         }
 
@@ -51,20 +51,23 @@ namespace ContrAgent
         private void DataView_Load(object sender, EventArgs e)
         {
             loadDataCheckBox();
+
+
             dataGridView1.Columns[0].HeaderText = "Номер заключения";
             dataGridView1.Columns[1].HeaderText = "Дата оценки";
-            dataGridView1.Columns[2].HeaderText = "Основание оценки";
-            dataGridView1.Columns[3].HeaderText = "Предмет";
-            dataGridView1.Columns[4].HeaderText = "Спецификация";
-            dataGridView1.Columns[5].HeaderText = "Инициатор";
-            dataGridView1.Columns[6].HeaderText = "Объект строительства";
-            dataGridView1.Columns[7].HeaderText = "Установление договорных отношений";
-            dataGridView1.Columns[8].HeaderText = "Цена";
-            dataGridView1.Columns[9].HeaderText = "Номер СЭД";
-            dataGridView1.Columns[10].HeaderText = "ИНН";
-            dataGridView1.Columns[11].HeaderText = "Наименование Контрагента";
+            dataGridView1.Columns[2].HeaderText = "Номер СЭД";
+            dataGridView1.Columns[3].HeaderText = "ИНН";
+            dataGridView1.Columns[4].HeaderText = "Наименование Контрагента";
+            dataGridView1.Columns[5].HeaderText = "Основание оценки";
+            dataGridView1.Columns[6].HeaderText = "Предмет";
+            dataGridView1.Columns[7].HeaderText = "Спецификация";
+            dataGridView1.Columns[8].HeaderText = "Инициатор";
+            dataGridView1.Columns[9].HeaderText = "Объект строительства";
+            dataGridView1.Columns[10].HeaderText = "Установление договорных отношений";
+            dataGridView1.Columns[11].HeaderText = "Цена";
             dataGridView1.Columns[12].HeaderText = "Status";
             this.dataGridView1.Columns["Status"].Visible = false;
+            this.dataGridView1.Columns[11].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
 
         private System.Data.DataTable getConclusionList()
@@ -75,8 +78,8 @@ namespace ContrAgent
 
             db.openConnection();
 
-            using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+            using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE conclusion.status = 1", db.getConnection()))
             {
@@ -118,6 +121,7 @@ namespace ContrAgent
                 }
 
             }
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -177,8 +181,8 @@ namespace ContrAgent
 
                 db.openConnection();
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn ", db.getConnection()))
                 {
@@ -207,8 +211,8 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name", db.getConnection()))
                 {
@@ -240,8 +244,8 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND status = 1", db.getConnection()))
                 {
@@ -284,8 +288,8 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND status = 1", db.getConnection()))
                 {
@@ -305,8 +309,8 @@ namespace ContrAgent
 
                 db.openConnection();
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn", db.getConnection()))
                 {
@@ -335,8 +339,8 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name", db.getConnection()))
                 {
@@ -485,8 +489,8 @@ namespace ContrAgent
 
                 db.openConnection();
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE conclusion.conclusion_number LIKE @number ", db.getConnection()))
                 {
@@ -521,8 +525,8 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND `status` = 1", db.getConnection()))
                 {
@@ -551,8 +555,8 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name ", db.getConnection()))
                 {
@@ -574,8 +578,8 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn", db.getConnection()))
                 {
@@ -597,8 +601,8 @@ namespace ContrAgent
                 db.openConnection();
                 //опять костыли
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`,`sad`, main.inn,`name`, `reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE `status` = 1", db.getConnection()))
                 {
@@ -635,7 +639,7 @@ namespace ContrAgent
                 worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
             }
             // storing Each row and column value to excel sheet  
-            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            for (int i = 0; i < dataGridView1.Rows.Count ; i++)
             {
                 for (int j = 0; j < dataGridView1.Columns.Count -1; j++)
                 {
@@ -698,8 +702,8 @@ namespace ContrAgent
 
                 db.openConnection();
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE organisation.inn LIKE @number ", db.getConnection()))
                 {
@@ -730,8 +734,8 @@ namespace ContrAgent
 
                 db.openConnection();
 
-                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `reason for rating`, `subject`, `specification`," +
-                "`initiator`, `object`, `result`, `price`, `sad`, main.inn, `name`, `status` FROM conclusion " +
+                using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
+                "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
                 "INNER JOIN organisation ON organisation.inn = main.inn WHERE organisation.name LIKE @number ", db.getConnection()))
                 {
@@ -762,6 +766,11 @@ namespace ContrAgent
             ToolTip tt = new ToolTip();
             tt.InitialDelay = 0;
             tt.SetToolTip(this.pictureBox1, "Скопировать выбранное заключение");
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
