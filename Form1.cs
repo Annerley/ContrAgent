@@ -208,7 +208,7 @@ namespace ContrAgent
         }
         private void uploadData(string name, string number, int status)
         {
-
+            loadComboBox();
             DB db = new DB();
             db.openConnection();
             
@@ -971,11 +971,75 @@ namespace ContrAgent
             db.closeConnection();
 
 
-            
+            updateComboBox();
 
 
         }
+        private void loadComboBox()
+        {
+            DB db = new DB();
+            db.openConnection();
+            MySqlCommand cmd = new MySqlCommand("SELECT name FROM `initiators`", db.getConnection());
+           
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
+                initiatorField.Items.Add(reader[0]);
+            }
+            reader.Close();
+            MySqlCommand cmd2 = new MySqlCommand("SELECT name FROM `objects`", db.getConnection());
+            reader = cmd2.ExecuteReader();
+            while (reader.Read())
+            {
+                objectField.Items.Add(reader[0]);
+            }
+            db.closeConnection();
 
+        }
+        private void updateComboBox()
+        {
+            DB db = new DB();
+            db.openConnection();
+
+            if (initiatorField.Text!="")
+            {
+                var initiator = initiatorField.Text.Trim(' ');
+               
+                MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM `initiators` WHERE `name` = @name", db.getConnection());
+                cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = initiator;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                if(reader[0].ToString() == "0")
+                {
+                    initiatorField.Items.Add(initiator);
+                    reader.Close();
+                    MySqlCommand cmd2 = new MySqlCommand("INSERT INTO `initiators` (`name`) VALUES (@name)", db.getConnection());
+                    cmd2.Parameters.Add("@name", MySqlDbType.VarChar).Value = initiator;
+                    cmd2.ExecuteNonQuery();
+                    
+                }
+                reader.Close();
+
+            }
+            if(objectField.Text!="")
+            {
+                var objects = objectField.Text.Trim(' ');
+                
+                MySqlCommand cmd3 = new MySqlCommand("SELECT COUNT(*) FROM `objects` WHERE `name` = @name", db.getConnection());
+                cmd3.Parameters.Add("@name", MySqlDbType.VarChar).Value = objects;
+                MySqlDataReader reader2 = cmd3.ExecuteReader();
+                reader2.Read();
+                if (reader2[0].ToString() == "0")
+                {
+                    objectField.Items.Add(objects);
+                    reader2.Close();
+                    MySqlCommand cmd4 = new MySqlCommand("INSERT INTO `objects` (`name`) VALUES (@name)", db.getConnection());
+                    cmd4.Parameters.Add("@name", MySqlDbType.VarChar).Value = objects;
+                    cmd4.ExecuteNonQuery();
+
+                }
+            }
+        }
         private void addScoringToDb(DB db)
         {
             string cmd = "";
@@ -2029,13 +2093,13 @@ namespace ContrAgent
         {
             if (checkBox27.Checked)
             {
-                resultInt += 1.0;
+                resultInt += 1;
                 richTextBox25.Show();
                 checkBox26.Enabled = false;
             }
             else
             {
-                resultInt -= 1.0;
+                resultInt -= 1;
                 richTextBox25.Hide();
                 checkBox26.Enabled = true;
             }
@@ -2096,12 +2160,12 @@ namespace ContrAgent
             if (checkBox31.Checked)
             {
                 richTextBox29.Show();
-                resultInt += 0.15;
+                resultInt += 0.25;
             }
             else
             {
                 richTextBox29.Hide();
-                resultInt -= 0.15;
+                resultInt -= 0.25;
             }
             label51.Text = resultInt.ToString();
             resultUpdater();
@@ -2128,12 +2192,12 @@ namespace ContrAgent
             if (checkBox33.Checked)
             {
                 richTextBox31.Show();
-                resultInt += 1.0;
+                resultInt += 1;
             }
             else
             {
                 richTextBox31.Hide();
-                resultInt -= 1.0;
+                resultInt -= 1;
             }
             label51.Text = resultInt.ToString();
             resultUpdater();

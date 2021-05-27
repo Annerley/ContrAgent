@@ -100,17 +100,17 @@ namespace ContrAgent
         {
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно")
+                if (dataGridView1.Rows[i].Cells[10].Value.ToString() == "Возможно")
                 {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.FromArgb(160, 255, 160);
+                    dataGridView1.Rows[i].Cells[10].Style.BackColor = Color.FromArgb(160, 255, 160);
                 }
-                else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Невозможно")
+                else if (dataGridView1.Rows[i].Cells[10].Value.ToString() == "Невозможно")
                 {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.FromArgb(255, 96, 98);
+                    dataGridView1.Rows[i].Cells[10].Style.BackColor = Color.FromArgb(255, 96, 98);
                 }
-                else if (dataGridView1.Rows[i].Cells[7].Value.ToString() == "Возможно c ограничением")
+                else if (dataGridView1.Rows[i].Cells[10].Value.ToString() == "Возможно c ограничением")
                 {
-                    dataGridView1.Rows[i].Cells[7].Style.BackColor = Color.FromArgb(255, 255, 191);
+                    dataGridView1.Rows[i].Cells[10].Style.BackColor = Color.FromArgb(255, 255, 191);
                 }
             }
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
@@ -118,6 +118,10 @@ namespace ContrAgent
                 if (dataGridView1.Rows[i].Cells[12].Value.ToString() == "0")
                 {
                     dataGridView1.Rows[i].Cells[0].Style.Font = new System.Drawing.Font(e.CellStyle.Font, FontStyle.Bold);
+                }
+                else
+                {
+                    dataGridView1.Rows[i].Cells[0].Style.Font = new System.Drawing.Font(e.CellStyle.Font, FontStyle.Regular);
                 }
 
             }
@@ -263,6 +267,7 @@ namespace ContrAgent
             }
 
             this.dataGridView1.Columns["Status"].Visible = false;
+            dataGridView1.Refresh();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -358,6 +363,7 @@ namespace ContrAgent
             }
 
             this.dataGridView1.Columns["Status"].Visible = false;
+            dataGridView1.Refresh();
         }
 
         private void pictureBox1_MouseHover(object sender, EventArgs e)
@@ -503,6 +509,7 @@ namespace ContrAgent
                 db.closeConnection();
                 dataGridView1.DataSource = dtConclusion;
                 this.dataGridView1.Columns["Status"].Visible = false;
+                dataGridView1.Refresh();
             }
         }
 
@@ -716,6 +723,7 @@ namespace ContrAgent
                 db.closeConnection();
                 dataGridView1.DataSource = dtConclusion;
                 this.dataGridView1.Columns["Status"].Visible = false;
+                dataGridView1.Refresh();
             }
         }
 
@@ -748,6 +756,7 @@ namespace ContrAgent
                 db.closeConnection();
                 dataGridView1.DataSource = dtConclusion;
                 this.dataGridView1.Columns["Status"].Visible = false;
+                dataGridView1.Refresh();
             }
         }
 
