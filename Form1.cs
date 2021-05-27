@@ -1401,6 +1401,7 @@ namespace ContrAgent
 
         private void button4_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             var conclusionNumber = conclusionNumberField.Text;
             var initiator = initiatorField.Text;
             var evaluationDate = evaluationDateField.Text;
@@ -1409,7 +1410,7 @@ namespace ContrAgent
             var inn = innField.Text;
             var reason = reasonField.Text;
             var subject = subjectField.Text;
-            var price = priceField.Text;
+            var price = convertPrice(priceField.Text);
             var extra = extraField.Text;
             var name = orgNameField.Text;
             string exp = "";
@@ -1437,7 +1438,7 @@ namespace ContrAgent
             ReplaceWordStub("{subject}", subject, wordDocument);
             if(decreaseNdsCheckBox.Checked)
             {
-                ReplaceWordStub("{price}", priceField.Text + " (Включая НДС " + (Double.Parse(priceField.Text) - Double.Parse(overallPriceField.Text)).ToString() + ")", wordDocument);
+                ReplaceWordStub("{price}", price + " (Включая НДС " + (Double.Parse(priceField.Text) - Double.Parse(overallPriceField.Text)).ToString() + ")", wordDocument);
             }
             else if(increaseNdsField.Checked)
             {
@@ -1494,7 +1495,26 @@ namespace ContrAgent
             //wordApp.Visible = true;
             MessageBox.Show("Документ сохранен");
             wordDocument.Close();
+            Cursor.Current = Cursors.Default;
 
+        }
+        private string convertPrice(string oldPrice)
+        {
+            
+            
+                int k = 0;
+                for (int i = 0; i < oldPrice.IndexOf(","); i++)
+                {
+                    
+                    if(k == 3 && i!=oldPrice.Length -1)
+                    {
+                        oldPrice = oldPrice.Insert(i, " ");
+                        k = -1;
+                    }
+                    k++;
+                }
+                return oldPrice;
+            
         }
         private string getConfigPath(int j)
         {
