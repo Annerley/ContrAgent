@@ -52,7 +52,7 @@ namespace ContrAgent
         {
             loadDataCheckBox();
 
-
+            
             dataGridView1.Columns[0].HeaderText = "Номер заключения";
             dataGridView1.Columns[1].HeaderText = "Дата оценки";
             dataGridView1.Columns[2].HeaderText = "Номер СЭД";
@@ -81,7 +81,7 @@ namespace ContrAgent
             using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn WHERE conclusion.status = 1", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE conclusion.status = 1 ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -103,14 +103,17 @@ namespace ContrAgent
                 if (dataGridView1.Rows[i].Cells[10].Value.ToString() == "Возможно")
                 {
                     dataGridView1.Rows[i].Cells[10].Style.BackColor = Color.FromArgb(160, 255, 160);
+                    dataGridView1.Rows[i].Cells[0].Style.BackColor = Color.FromArgb(160, 255, 160);
                 }
                 else if (dataGridView1.Rows[i].Cells[10].Value.ToString() == "Невозможно")
                 {
                     dataGridView1.Rows[i].Cells[10].Style.BackColor = Color.FromArgb(255, 96, 98);
+                    dataGridView1.Rows[i].Cells[0].Style.BackColor = Color.FromArgb(255, 96, 98);
                 }
                 else if (dataGridView1.Rows[i].Cells[10].Value.ToString() == "Возможно c ограничением")
                 {
                     dataGridView1.Rows[i].Cells[10].Style.BackColor = Color.FromArgb(255, 255, 191);
+                    dataGridView1.Rows[i].Cells[0].Style.BackColor = Color.FromArgb(255, 255, 191);
                 }
             }
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
@@ -188,7 +191,7 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn ", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
                 {
                     MySqlDataReader reader = cmd.ExecuteReader();
                     dtConclusion.Load(reader);
@@ -218,7 +221,7 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
                 {
                     cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -251,7 +254,7 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND status = 1", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND status = 1 ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
                 {
                     cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -296,7 +299,7 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND status = 1", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND status = 1 ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
                 {
                     cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -317,7 +320,7 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
                 {
                     MySqlDataReader reader = cmd.ExecuteReader();
                     dtConclusion.Load(reader);
@@ -347,7 +350,7 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
                 {
                     cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -438,15 +441,25 @@ namespace ContrAgent
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            string a = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            if (Directory.Exists(getConfigPath(0) + "\\" + a))
+            try
             {
-                Process.Start(getConfigPath(0) + "\\" + a);
+                string a = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+                if (Directory.Exists(getConfigPath(0) + "\\" + a))
+                {
+                    Process.Start(getConfigPath(0) + "\\" + a);
+                }
+                else
+                {
+                    MessageBox.Show("Директории не существует, создайте документы заключения");
+                }
             }
-            else
+            catch (ArgumentOutOfRangeException)
             {
-                MessageBox.Show("Директории не существует, создайте документы заключения");
+
+                
             }
+            
+            
 
 
         }
@@ -535,7 +548,7 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND `status` = 1", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name AND `status` = 1 ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
                 {
                     cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -565,7 +578,7 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name ", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE letter = @name ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
                 {
                     cmd.Parameters.Add("@name", MySqlDbType.VarChar).Value = letter;
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -588,7 +601,7 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`, `sad`, main.inn,`name`,`reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
                 {
                     
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -611,7 +624,7 @@ namespace ContrAgent
                 using (MySqlCommand cmd = new MySqlCommand("SELECT conclusion.conclusion_number, `evaluation date`,`sad`, main.inn,`name`, `reason for rating`, `subject`, `specification`," +
                 "`initiator`, `object`, `result`, `price`, `status` FROM conclusion " +
                 "INNER JOIN main ON main.conclusion_number = conclusion.conclusion_number " +
-                "INNER JOIN organisation ON organisation.inn = main.inn WHERE `status` = 1", db.getConnection()))
+                "INNER JOIN organisation ON organisation.inn = main.inn WHERE `status` = 1 ORDER BY conclusion.conclusion_number DESC", db.getConnection()))
                 {
                     
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -625,6 +638,7 @@ namespace ContrAgent
 
         private void button4_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             // creating Excel Application  
             Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
             // creating new WorkBook within Excel application  
@@ -650,7 +664,14 @@ namespace ContrAgent
             {
                 for (int j = 0; j < dataGridView1.Columns.Count -1; j++)
                 {
-                    worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                    if(dataGridView1.Columns[j].HeaderText == "Дата оценки")
+                    {
+                        worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString().Remove(dataGridView1.Rows[i].Cells[j].Value.ToString().IndexOf(" "));
+                    }
+                    else
+                    {
+                        worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                    }
                 }
             }
             // save the application  
@@ -662,6 +683,8 @@ namespace ContrAgent
 
             //
             app.Quit();
+            MessageBox.Show("Excel-файл сохранен.");
+            Cursor.Current = Cursors.Default;
         }
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)

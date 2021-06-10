@@ -341,7 +341,7 @@ namespace ContrAgent
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "DataView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ПО \"Проверка КонтрАгента\"  v1.0";
+            this.Text = "ПО \"Проверка КонтрАгента\"  v1.3";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DataView_FormClosed);
             this.Load += new System.EventHandler(this.DataView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

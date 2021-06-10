@@ -11,13 +11,13 @@ namespace ContrAgent
 {
     class DB
     {
-        
-       
+
+
         MySqlConnection connection = new MySqlConnection(getcon());
 
         private static string getcon()
         {
-            return "server = " + getConfigPath(1) + "; port="+ getConfigPath(2)+";charset= utf8;username=monty;password=some_pass;database=po";
+            return "server = " + getConfigPath(1) + "; port=" + getConfigPath(2) + ";charset= utf8;username=monty;password=some_pass;database=po";
         }
 
         public void openConnection()
@@ -33,7 +33,7 @@ namespace ContrAgent
         }
 
         public MySqlConnection getConnection()
-         {
+        {
             return connection;
         }
         private static string getConfigPath(int j)
@@ -60,5 +60,5 @@ namespace ContrAgent
 
     }
 
-    
+
 }

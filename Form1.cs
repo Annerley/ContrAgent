@@ -226,7 +226,7 @@ namespace ContrAgent
                 //если нет мессадж бокс
                 //подтянуть скоринг
 
-                string letter = "";
+                string letter = number.Substring(0,1);
                 MySqlDataReader reader = command.ExecuteReader();
                
                 while (reader.Read())
@@ -292,10 +292,14 @@ namespace ContrAgent
 
                 MySqlDataReader rdr2 = cmd2.ExecuteReader();
                 rdr2.Read();
-                if (rdr2[0].ToString() != letter && letter!= "D")
+                if(rdr2[0].ToString() != "D")
                 {
-                    blockEverything();
+                    if (rdr2[0].ToString() != letter)
+                    {
+                        blockEverything();
+                    }
                 }
+                
                 var value = "";
                 db.closeConnection();
                 db.openConnection();
@@ -353,7 +357,7 @@ namespace ContrAgent
                 command.Parameters.Add("@name", MySqlDbType.VarChar).Value = name;
                 MySqlDataReader reader = command.ExecuteReader();
                 evaluationDateField.Text = DateTime.Now.ToShortDateString().ToString();
-                registrationDateField.Text = DateTime.Now.ToShortDateString().ToString();
+                
                 while (reader.Read())
                 {
                    result = reader[0].ToString()+"-";
@@ -533,8 +537,8 @@ namespace ContrAgent
                 else if (reader[0].ToString() == "20.1")
                 {
 
-                    richTextBox21.Show();
-                    checkBox19.Checked = true;
+                    richTextBox18.Show();
+                    checkBox21.Checked = true;
                     richTextBox18.Text = reader[1].ToString();
                 }
                 else if (reader[0].ToString() == "20.2")
@@ -987,6 +991,9 @@ namespace ContrAgent
                 initiatorField.Items.Add(reader[0]);
             }
             reader.Close();
+            
+
+
             MySqlCommand cmd2 = new MySqlCommand("SELECT name FROM `objects`", db.getConnection());
             reader = cmd2.ExecuteReader();
             while (reader.Read())
@@ -1370,6 +1377,7 @@ namespace ContrAgent
             {
                 MessageBox.Show("Неправильный формат даты");
                 dateTime = DateTime.Now;
+                registrationDateField.Text = dateTime.ToString("yyyy-MM-dd");
             }
             
             return dateTime.ToString("yyyy-MM-dd");
@@ -1435,18 +1443,50 @@ namespace ContrAgent
             ReplaceWordStub("{object}", object_field, wordDocument);
             ReplaceWordStub("{inn}", inn, wordDocument);
             ReplaceWordStub("{reason}", reason, wordDocument);
+            ReplaceWordStub("{spec}", specificationField.Text, wordDocument);
             ReplaceWordStub("{subject}", subject, wordDocument);
             if(decreaseNdsCheckBox.Checked)
             {
-                ReplaceWordStub("{price}", price + " (Включая НДС " + (Double.Parse(priceField.Text) - Double.Parse(overallPriceField.Text)).ToString() + ")", wordDocument);
+                
+                try
+                {
+                    ReplaceWordStub("{price}", price + " (Включая НДС " + convertPrice((Double.Parse(priceField.Text) - Double.Parse(overallPriceField.Text)).ToString()) + ")", wordDocument);
+                }
+                catch (FormatException)
+                {
+
+                    ReplaceWordStub("{price}", "0", wordDocument);
+                    MessageBox.Show("Неверный формат в поле 'Цена'");
+                }
+                
             }
             else if(increaseNdsField.Checked)
             {
-                ReplaceWordStub("{price}", overallPriceField.Text +" (Включая НДС " + (Double.Parse(overallPriceField.Text) - Double.Parse(priceField.Text)).ToString() +")", wordDocument);
+                try
+                {
+                    ReplaceWordStub("{price}", convertPrice(overallPriceField.Text) + " (Включая НДС " + convertPrice((Double.Parse(overallPriceField.Text) - Double.Parse(priceField.Text)).ToString()) + ")", wordDocument);
+                }
+                catch (FormatException)
+                {
+
+                    ReplaceWordStub("{price}", "0", wordDocument);
+                    MessageBox.Show("Неверный формат в поле 'Цена'");
+                }
+                
             }
             else
             {
-                ReplaceWordStub("{price}", price + "(НДС не облагается)", wordDocument);
+                try
+                {
+                    ReplaceWordStub("{price}", price + "(НДС не облагается)", wordDocument);
+                }
+                catch (FormatException)
+                {
+
+                    ReplaceWordStub("{price}", "0", wordDocument);
+                    MessageBox.Show("Неверный формат в поле 'Цена'");
+                }
+                
             }
             ReplaceWordStub("{extra}", extra, wordDocument);
             if (result == "Возможно")
@@ -1459,7 +1499,7 @@ namespace ContrAgent
             }
             else if (result == "Невозможно")
             {
-                ReplaceWordStub("{result}", "НЕВОЗМОЖНО", wordDocument);
+                ReplaceWordStub("{result}", "НЕ РЕКОМЕНДОВАНО", wordDocument);
             }
             ReplaceWordStub("{exp}", exp, wordDocument);
 
@@ -1483,8 +1523,8 @@ namespace ContrAgent
             {
                 Directory.CreateDirectory(@path);
             }
-            string pdf = path + "\\" + conclusionNumberField.Text + ".pdf";
-            string adress = path + "\\" + conclusionNumberField.Text + ".docx";
+            string pdf = path + "\\" +orgNameField.Text.Replace("\"", "")+" (заключение ОМЭР от "+DateTime.Now.ToString("d") + ").pdf";
+            string adress = path + "\\" + orgNameField.Text.Replace("\"", "") + " (заключение ОМЭР от " + DateTime.Now.ToString("d") + ").docx";
 
             object oMissing = System.Reflection.Missing.Value;
             wordDocument.SaveAs(@adress);
@@ -1495,6 +1535,7 @@ namespace ContrAgent
             //wordApp.Visible = true;
             MessageBox.Show("Документ сохранен");
             wordDocument.Close();
+            wordApp.Quit();
             Cursor.Current = Cursors.Default;
 
         }
@@ -1502,18 +1543,49 @@ namespace ContrAgent
         {
             
             
-                int k = 0;
-                for (int i = 0; i < oldPrice.IndexOf(","); i++)
+            int k = 0;
+            int start = 0;
+            
+            if(oldPrice.Contains(","))
+            {
+                start = oldPrice.IndexOf(",");
+            }
+            else
+            {
+                start = oldPrice.Length;
+            }
+
+            if(start!= oldPrice.Length)
+            {
+                string tmp = oldPrice.Remove(0, start);
+                if (tmp.Length == 1)
                 {
-                    
-                    if(k == 3 && i!=oldPrice.Length -1)
-                    {
-                        oldPrice = oldPrice.Insert(i, " ");
-                        k = -1;
-                    }
-                    k++;
+                   
                 }
-                return oldPrice;
+                else if(tmp.Length == 2)
+                {
+                    oldPrice += "0";
+                }
+                else if(tmp.Length == 0)
+                {
+                    //
+                }
+            }
+            else
+            {
+                oldPrice += ",00";
+            }
+            for (int i = start; i > 0; i--)
+            {
+                    
+                if(k == 3 && i!=oldPrice.Length -1)
+                {
+                    oldPrice = oldPrice.Insert(i, " ");
+                    k = 0;
+                }
+                    k++;
+            }
+            return oldPrice;
             
         }
         private string getConfigPath(int j)
@@ -1577,6 +1649,11 @@ namespace ContrAgent
                 testFuncForScor(text, wordDocument);
                 return;
             }
+            if(stubToReplace == "{subject}")
+            {
+                testFuncForSubj(text, wordDocument);
+                return;
+            }
             Word.Find find;
             find = wordDocument.Content.Application.Selection.Find;
             //app.Selection.Find;
@@ -1597,6 +1674,39 @@ namespace ContrAgent
 
             range.Find.Execute(FindText: stubToReplace, ReplaceWith: text, Format: true);*/
 
+        }
+        private void testFuncForSubj(string text, Word.Document wordDocument)
+        {
+            Word.Find find;
+            find = wordDocument.Content.Application.Selection.Find;
+            //app.Selection.Find;
+
+            find.Text = "{subject}"; // текст поиска
+            string newstr = text;
+            int i = 0;
+            while (true)
+            {
+                if (text.Length < 240)
+                {
+                    newstr = text.Substring(0, text.Length);
+                    newstr = newstr.Replace("\n", "^p");
+                    find.Replacement.Text = newstr; // текст замены
+                    find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
+                        MatchSoundsLike: Type.Missing, MatchAllWordForms: false, Forward: true, Wrap: Word.WdFindWrap.wdFindContinue,
+                        Format: false, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
+                    break;
+                }
+                newstr = text.Substring(0, 240);
+                newstr = newstr.Replace("\n", "^p");
+                text = text.Remove(0, 240);
+                find.Replacement.Text = newstr + "{subject}"; // текст замены
+
+                find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
+                        MatchSoundsLike: Type.Missing, MatchAllWordForms: false, Forward: true, Wrap: Word.WdFindWrap.wdFindContinue,
+                        Format: false, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
+
+                i++;
+            }
         }
         private void testFuncForScor(string text, Word.Document wordDocument)
         {
@@ -1648,7 +1758,7 @@ namespace ContrAgent
             int i = 0;
             while (true)
             {
-                if(text.Length < 240)
+                if(text.Length < 235)
                 {
                     newstr = text.Substring(0, text.Length);
                     
@@ -1658,9 +1768,9 @@ namespace ContrAgent
                         Format: false, ReplaceWith: Type.Missing, Replace: Word.WdReplace.wdReplaceAll);
                     break;
                 }
-                newstr = text.Substring(0, 240);
+                newstr = text.Substring(0, 235);
                 
-                text = text.Remove(0, 240);
+                text = text.Remove(0, 235);
                 find.Replacement.Text = newstr + "{extra}"; // текст замены
 
                 find.Execute(FindText: Type.Missing, MatchCase: false, MatchWholeWord: false, MatchWildcards: false,
@@ -2778,7 +2888,17 @@ namespace ContrAgent
         {
             if(decreaseNdsCheckBox.Checked)
             {
-                double x = Double.Parse(priceField.Text);
+                double x = 0;
+                try
+                {
+                    x = Double.Parse(priceField.Text);
+                }
+                catch (FormatException)
+                {
+
+                    x = 0;
+                }
+                
                 overallPriceField.Text = (x - Math.Round((x / 1.20 - x) * (-1), 2)).ToString();
                 increaseNdsField.Enabled = false;
                 zeroNdsField.Enabled = false;
@@ -2795,7 +2915,16 @@ namespace ContrAgent
         {
             if (increaseNdsField.Checked)
             {
-                double x = Double.Parse(priceField.Text);
+                double x = 0;
+                try
+                {
+                    x = Double.Parse(priceField.Text);
+                }
+                catch (FormatException)
+                {
+
+                    x = 0;
+                }
                 overallPriceField.Text = Math.Round(x*1.20, 2).ToString();
                 decreaseNdsCheckBox.Enabled = false;
                 zeroNdsField.Enabled = false;
@@ -2822,6 +2951,11 @@ namespace ContrAgent
                 decreaseNdsCheckBox.Enabled = true;
                 increaseNdsField.Enabled = true;
             }
+        }
+
+        private void gendirField_Leave(object sender, EventArgs e)
+        {
+            gendirField.Text = gendirField.Text.Trim();
         }
     }
 }
